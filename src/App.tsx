@@ -1,19 +1,19 @@
 import './App.css';
-import LoginPage from './Components/LoginPage';
-import SearchPage from './Components/SearchPage';
-import CustomLayout from './Components/CustomLayout';
-import SearchResultGrid from './Components/SearchResultGrid';
-import SearchResultList from './Components/SearchResultList';
-import FavoritePage from './Components/FavoritesPage';
+import LoginPage from './Components/LoginPage/LoginPage';
+import SearchPage from './Components/HomePage/SearchPage';
+import SearchResult from './Components/SearchResultPage/SearchResult';
+import FavoritePage from './Components/FavoritesPage/FavoritesPage';
+import AddFavoriteForm from './Components/ModalWindow/AddFavotireForm';
 
 function App() {
   return (
-    // <LoginPage/>
-    // <SearchPage/>
-    // <CustomLayout/>
-    // <SearchResultGrid/>
-    // <SearchResultList/>
-    <FavoritePage/>
+    <>
+      <LoginPage />
+      <SearchPage />
+      <SearchResult />
+      <FavoritePage />
+      <AddFavoriteForm />
+    </>
   );
 }
 

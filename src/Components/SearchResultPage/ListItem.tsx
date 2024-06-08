@@ -1,11 +1,11 @@
 import { List, Typography, Image, Flex } from 'antd'
-import { DataList } from './data'
+import { DataList } from '../data'
 
 type ItemProps = {
     item: DataList
 }
 
-const FindItem = ({ item }: ItemProps): JSX.Element => {
+const ListItem = ({ item }: ItemProps): JSX.Element => {
 
     const { Item } = List
     const { Text } = Typography
@@ -32,4 +32,4 @@ const FindItem = ({ item }: ItemProps): JSX.Element => {
     )
 }
 
-export default FindItem
+export default ListItem
