@@ -13,22 +13,22 @@ const SearchResult = (): JSX.Element => {
             <Header style={{
                 backgroundColor: 'white',
                 padding: 0,
-                height: '80px',
-                width: '1440x',
+                height: '10%',
+                width: '100%',
             }}>
                 <CustomHeader/>
             </Header>
             <Content style={{
-                paddingLeft: '200px',
+                paddingLeft: '14%',
                 backgroundColor: '#FAFAFA',
-                width: '1240px'
+                width: '86%'
             }}>
                 <SearchSettings/>
-                <Flex justify='space-between' align='center' style={{ width: '1040px', height: '24px', marginTop: '40px'}}>
+                <Flex justify='space-between' align='center' style={{ width: '89%', height: '3%', marginTop: '4%'}}>
                     <SearchInfo />
                     <ViewSettings />
                 </Flex>
-                <SearchResultGrid/>
+                <SearchResultList/>
             </Content>
         </>
     )

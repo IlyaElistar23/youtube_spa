@@ -8,11 +8,11 @@ import AddFavoriteForm from './Components/ModalWindow/AddFavotireForm';
 function App() {
   return (
     <>
-      <LoginPage />
-      <SearchPage />
+      {/* <LoginPage /> */}
+      {/* <SearchPage /> */}
       <SearchResult />
-      <FavoritePage />
-      <AddFavoriteForm />
+      {/* <FavoritePage />
+      <AddFavoriteForm /> */}
     </>
   );
 }

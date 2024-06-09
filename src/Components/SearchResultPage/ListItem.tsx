@@ -11,19 +11,19 @@ const ListItem = ({ item }: ItemProps): JSX.Element => {
     const { Text } = Typography
 
     return (
-        <Item>
-            <Flex>
-                <div style={{width: '157px', height: '88px', border: '1px solid', borderColor: '#35A2EC'}}>
-                <Image src={item.image}/>
-                </div>
-                <Flex vertical style={{marginLeft: '30px'}}>
-                    <Text style={{height: '40px', fontSize: '16px', fontWeight: 'bold'}}>
+        <Item style={{ width: '90%' }}>
+            <Flex style={{ width: '100%' }}>
+                <Flex justify='center' align='center' style={{ width: '30%', height: '30%', borderColor: '#35A2EC', border: '1px solid #35A2EC' }}>
+                    <Image src={item.image} />
+                </Flex>
+                <Flex vertical style={{ marginLeft: '3%', width: '80%' }}>
+                    <Text style={{ fontSize: '89%', fontWeight: 'bold', marginBottom: '3%' }}>
                         {item.title}
                     </Text>
-                    <Text style={{fontSize: '16px', color: '#1717194D'}}>
+                    <Text style={{ fontSize: '89%', color: '#1717194D' }}>
                         {item.channel}
                     </Text>
-                    <Text style={{fontSize: '16px', color: '#1717194D'}}>
+                    <Text style={{ fontSize: '89%', color: '#1717194D' }}>
                         {item.views}
                     </Text>
                 </Flex>

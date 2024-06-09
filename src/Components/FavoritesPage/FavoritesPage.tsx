@@ -34,12 +34,12 @@ const FavoritePage = (): JSX.Element => {
                     backgroundColor: 'white',
                     padding: 0,
                     height: '80px',
-                    width: '1440x',
+                    width: '100%',
                 }}>
                 <CustomHeader />
             </Header>
             <Content style={{ backgroundColor: '#FAFAFA', minHeight: '720px' }}>
-                <Flex vertical align='flex-start' justify='center' style={{ paddingLeft: '200px', paddingTop: '40px', width: '1240px' }}>
+                <Flex vertical align='flex-start' justify='center' style={{ paddingLeft: '14%', paddingTop: '40px', width: '86%' }}>
                     <Text style={{ fontSize: '28px' }}>Избранное</Text>
                     <List style={{ marginTop: '40px' }}>
                         {

@@ -23,10 +23,10 @@ const LoginPage = (): JSX.Element => {
     return (
         <form style={{
             backgroundColor: '#FAFAFA',
-            height: '520px',
-            width: '1440px',
-            paddingTop: '140px',
-            paddingBottom: '140px'
+            height: '66%',
+            width: '100%',
+            paddingTop: '9.5%',
+            paddingBottom: '9.5%'
         }}>
             <Flex vertical justify='center' align='center' style={{
                 backgroundColor: 'white',
@@ -34,16 +34,17 @@ const LoginPage = (): JSX.Element => {
                 borderWidth: '1px',
                 borderRadius: '10px',
                 borderColor: '#cacaca',
-                height: '520px',
-                width: '510px',
-                margin: '0px 465px'
+                height: '66%',
+                width: '35%',
+                margin: '0 30%',
+                padding: '3% 0'
             }}>
                 <Flex vertical justify='center' align='center'>
-                    <Image src='../sibdev-logo.png' style={{ marginTop: '40px' }} />
-                    <Text style={{ marginTop: '32px', fontSize: '18px', lineHeight: '28px', fontWeight: 'bold' }}>Вход</Text>
+                    <Image src='../sibdev-logo.png' style={{ marginTop: '10%' }} />
+                    <Text style={{ marginTop: '8%', fontSize: '100%', fontWeight: 'bold' }}>Вход</Text>
                 </Flex>
-                <Flex vertical style={{ marginTop: '20px', width: '334px' }}>
-                    <Text style={{ fontSize: '16px', color: '#1717194D' }}>Логин</Text>
+                <Flex vertical style={{ marginTop: '4%', width: '64%' }}>
+                    <Text style={{ fontSize: '89%', color: '#1717194D' }}>Логин</Text>
                     <Controller
                         name='email'
                         control={control}
@@ -56,14 +57,14 @@ const LoginPage = (): JSX.Element => {
                         }}
                         render={({ field }) => (
                             <Input style={{
-                                height: '48px',
-                                fontSize: '20px'
+                                height: '9%',
+                                fontSize: '111%'
                             }} {...field} />
                         )}
                     />
                 </Flex>
-                <Flex vertical style={{ marginTop: '20px', width: '334px' }}>
-                    <Text style={{ fontSize: '16px', color: '#1717194D' }}>Пароль</Text>
+                <Flex vertical style={{ marginTop: '4%', width: '64%' }}>
+                    <Text style={{ fontSize: '89%', color: '#1717194D' }}>Пароль</Text>
                     <Controller
                         name='password'
                         control={control}
@@ -76,8 +77,8 @@ const LoginPage = (): JSX.Element => {
                         }}
                         render={({ field }) => (
                             <Password style={{
-                                height: '48px',
-                                width: '334px'
+                                height: '9%',
+                                width: '100%'
                             }} {...field} />
                         )}
                     />
@@ -97,10 +98,10 @@ const LoginPage = (): JSX.Element => {
                         }}
                     >
                         <Button style={{
-                            marginTop: '40px',
-                            height: '52px',
-                            width: '176px',
-                            fontSize: '20px'
+                            marginTop: '40%',
+                            height: '10%',
+                            width: '100%',
+                            fontSize: '111%'
                         }}>Войти</Button>
                     </ConfigProvider>
                 </Flex>

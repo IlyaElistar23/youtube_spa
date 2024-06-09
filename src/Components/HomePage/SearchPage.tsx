@@ -12,24 +12,25 @@ const SearchPage = (): JSX.Element => {
             <Header style={{
                 backgroundColor: 'white',
                 padding: 0,
-                height: '80px',
-                width: '1440x',
+                height: '10%',
+                width: '100%',
             }}>
                 <CustomHeader />
             </Header>
             <Content>
                 <Flex vertical style={{
                     backgroundColor: '#FAFAFA',
-                    height: '720px',
-                    width: '1440px',
-                    textAlign: 'center'
+                    height: '90%',
+                    width: '100%',
+                    textAlign: 'center',
+                    padding: '16.5% 0'
                 }}>
                     <Text style={{
-                        marginTop: '220px',
-                        fontSize: '36px',
+                        margin: '0 0',
+                        fontSize: '200%',
                     }}>Поиск видео</Text>
                     <Flex align='center' justify='center' style={{
-                        marginTop: '40px'
+                        marginTop: '5%'
                     }}>
                         <Input
                             placeholder='Что хотите посмотреть?'
@@ -48,9 +49,9 @@ const SearchPage = (): JSX.Element => {
                                 </ConfigProvider>
                             }
                             style={{
-                                width: '686px',
-                                height: '52px',
-                                fontSize: '20px',
+                                width: '48%',
+                                height: '7%',
+                                fontSize: '111%',
                                 color: '#272727',
                                 borderRadius: '5px 0 0 5px'
                             }} />
@@ -68,8 +69,8 @@ const SearchPage = (): JSX.Element => {
                             }}
                         >
                             <Button style={{
-                                height: '52px',
-                                width: '150px',
+                                height: '7%',
+                                width: '10%',
                                 borderRadius: '0 5px 5px 0',
                                 fontSize: '20px'
                             }}>Найти</Button>

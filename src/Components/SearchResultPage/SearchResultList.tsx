@@ -7,7 +7,7 @@ import ListItem from './ListItem'
 const SearchResultList = (): JSX.Element => {
 
     return (
-            <Flex vertical style={{ marginTop: '20px' }}>
+            <Flex vertical style={{ marginTop: '3%',  }}>
                 <List>
                     {
                         data.map(item => (

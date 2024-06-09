@@ -12,7 +12,7 @@ const FavoriteItem = ({ item }: Props): JSX.Element => {
     const { Item } = List
     return (
         <Item>
-            <Flex align='center' justify='space-between' style={{ backgroundColor: 'white', width: '1040px', height: '47px', padding: '13px 20px' }}>
+            <Flex align='center' justify='space-between' style={{ backgroundColor: 'white', width: '1040px', height: '32%', padding: '13px 20px' }}>
                 <Text style={{ fontSize: '16px', fontWeight: 'bold' }}>
                     {item.title}
                 </Text>

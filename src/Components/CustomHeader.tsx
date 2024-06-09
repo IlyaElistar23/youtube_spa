@@ -5,14 +5,14 @@ const CustomHeader = (): JSX.Element => {
     return (
         <Flex align='center' justify='space-between' style={{
             backgroundColor: 'white',
-            width: '1440px'
+            width: '100%'
         }}>
-            <Flex align='center' justify='center' style={{padding: '0 120px'}}>
-                <Image src='../sibdev-logo.png' height='48px' width='48px' style={{paddingBottom: '10px'}}/>
-                <Button style={{ height: '80px', width: '100px', borderColor: 'white', fontSize: '18px' }}>Поиск</Button>
-                <Button style={{ height: '80px', width: '133px', borderColor: 'white', fontSize: '18px' }}>Избранное</Button>
+            <Flex align='center' justify='center' style={{padding: '0 8%'}}>
+                <Image src='../sibdev-logo.png' height='12%' width='12%'/>
+                <Button style={{ height: '4.5em', width: '33%', borderColor: 'white', fontSize: '100%' }}>Поиск</Button>
+                <Button style={{ height: '4.5em', width: '45%', borderColor: 'white', fontSize: '100%' }}>Избранное</Button>
             </Flex>
-            <Button style={{ height: '80px', width: '100px', borderColor: 'white', fontSize: '18px', padding: '0 120px' }}>Выйти</Button>
+            <Button style={{ height: '4.5em', width: '10%', borderColor: 'white', fontSize: '100%', padding: '0 8%' }}>Выйти</Button>
         </Flex>
     )
 }

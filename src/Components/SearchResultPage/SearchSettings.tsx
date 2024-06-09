@@ -6,17 +6,17 @@ const SearchSettings = (): JSX.Element => {
     return (
         <Flex vertical>
             <Text style={{
-                fontSize: '28px',
-                marginTop: '40px'
+                fontSize: '140%',
+                marginTop: '4%'
             }}>Поиск видео</Text>
-            <Flex align='center' style={{ marginTop: '12px'}}>
+            <Flex align='center' style={{ marginTop: '1.5%'}}>
                 <Input
                     placeholder='Что хотите посмотреть?'
                     style={{
-                        width: '890px',
-                        height: '52px',
+                        width: '80%',
+                        height: '7%',
                         borderRadius: '5px 0 0 5px',
-                        fontSize: '20px'
+                        fontSize: '111%'
                     }}
                     suffix={
                         <ConfigProvider
@@ -46,10 +46,10 @@ const SearchSettings = (): JSX.Element => {
                             }}
                         >
                             <Button style={{
-                                height: '52px',
-                                width: '150px',
+                                height: '7%',
+                                width: '10%',
                                 borderRadius: '0 5px 5px 0',
-                                fontSize: '20px'
+                                fontSize: '125% '
                             }}>Найти</Button>
                         </ConfigProvider>
             </Flex>

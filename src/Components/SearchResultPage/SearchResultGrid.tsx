@@ -8,16 +8,16 @@ const SearchResultGrid = (): JSX.Element => {
     const { Text } = Typography
 
     return (
-        <Flex style={{ marginTop: '20px', width: '1040px' }}>
+        <Flex style={{ marginTop: '2.5%', width: '89%'}} align='center' justify='center'>
             <List grid={{gutter: 10, column: 4 }} dataSource={data} renderItem={(item) => (
                 <Item>
                     <Flex vertical >
-                        <Flex style={{ width: '245px', height: '138px', border: '1px solid #35A2EC' }}>
-                            <Image src={item.image} height='48px' width='48px'/>
+                        <Flex style={{ width: '100%', height: '20%', border: '1px solid #35A2EC' }}>
+                            <Image src={item.image} height='50%' width='50%'/>
                         </Flex>
-                        <Text style={{fontSize: '14px', fontWeight: 'bold', marginTop: '8px'}}>{item.title}</Text>
-                        <Text style={{fontSize: '14px', color: '#1717194D', marginTop: '8px'}}>{item.channel}</Text>
-                        <Text style={{fontSize: '14px', color: '#1717194D'}}>{item.views}</Text>
+                        <Text style={{fontSize: '90%', fontWeight: 'bold', marginTop: '2%'}}>{item.title}</Text>
+                        <Text style={{fontSize: '90%', color: '#1717194D', marginTop: '2%'}}>{item.channel}</Text>
+                        <Text style={{fontSize: '90%', color: '#1717194D'}}>{item.views}</Text>
                     </Flex>
                 </Item>
             )} />
