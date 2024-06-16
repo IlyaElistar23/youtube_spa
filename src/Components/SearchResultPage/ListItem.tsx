@@ -11,9 +11,9 @@ const ListItem = ({ item }: ItemProps): JSX.Element => {
     const { Text } = Typography
 
     return (
-        <Item style={{ width: '90%' }}>
-            <Flex style={{ width: '100%' }}>
-                <Flex justify='center' align='center' style={{ width: '30%', height: '30%', borderColor: '#35A2EC', border: '1px solid #35A2EC' }}>
+        <Item style={{ width: '76vw' }}>
+            <Flex style={{ width: '80vw' }}>
+                <Flex justify='center' align='center' style={{ width: '20vw', height: '20vh', borderColor: '#35A2EC', border: '1px solid #35A2EC' }}>
                     <Image src={item.image} />
                 </Flex>
                 <Flex vertical style={{ marginLeft: '3%', width: '80%' }}>
