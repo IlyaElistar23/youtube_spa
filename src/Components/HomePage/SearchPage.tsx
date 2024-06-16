@@ -23,14 +23,14 @@ const SearchPage = (): JSX.Element => {
                     height: '90%',
                     width: '100%',
                     textAlign: 'center',
-                    padding: '16.5% 0'
+                    padding: '13% 0 22% 0'
                 }}>
                     <Text style={{
                         margin: '0 0',
                         fontSize: '200%',
                     }}>Поиск видео</Text>
                     <Flex align='center' justify='center' style={{
-                        marginTop: '5%'
+                        marginTop: '3%'
                     }}>
                         <Input
                             placeholder='Что хотите посмотреть?'

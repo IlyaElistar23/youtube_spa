@@ -33,7 +33,7 @@ const FavoritePage = (): JSX.Element => {
                 style={{
                     backgroundColor: 'white',
                     padding: 0,
-                    height: '80px',
+                    height: '11%',
                     width: '100%',
                 }}>
                 <CustomHeader />

@@ -36,7 +36,7 @@ const LoginPage = (): JSX.Element => {
                 borderColor: '#cacaca',
                 height: '66%',
                 width: '35%',
-                margin: '0 30%',
+                margin: '0 33%',
                 padding: '3% 0'
             }}>
                 <Flex vertical justify='center' align='center'>
