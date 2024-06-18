@@ -33,15 +33,15 @@ const FavoritePage = (): JSX.Element => {
                 style={{
                     backgroundColor: 'white',
                     padding: 0,
-                    height: '11%',
-                    width: '100%',
+                    height: '8vh',
+                    width: '100vw',
                 }}>
                 <CustomHeader />
             </Header>
             <Content style={{ backgroundColor: '#FAFAFA', minHeight: '92vh' }}>
-                <Flex vertical align='flex-start' justify='center' style={{ paddingLeft: '14%', paddingTop: '4%' }}>
-                    <Text style={{ fontSize: '28px' }}>Избранное</Text>
-                    <List style={{ marginTop: '40px' }}>
+                <Flex vertical align='flex-start' justify='center' style={{ paddingLeft: '14vw', paddingTop: '9vh' }}>
+                    <Text style={{ fontSize: '2rem' }}>Избранное</Text>
+                    <List style={{ marginTop: '4vh' }}>
                         {
                             saved.map(item => (
                                 <FavoriteItem item={item} />

@@ -12,25 +12,24 @@ const SearchPage = (): JSX.Element => {
             <Header style={{
                 backgroundColor: 'white',
                 padding: 0,
-                height: '10%',
-                width: '100%',
+                height: '8vh',
+                width: '100vw',
             }}>
                 <CustomHeader />
             </Header>
             <Content>
                 <Flex vertical style={{
                     backgroundColor: '#FAFAFA',
-                    height: '90%',
-                    width: '100%',
+                    minHeight: '79vh',
+                    width: '100vw',
                     textAlign: 'center',
-                    padding: '13% 0 22% 0'
+                    padding: '13vh 0 0 0'
                 }}>
                     <Text style={{
-                        margin: '0 0',
-                        fontSize: '200%',
+                        fontSize: '2rem',
                     }}>Поиск видео</Text>
                     <Flex align='center' justify='center' style={{
-                        marginTop: '3%'
+                        marginTop: '5vh'
                     }}>
                         <Input
                             placeholder='Что хотите посмотреть?'
@@ -49,9 +48,9 @@ const SearchPage = (): JSX.Element => {
                                 </ConfigProvider>
                             }
                             style={{
-                                width: '48%',
-                                height: '7%',
-                                fontSize: '111%',
+                                width: '48vw',
+                                height: '5vh',
+                                fontSize: '1.1rem',
                                 color: '#272727',
                                 borderRadius: '5px 0 0 5px'
                             }} />
@@ -69,10 +68,10 @@ const SearchPage = (): JSX.Element => {
                             }}
                         >
                             <Button style={{
-                                height: '7%',
-                                width: '10%',
+                                height: '5vh',
+                                width: '10vw',
                                 borderRadius: '0 5px 5px 0',
-                                fontSize: '20px'
+                                fontSize: '1.2rem'
                             }}>Найти</Button>
                         </ConfigProvider>
                     </Flex>

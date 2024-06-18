@@ -13,17 +13,17 @@ const ListItem = ({ item }: ItemProps): JSX.Element => {
     return (
         <Item style={{ width: '76vw' }}>
             <Flex style={{ width: '80vw' }}>
-                <Flex justify='center' align='center' style={{ width: '20vw', height: '20vh', borderColor: '#35A2EC', border: '1px solid #35A2EC' }}>
+                <Flex justify='center' align='center' style={{ width: '20vw', height: '22vh', borderColor: '#35A2EC', border: '1px solid #35A2EC' }}>
                     <Image src={item.image} />
                 </Flex>
-                <Flex vertical style={{ marginLeft: '3%', width: '80%' }}>
-                    <Text style={{ fontSize: '89%', fontWeight: 'bold', marginBottom: '3%' }}>
+                <Flex vertical style={{ marginLeft: '3vw', width: '80vw' }}>
+                    <Text style={{ fontSize: '0.9rem', fontWeight: 'bold', marginBottom: '2vh' }}>
                         {item.title}
                     </Text>
-                    <Text style={{ fontSize: '89%', color: '#1717194D' }}>
+                    <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>
                         {item.channel}
                     </Text>
-                    <Text style={{ fontSize: '89%', color: '#1717194D' }}>
+                    <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>
                         {item.views}
                     </Text>
                 </Flex>

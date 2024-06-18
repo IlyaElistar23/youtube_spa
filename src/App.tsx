@@ -9,14 +9,8 @@ import AddFavoriteForm from './Components/ModalWindow/AddFavotireForm';
 function App() {
   return (
     <Routes>
-      {/* <LoginPage /> */}
-      {/* <SearchPage /> */}
-      {/* <SearchResult />
-      <FavoritePage />
-      <AddFavoriteForm /> */}
       <Route path='/' element={<LoginPage/>}/>
       <Route path='/search' element={<SearchPage/>}/>
-      <Route path='/results' element={<SearchResult/>}/>
       <Route path='/favorites' element={<FavoritePage/>}/>
     </Routes>
   );

@@ -1,7 +1,17 @@
 import { Image, Typography, Input, Button, Flex, ConfigProvider } from 'antd'
+import axios from 'axios'
 import { useForm, Controller } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+
+type AuthData = {
+    email: string,
+    password: string
+}
 
 const LoginPage = (): JSX.Element => {
+
+    const navigate = useNavigate()
+
     const { Text } = Typography
     const { Password } = Input
 
@@ -12,7 +22,7 @@ const LoginPage = (): JSX.Element => {
             errors
         },
         reset
-    } = useForm({
+    } = useForm<AuthData>({
         mode: 'onBlur',
         defaultValues: {
             email: '',
@@ -20,31 +30,56 @@ const LoginPage = (): JSX.Element => {
         }
     })
 
+    const fetchAuth = async (data: AuthData): Promise<any> => {
+        try {
+            const response = await axios.post('https://todo-redev.herokuapp.com/api/auth/login', data)
+            if ('data' in response && 'token' in response.data) {
+                localStorage.setItem('token', response.data.token)
+                navigate('/search')
+            } else {
+                navigate('/')
+            }
+            console.log(response);
+        } catch (error: any) {
+            console.log(error);
+        }
+    }
+
+    const onLogin = (data: AuthData): any => {
+        try {
+            fetchAuth(data)
+            reset()
+        } catch (error: any) {
+            console.log(error);
+        }
+    }
+
     return (
-        <form style={{
-            backgroundColor: '#FAFAFA',
-            height: '66%',
-            width: '100%',
-            paddingTop: '9.5%',
-            paddingBottom: '9.5%'
-        }}>
+        <form
+            style={{
+                backgroundColor: 'red',
+                height: '60vh',
+                width: '100vw',
+                paddingTop: '20vh',
+                paddingBottom: '20vh'
+            }}>
             <Flex vertical justify='center' align='center' style={{
                 backgroundColor: 'white',
                 borderStyle: 'solid',
                 borderWidth: '1px',
                 borderRadius: '10px',
                 borderColor: '#cacaca',
-                height: '66%',
-                width: '35%',
-                margin: '0 33%',
-                padding: '3% 0'
+                height: '45vh',
+                width: '35vw',
+                margin: '0 33vw',
+                padding: '10vh 0'
             }}>
                 <Flex vertical justify='center' align='center'>
-                    <Image src='../sibdev-logo.png' style={{ marginTop: '10%' }} />
-                    <Text style={{ marginTop: '8%', fontSize: '100%', fontWeight: 'bold' }}>Вход</Text>
+                    <Image src='../sibdev-logo.png' />
+                    <Text style={{ marginTop: '5vh', fontSize: '1.1rem', fontWeight: 'bold' }}>Вход</Text>
                 </Flex>
-                <Flex vertical style={{ marginTop: '4%', width: '64%' }}>
-                    <Text style={{ fontSize: '89%', color: '#1717194D' }}>Логин</Text>
+                <Flex vertical style={{ marginTop: '4%', width: '22vw' }}>
+                    <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>Логин</Text>
                     <Controller
                         name='email'
                         control={control}
@@ -57,14 +92,15 @@ const LoginPage = (): JSX.Element => {
                         }}
                         render={({ field }) => (
                             <Input style={{
-                                height: '9%',
-                                fontSize: '111%'
-                            }} {...field} />
+                                height: '4vh',
+                                fontSize: '1.1rem'
+                            }} {...field} placeholder='Введите email'/>
                         )}
                     />
+                    <Text>{errors.email?.message}</Text>
                 </Flex>
-                <Flex vertical style={{ marginTop: '4%', width: '64%' }}>
-                    <Text style={{ fontSize: '89%', color: '#1717194D' }}>Пароль</Text>
+                <Flex vertical style={{ marginTop: '4%', width: '22vw' }}>
+                    <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>Пароль</Text>
                     <Controller
                         name='password'
                         control={control}
@@ -77,11 +113,12 @@ const LoginPage = (): JSX.Element => {
                         }}
                         render={({ field }) => (
                             <Password style={{
-                                height: '9%',
-                                width: '100%'
-                            }} {...field} />
+                                height: '4vh',
+                                fontSize: '1.1rem'
+                            }} {...field} placeholder='Введите пароль'/>
                         )}
                     />
+                    <Text>{errors.password?.message}</Text>
                 </Flex>
                 <Flex>
                     <ConfigProvider
@@ -97,12 +134,14 @@ const LoginPage = (): JSX.Element => {
                             }
                         }}
                     >
-                        <Button style={{
-                            marginTop: '40%',
-                            height: '10%',
-                            width: '100%',
-                            fontSize: '111%'
-                        }}>Войти</Button>
+                        <Button
+                            onClick={handleSubmit(onLogin)}
+                            style={{
+                                marginTop: '6vh',
+                                height: '4vh',
+                                width: '8vw',
+                                fontSize: '1.1rem'
+                            }}>Войти</Button>
                     </ConfigProvider>
                 </Flex>
             </Flex>
