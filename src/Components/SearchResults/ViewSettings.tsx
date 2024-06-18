@@ -1,7 +1,13 @@
 import { Flex, Button, ConfigProvider } from 'antd'
+import { FC } from 'react'
 import { BarsOutlined, AppstoreOutlined } from '@ant-design/icons'
+import { ViewType } from './SearchResult'
 
-const ViewSettings = (): JSX.Element => {
+type ViewSettingsProps = {
+    setViewType: (type: ViewType) => void
+}
+
+const ViewSettings: FC<ViewSettingsProps> = ({ setViewType }) => {
     return (
         <Flex>
             <ConfigProvider
@@ -16,8 +22,8 @@ const ViewSettings = (): JSX.Element => {
                     }
                 }}
             >
-                <Button icon={<BarsOutlined />}></Button>
-                <Button icon={<AppstoreOutlined />}></Button>
+                <Button icon={<BarsOutlined />} onClick={() => setViewType('list')}></Button>
+                <Button icon={<AppstoreOutlined />} onClick={() => setViewType('grid')}></Button>
             </ConfigProvider>
         </Flex>
     )
