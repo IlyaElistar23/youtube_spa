@@ -1,5 +1,5 @@
 import { Flex, Layout } from 'antd'
-import { useState } from 'react'
+import { useState, FC } from 'react'
 import SearchInfo from './SearchInfo'
 import ViewSettings from './ViewSettings'
 import SearchSettings from './SearchSettings'
@@ -8,7 +8,11 @@ import SearchResultGrid from './SearchResultGrid'
 
 export type ViewType = 'list' | 'grid'
 
-const SearchResult = (): JSX.Element => {
+type SearchResultsType = {
+    getData: (text: string, api_key: string) => void
+}
+
+const SearchResult: FC<SearchResultsType> = ({ getData }) => {
 
     const [viewType, setViewType] = useState<ViewType>('list')
 
@@ -19,15 +23,15 @@ const SearchResult = (): JSX.Element => {
             backgroundColor: '#FAFAFA',
             width: '85vw'
         }}>
-            <SearchSettings />
+            <SearchSettings getData={getData}/>
             <Flex justify='space-between' align='center' style={{ width: '76vw', height: '3vh' }}>
                 <SearchInfo />
-                <ViewSettings setViewType={setViewType}/>
+                <ViewSettings setViewType={setViewType} />
             </Flex>
             {
                 viewType === 'list' ?
-                <SearchResultList/> :
-                <SearchResultGrid/>
+                    <SearchResultList /> :
+                    <SearchResultGrid />
             }
         </Content>
     )

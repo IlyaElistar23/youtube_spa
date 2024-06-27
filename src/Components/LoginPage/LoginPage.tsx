@@ -57,7 +57,7 @@ const LoginPage = (): JSX.Element => {
     return (
         <form
             style={{
-                backgroundColor: 'red',
+                backgroundColor: '#FAFAFA',
                 height: '60vh',
                 width: '100vw',
                 paddingTop: '20vh',
