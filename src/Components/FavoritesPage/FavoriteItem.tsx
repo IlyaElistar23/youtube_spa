@@ -1,9 +1,10 @@
 import { Button, Typography, List, Flex, ConfigProvider } from 'antd'
 import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
 import { SavedType } from './FavoritesPage'
+import { FavoritesType } from '../../redux/favoritesSlice/favoritesSlice'
 
 type Props = {
-    item: SavedType
+    item: FavoritesType
 }
 
 const FavoriteItem = ({ item }: Props): JSX.Element => {

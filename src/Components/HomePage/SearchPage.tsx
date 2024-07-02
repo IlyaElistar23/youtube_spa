@@ -12,11 +12,13 @@ const SearchPage = (): JSX.Element => {
     const { Header, Content } = Layout
 
     const data = useAppSelector(state => state.data)
+    const order = useAppSelector(state => state.select.order)
+    const amount = useAppSelector(state => state.requestAmount.amount)
     const dispatch = useAppDispatch()
 
     const fetchGetData = async (text: string, api_key: string) => {
         try {
-            const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${api_key}&part=snippet&q=${text}`)
+            const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${api_key}&part=snippet&q=${text}&order=${order}&maxResults=${amount}`)
             dispatch(setData(response.data.items))
             console.log(response.data.items);
         } catch (error: any) {

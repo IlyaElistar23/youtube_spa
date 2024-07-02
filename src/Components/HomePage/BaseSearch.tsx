@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
 import { FC, ChangeEvent } from 'react'
 import { api_key } from '../../api_key'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
+import { setIsOpen } from '../../redux/modalSlice/modalSlice'
+import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 
 export type BaseSearchPropsType = {
     getData: (text: string, api_key: string) => void
@@ -39,7 +41,11 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                                 }
                             }}
                         >
-                            <Button icon={<LikeOutlined />}></Button>
+                            <Button
+                                icon={<LikeOutlined />}
+                                onClick={() => dispatch(setIsOpen(true))}
+                            >
+                            </Button>
                         </ConfigProvider>
                     }
                     style={{
@@ -73,6 +79,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                     >Найти</Button>
                 </ConfigProvider>
             </Flex>
+            <AddFavoriteForm />
         </Flex>
     )
 }

@@ -5,6 +5,7 @@ import ViewSettings from './ViewSettings'
 import SearchSettings from './SearchSettings'
 import SearchResultList from './SearchResultList'
 import SearchResultGrid from './SearchResultGrid'
+import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 
 export type ViewType = 'list' | 'grid'
 
@@ -33,6 +34,7 @@ const SearchResult: FC<SearchResultsType> = ({ getData }) => {
                     <SearchResultList /> :
                     <SearchResultGrid />
             }
+            <AddFavoriteForm/>
         </Content>
     )
 }
