@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { api_key } from '../../api_key'
 import { resetData } from '../../redux/dataSlice/dataSlice'
+import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 
 type SearchSettingsType = {
     getData: (text: string, api_key: string) => void
@@ -43,7 +44,12 @@ const SearchSettings: FC<SearchSettingsType> = ({ getData }) => {
                                 }
                             }}
                         >
-                            <Button icon={<LikeOutlined />}></Button>
+                            <Button
+                                icon={<LikeOutlined />}
+                                onClick={() => {
+                                    dispatch(setIsOpen(true))
+                                }}
+                            ></Button>
                         </ConfigProvider>
                     }
                     style={{

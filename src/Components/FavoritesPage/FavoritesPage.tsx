@@ -1,6 +1,7 @@
 import { Typography, Button, Flex, ConfigProvider, List, Layout } from 'antd'
 import FavoriteItem from './FavoriteItem'
 import CustomHeader from '../CustomHeader'
+import { useAppSelector } from '../../redux/hooks/hooks'
 
 export type SavedType = {
     request: string,
@@ -12,21 +13,22 @@ export type SavedType = {
 const FavoritePage = (): JSX.Element => {
     const { Text } = Typography
     const { Header, Content } = Layout
+    const favorites = useAppSelector(state => state.favorites)
 
-    const saved: SavedType[] = [
-        {
-            request: '',
-            title: 'React',
-            sort: '',
-            maxAmount: 25
-        },
-        {
-            request: '',
-            title: 'Redux',
-            sort: '',
-            maxAmount: 30
-        }
-    ]
+    // const saved: SavedType[] = [
+    //     {
+    //         request: '',
+    //         title: 'React',
+    //         sort: '',
+    //         maxAmount: 25
+    //     },
+    //     {
+    //         request: '',
+    //         title: 'Redux',
+    //         sort: '',
+    //         maxAmount: 30
+    //     }
+    // ]
     return (
         <>
             <Header
@@ -43,7 +45,7 @@ const FavoritePage = (): JSX.Element => {
                     <Text style={{ fontSize: '2rem' }}>Избранное</Text>
                     <List style={{ marginTop: '4vh' }}>
                         {
-                            saved.map(item => (
+                            favorites.map(item => (
                                 <FavoriteItem item={item} />
                             ))
                         }
