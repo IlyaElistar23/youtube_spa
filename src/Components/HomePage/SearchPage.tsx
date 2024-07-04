@@ -1,11 +1,10 @@
-import { Button, Input, Typography, Flex, ConfigProvider, Layout, Empty } from 'antd'
-import { LikeOutlined } from '@ant-design/icons'
+import { Layout } from 'antd'
 import CustomHeader from '../CustomHeader'
 import SearchResult from '../SearchResults/SearchResult'
 import BaseSearch from './BaseSearch'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
 import axios from 'axios'
-import { setData } from '../../redux/dataSlice/dataSlice'
+import { DataItemType, setData } from '../../redux/dataSlice/dataSlice'
 
 const SearchPage = (): JSX.Element => {
 
@@ -16,19 +15,23 @@ const SearchPage = (): JSX.Element => {
     const amount = useAppSelector(state => state.requestAmount.amount)
     const dispatch = useAppDispatch()
 
-    const fetchGetData = async (text: string, api_key: string) => {
+    const fetchGetSnippet = async (text: string, api_key: string) => {
         try {
-            const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${api_key}&part=snippet&q=${text}&order=${order}&maxResults=${amount}`)
-            dispatch(setData(response.data.items))
-            console.log(response.data.items);
+            const responseSnippet = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${api_key}&part=snippet&q=${text}&order=${order}&maxResults=${amount}`)
+            // передавать order и amount при вызове функции как параметр, 
+            const ids = responseSnippet.data.items.map((item: DataItemType) => item.id.videoId)
+            const responseStat = await axios.get(`https://www.googleapis.com/youtube/v3/videos?key=${api_key}&part=snippet,statistics&id=${ids.join(',')}`)
+            dispatch(setData(responseStat.data.items))
+            console.log(responseStat.data.items);
         } catch (error: any) {
             console.log(error);
         }
     }
 
     const getData = (text: string, api_key: string) => {
-        fetchGetData(text, api_key)
+        fetchGetSnippet(text, api_key)
     }
+
 
     return (
         <>
@@ -47,8 +50,8 @@ const SearchPage = (): JSX.Element => {
             }}>
                 {
                     data.length !== 0 ?
-                        <SearchResult getData={getData}/> :
-                        <BaseSearch getData={getData}/>
+                        <SearchResult getData={getData} /> :
+                        <BaseSearch getData={getData} />
                 }
             </Content>
         </>
