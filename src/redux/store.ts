@@ -16,7 +16,7 @@ export const store = configureStore({
         favTitle: favoriteTitleSlice, // пойдет в модальное окно в поле название
         modal: modalSlice, // Открыто ли модальное окно
         requestAmount: requestAmountSlice, // Значение количества запросов
-        select: selectValueSlice // Значение способа сортировки
+        select: selectValueSlice, // Значение способа сортировки
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
     devTools: process.env.NODE_ENV !== 'production'

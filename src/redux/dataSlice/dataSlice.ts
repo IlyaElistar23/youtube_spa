@@ -6,26 +6,45 @@ type ThumbnailItem = {
     height: number
 }
 
+type LocalizedType = {
+    description: string,
+    title: string
+}
+
 type ThumbnailsType = {
     default: ThumbnailItem,
+    high: ThumbnailItem,
+    maxres: ThumbnailItem,
     medium: ThumbnailItem,
-    high: ThumbnailItem
+    standart: ThumbnailItem
 }
 
 type IdType = {
-    channelId: string,
+    videoId: string,
     kind: string
 }
 
 type SnippetType = {
+    categoryId?: string,
     channelId: string,
     channelTitle: string,
+    defaultAudioLanguage: string,
+    defaultLanguage: string,
     description: string,
     liveBroadcastContent: string,
-    publishTime: string,
+    localized: LocalizedType,
     publishedAt: string,
+    publishTime?: string,
+    tags: string[],
     thumbnails: ThumbnailsType,
     title: string
+}
+
+type StatisticsType = {
+    commentCount: string,
+    favoriteCount: string,
+    likeCount: string,
+    viewCount: string
 }
 
 export type DataItemType = {
@@ -35,13 +54,21 @@ export type DataItemType = {
     snippet: SnippetType,
 }
 
-const initialState: DataItemType[] = []
+export type DataStatItemType = {
+    etag: string,
+    id: string,
+    kind: string,
+    snippet: SnippetType,
+    statistics: StatisticsType
+}
+
+const initialState: DataStatItemType[] = []
 
 const dataSlice = createSlice({
     name: 'data',
     initialState,
     reducers: {
-        setData: (state, action: PayloadAction<DataItemType[]>) => {
+        setData: (state, action: PayloadAction<DataStatItemType[]>) => {
             action.payload.forEach(item => state.push(item))
         },
         resetData: (state) => {

@@ -8,7 +8,7 @@ import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 
 export type BaseSearchPropsType = {
-    getData: (text: string, api_key: string) => void
+    getData: (text: string, api_key: string, ) => void
 }
 
 const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
@@ -75,7 +75,9 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                             borderRadius: '0 5px 5px 0',
                             fontSize: '1.2rem'
                         }}
-                        onClick={() => getData(info, api_key)}
+                        onClick={() => {
+                            getData(info, api_key)
+                        }}
                     >Найти</Button>
                 </ConfigProvider>
             </Flex>

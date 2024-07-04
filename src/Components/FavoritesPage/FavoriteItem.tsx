@@ -29,7 +29,7 @@ const FavoriteItem = ({ item }: Props): JSX.Element => {
                         }
                     }}
                     >
-                        <Button icon={<SearchOutlined />}></Button>
+                        <Button icon={<SearchOutlined />}></Button> // при нажатии на кнопку будет устанавливать соответствующий order и amount для избранного
                         <Button icon={<EditOutlined />}></Button>
                         <Button icon={<DeleteOutlined />}></Button>
                     </ConfigProvider>
