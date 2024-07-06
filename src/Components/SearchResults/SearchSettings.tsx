@@ -1,5 +1,5 @@
 import { Flex, Input, Typography, Button, ConfigProvider } from 'antd'
-import { LikeOutlined } from '@ant-design/icons'
+import { HeartOutlined } from '@ant-design/icons'
 import { FC, ChangeEvent } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
@@ -8,7 +8,7 @@ import { resetData } from '../../redux/dataSlice/dataSlice'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 
 type SearchSettingsType = {
-    getData: (text: string, api_key: string) => void
+    getData: (text: string, api_key: string, order: string, amount: number) => void
 }
 
 const SearchSettings: FC<SearchSettingsType> = ({ getData }) => {
@@ -16,6 +16,8 @@ const SearchSettings: FC<SearchSettingsType> = ({ getData }) => {
     const { Text } = Typography
 
     const info = useAppSelector(state => state.info.text)
+    const order = useAppSelector(state => state.select.order)
+    const amount = useAppSelector(state => state.requestAmount.amount)
     const dispatch = useAppDispatch()
 
     return (
@@ -45,7 +47,7 @@ const SearchSettings: FC<SearchSettingsType> = ({ getData }) => {
                             }}
                         >
                             <Button
-                                icon={<LikeOutlined />}
+                                icon={<HeartOutlined />}
                                 onClick={() => {
                                     dispatch(setIsOpen(true))
                                 }}
@@ -81,7 +83,7 @@ const SearchSettings: FC<SearchSettingsType> = ({ getData }) => {
                         }}
                         onClick={() => {
                             dispatch(resetData())
-                            getData(info, api_key)
+                            getData(info, api_key, order, amount)
                         }}
                     >Найти</Button>
                 </ConfigProvider>

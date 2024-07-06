@@ -1,7 +1,7 @@
 import { Image, Flex } from 'antd'
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '../redux/hooks/hooks'
+import { useAppDispatch, useAppSelector } from '../redux/hooks/hooks'
 import { resetData } from '../redux/dataSlice/dataSlice'
 import { resetRequest } from '../redux/searchInfoSlice/searchInfoSlice'
 
@@ -9,6 +9,8 @@ const CustomHeader = (): JSX.Element => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const info = useAppSelector(state => state.info.text)
+    const data = useAppSelector(state => state.data)
 
     const logout = () => {
         localStorage.removeItem('token')
@@ -33,8 +35,8 @@ const CustomHeader = (): JSX.Element => {
                             textAlign: 'center'
                         }}
                         onClick={() => {
-                            dispatch(resetData())
-                            dispatch(resetRequest())
+                            data.length !== 0 && dispatch(resetData())
+                            info.length !== 0 && dispatch(resetRequest())
                         }}
                     >Поиск</NavLink>
                     <NavLink to='/favorites' style={{ height: '7vh', width: '7vw', borderColor: 'white', fontSize: '100%', textAlign: 'center' }}>Избранное</NavLink>
