@@ -1,5 +1,5 @@
 import { Flex, Typography, Input, Button, ConfigProvider } from 'antd'
-import { LikeOutlined } from '@ant-design/icons'
+import { HeartOutlined } from '@ant-design/icons'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
 import { FC, ChangeEvent } from 'react'
 import { api_key } from '../../api_key'
@@ -8,13 +8,15 @@ import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 
 export type BaseSearchPropsType = {
-    getData: (text: string, api_key: string, ) => void
+    getData: (text: string, api_key: string, order: string, amount: number) => void
 }
 
 const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
 
     const { Text } = Typography
     const info = useAppSelector(state => state.info.text)
+    const order = useAppSelector(state => state.select.order)
+    const amount = useAppSelector(state => state.requestAmount.amount)
     const dispatch = useAppDispatch()
 
     return (
@@ -42,7 +44,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                             }}
                         >
                             <Button
-                                icon={<LikeOutlined />}
+                                icon={<HeartOutlined />}
                                 onClick={() => dispatch(setIsOpen(true))}
                             >
                             </Button>
@@ -76,7 +78,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                             fontSize: '1.2rem'
                         }}
                         onClick={() => {
-                            getData(info, api_key)
+                            getData(info, api_key, order, amount)
                         }}
                     >Найти</Button>
                 </ConfigProvider>

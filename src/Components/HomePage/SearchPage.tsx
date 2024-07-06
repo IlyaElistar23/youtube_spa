@@ -15,7 +15,7 @@ const SearchPage = (): JSX.Element => {
     const amount = useAppSelector(state => state.requestAmount.amount)
     const dispatch = useAppDispatch()
 
-    const fetchGetSnippet = async (text: string, api_key: string) => {
+    const fetchGetSnippet = async (text: string, api_key: string, order: string, amount: number) => {
         try {
             const responseSnippet = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${api_key}&part=snippet&q=${text}&order=${order}&maxResults=${amount}`)
             // передавать order и amount при вызове функции как параметр, 
@@ -28,8 +28,8 @@ const SearchPage = (): JSX.Element => {
         }
     }
 
-    const getData = (text: string, api_key: string) => {
-        fetchGetSnippet(text, api_key)
+    const getData = (text: string, api_key: string, order: string, amount: number) => {
+        fetchGetSnippet(text, api_key, order, amount)
     }
 
 

@@ -1,31 +1,35 @@
 import { Modal, Typography, Input, Button, Slider, Flex, ConfigProvider, InputNumber, Select } from 'antd'
-import type {InputNumberProps} from 'antd'
-import { ChangeEvent } from 'react'
+import type { InputNumberProps } from 'antd'
+import { ChangeEvent, FC } from 'react'
 import { useAppSelector, useAppDispatch } from '../../redux/hooks/hooks'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import { addFavTitle } from '../../redux/favoriteTitleSlice/favoriteTitleSlice'
-import { addFavRequest } from '../../redux/favoritesSlice/favoritesSlice'
+import { addFavRequest, editFavRequest, FavoritesType, saveFavRequest } from '../../redux/favoritesSlice/favoritesSlice'
 import { setAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
 import { setSelectValue } from '../../redux/selectValueSlice/selectValueSlice'
+import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
+import { editFavAmount, editFavOrder, editFavTitle } from '../../redux/editFavoriteSlice/editFavoriteSlice'
 
-const AddFavoriteForm = (): JSX.Element => {
+type FormPropsType = {
+    favorite?: FavoritesType
+}
 
-    const {v4: uuidv4} = require('uuid')
+const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
+
+    const { v4: uuidv4 } = require('uuid')
 
     const isOpen = useAppSelector(state => state.modal.isOpen)
     const info = useAppSelector(state => state.info.text)
     const title = useAppSelector(state => state.favTitle.title)
     const amount = useAppSelector(state => state.requestAmount.amount)
     const order = useAppSelector(state => state.select.order)
+    const favorites = useAppSelector(state => state.favorites)
+    const edit = useAppSelector(state => state.edit)
     const dispatch = useAppDispatch()
 
-    const onChangeAmount: InputNumberProps['onChange'] = (newValue) => {
-        dispatch(setAmountValue(newValue as number))
-    }
+    const onChangeAmount: InputNumberProps['onChange'] = (newValue) => favorite?.isEditing ? dispatch(editFavAmount(newValue as number)) : dispatch(setAmountValue(newValue as number))
 
-    const onChangeSelect = (value: string) => {
-        dispatch(setSelectValue(value))
-    }
+    const onChangeSelect = (value: string) => favorite?.isEditing ? dispatch(editFavOrder(value)) : dispatch(setSelectValue(value))
 
     const { Text } = Typography
     return (
@@ -76,14 +80,30 @@ const AddFavoriteForm = (): JSX.Element => {
                         <Button
                             style={{ width: '11vw', height: '4vh', borderWidth: '0.1vh', fontSize: '1.1rem' }}
                             onClick={() => {
-                                dispatch(addFavRequest({
-                                    id: uuidv4(),
-                                    request: info,
-                                    title: title,
-                                    requestAmount: amount,
-                                    selectOrder: order,
-                                    isEditing: false
-                                }))
+                                if (favorite?.isEditing) {
+                                    dispatch(saveFavRequest({
+                                        id: favorite.id,
+                                        title: edit.title,
+                                        order: edit.order,
+                                        amount: edit.amount
+                                    }))
+                                    dispatch(editFavRequest(favorite.id))
+                                } else {
+                                    dispatch(addFavRequest({
+                                        id: uuidv4(),
+                                        request: info,
+                                        title: title,
+                                        requestAmount: amount,
+                                        selectOrder: order,
+                                        isEditing: false,
+                                        isInProgress: false
+                                    }))
+                                }
+                                localStorage.setItem('favorites', JSON.stringify(favorites))
+                                dispatch(addFavTitle(''))
+                                dispatch(setAmountValue(12))
+                                dispatch(addRequest(''))
+                                dispatch(setSelectValue('relevance'))
                                 dispatch(setIsOpen(false))
                             }}
                         >Сохранить</Button>
@@ -108,7 +128,7 @@ const AddFavoriteForm = (): JSX.Element => {
                         Запрос
                     </Text>
                     <Input
-                        value={info}
+                        value={favorite?.isEditing ? favorite.request : info}
                         disabled
                         style={{ width: '100%', height: '100%', borderRadius: '0.5vh', border: '0.2vh solid #1717191A', fontSize: '1rem' }}
                     />
@@ -120,8 +140,8 @@ const AddFavoriteForm = (): JSX.Element => {
                         Название
                     </Text>
                     <Input
-                        value={title}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addFavTitle(e.target.value))}
+                        value={favorite?.isEditing ? edit.title : title}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => favorite?.isEditing ? dispatch(editFavTitle(e.target.value)) : dispatch(addFavTitle(e.target.value))}
                         placeholder='Укажите название'
                         style={{ width: '100%', height: '100%', borderRadius: '0.5vh', border: '0.2vh solid #1717191A', fontSize: '1rem' }}
                     />
@@ -136,6 +156,7 @@ const AddFavoriteForm = (): JSX.Element => {
                         placeholder='Без сортировки'
                         style={{ width: '100%', height: '100%', borderRadius: '0.5vh', border: '0.2vh solid #1717191A', fontSize: '1.1rem' }}
                         onChange={onChangeSelect}
+                        value={favorite?.isEditing ? edit.order : order}
                         options={[
                             {
                                 value: 'date',
@@ -175,7 +196,7 @@ const AddFavoriteForm = (): JSX.Element => {
                         <Slider
                             min={0}
                             max={50}
-                            value={typeof amount === 'number' ? amount : 0}
+                            value={favorite?.isEditing ? edit.amount : amount}
                             onChange={onChangeAmount}
                             style={{ width: '90%', height: '1vh' }}
                         />
@@ -192,7 +213,7 @@ const AddFavoriteForm = (): JSX.Element => {
                             <InputNumber
                                 min={0}
                                 max={50}
-                                value={amount}
+                                value={favorite?.isEditing ? edit.amount : amount}
                                 onChange={onChangeAmount}
                                 style={{ width: '20%', height: '4vh', fontSize: '1rem' }}
                             />

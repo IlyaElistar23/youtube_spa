@@ -10,7 +10,7 @@ import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 export type ViewType = 'list' | 'grid'
 
 type SearchResultsType = {
-    getData: (text: string, api_key: string) => void
+    getData: (text: string, api_key: string, order: string, amount: number) => void
 }
 
 const SearchResult: FC<SearchResultsType> = ({ getData }) => {

@@ -7,6 +7,7 @@ import favoriteTitleSlice from './favoriteTitleSlice/favoriteTitleSlice'
 import modalSlice from './modalSlice/modalSlice'
 import requestAmountSlice from './requestAmountSlice/requestAmountSlice'
 import selectValueSlice from './selectValueSlice/selectValueSlice'
+import editFavoriteSlice from './editFavoriteSlice/editFavoriteSlice'
 
 export const store = configureStore({
     reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
         modal: modalSlice, // Открыто ли модальное окно
         requestAmount: requestAmountSlice, // Значение количества запросов
         select: selectValueSlice, // Значение способа сортировки
+        edit: editFavoriteSlice
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
     devTools: process.env.NODE_ENV !== 'production'
