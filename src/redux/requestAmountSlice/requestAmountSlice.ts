@@ -14,9 +14,12 @@ const requestAmountSlice = createSlice({
     reducers: {
         setAmountValue: (state, action: PayloadAction<number>) => {
             state.amount = action.payload
+        },
+        resetAmountValue: (state) => {
+            state.amount = initialState.amount
         }
     }
 })
 
 export default requestAmountSlice.reducer
-export const { setAmountValue } = requestAmountSlice.actions
+export const { setAmountValue, resetAmountValue } = requestAmountSlice.actions

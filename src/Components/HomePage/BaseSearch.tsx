@@ -6,8 +6,9 @@ import { api_key } from '../../api_key'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
+import { resetAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
 
-export type BaseSearchPropsType = {
+type BaseSearchPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void
 }
 
@@ -45,7 +46,12 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                         >
                             <Button
                                 icon={<HeartOutlined />}
-                                onClick={() => dispatch(setIsOpen(true))}
+                                onClick={() => {
+                                    dispatch(setIsOpen(true))
+                                    if (amount !== 12) {
+                                        dispatch(resetAmountValue())
+                                    }
+                                }}
                             >
                             </Button>
                         </ConfigProvider>

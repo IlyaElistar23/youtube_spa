@@ -9,11 +9,11 @@ import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 
 export type ViewType = 'list' | 'grid'
 
-type SearchResultsType = {
+type SearchResultsPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void
 }
 
-const SearchResult: FC<SearchResultsType> = ({ getData }) => {
+const SearchResult: FC<SearchResultsPropsType> = ({ getData }) => {
 
     const [viewType, setViewType] = useState<ViewType>('list')
 
@@ -34,7 +34,7 @@ const SearchResult: FC<SearchResultsType> = ({ getData }) => {
                     <SearchResultList /> :
                     <SearchResultGrid />
             }
-            <AddFavoriteForm/>
+            <AddFavoriteForm />
         </Content>
     )
 }

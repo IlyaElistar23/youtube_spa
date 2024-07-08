@@ -11,7 +11,7 @@ import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { editFavAmount, editFavOrder, editFavTitle } from '../../redux/editFavoriteSlice/editFavoriteSlice'
 
 type FormPropsType = {
-    favorite?: FavoritesType
+    favorite?: FavoritesType,
 }
 
 const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
