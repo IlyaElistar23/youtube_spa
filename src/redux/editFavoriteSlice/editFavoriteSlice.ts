@@ -25,7 +25,7 @@ const editFavoriteSlice = createSlice({
         editFavOrder: (state, action: PayloadAction<string>) => {
             state.order = action.payload
         },
-        editFavRequest: (state, action: PayloadAction<string>) => {
+        editFavRequestTitle: (state, action: PayloadAction<string>) => {
             state.request = action.payload
         },
         editFavAmount: (state, action: PayloadAction<number>) => {
@@ -41,4 +41,4 @@ const editFavoriteSlice = createSlice({
 })
 
 export default editFavoriteSlice.reducer
-export const { editFavAmount, editFavOrder, editFavTitle, setEditValues, editFavRequest } = editFavoriteSlice.actions
+export const { editFavAmount, editFavOrder, editFavTitle, setEditValues, editFavRequestTitle } = editFavoriteSlice.actions
