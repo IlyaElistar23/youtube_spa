@@ -1,0 +1,1 @@
+export const cutVideoTitle = (title: string) => title.length > 85 ? `${title.slice(0, 86)}...` : title

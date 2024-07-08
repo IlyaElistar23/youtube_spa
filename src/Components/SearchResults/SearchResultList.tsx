@@ -13,7 +13,7 @@ const SearchResultList = (): JSX.Element => {
             <List>
                 {
                     data.map(item => (
-                        <ListItem key={item.etag} item={item} />
+                        <ListItem key={item.id} item={item} />
                     ))
                 }
             </List>

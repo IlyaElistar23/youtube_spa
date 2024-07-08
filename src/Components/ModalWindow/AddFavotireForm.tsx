@@ -62,6 +62,10 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                         <Button
                             style={{ width: '11vw', height: '4vh', borderWidth: '0.1vh', fontSize: '1.1rem', margin: '1vh' }}
                             onClick={() => {
+                                dispatch(addFavTitle(''))
+                                dispatch(setAmountValue(12))
+                                dispatch(addRequest(''))
+                                dispatch(setSelectValue('relevance'))
                                 dispatch(setIsOpen(false))
                             }}
                         >Не сохранять</Button>
@@ -85,7 +89,8 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                                         id: favorite.id,
                                         title: edit.title,
                                         order: edit.order,
-                                        amount: edit.amount
+                                        request: edit.request,
+                                        amount: edit.amount,
                                     }))
                                     dispatch(editFavRequest(favorite.id))
                                 } else {
@@ -128,8 +133,9 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                         Запрос
                     </Text>
                     <Input
-                        value={favorite?.isEditing ? favorite.request : info}
-                        disabled
+                        value={favorite?.isEditing ? edit.request : info}
+                        disabled={favorite?.isEditing ? false : true}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(editFavRequest(e.target.value))}
                         style={{ width: '100%', height: '100%', borderRadius: '0.5vh', border: '0.2vh solid #1717191A', fontSize: '1rem' }}
                     />
                 </Flex>
