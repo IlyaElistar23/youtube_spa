@@ -42,6 +42,7 @@ const favoritesSlice = createSlice({
                 findFav.title = action.payload.title
                 findFav.selectOrder = action.payload.order
                 findFav.requestAmount = action.payload.amount
+                findFav.request = action.payload.request
             }
         }
     }

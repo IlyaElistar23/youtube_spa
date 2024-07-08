@@ -8,7 +8,7 @@ import { addFavRequest, editFavRequest, FavoritesType, saveFavRequest } from '..
 import { setAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
 import { setSelectValue } from '../../redux/selectValueSlice/selectValueSlice'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
-import { editFavAmount, editFavOrder, editFavTitle } from '../../redux/editFavoriteSlice/editFavoriteSlice'
+import { editFavAmount, editFavOrder, editFavTitle, editFavRequestTitle } from '../../redux/editFavoriteSlice/editFavoriteSlice'
 
 type FormPropsType = {
     favorite?: FavoritesType,
@@ -90,7 +90,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                                         title: edit.title,
                                         order: edit.order,
                                         request: edit.request,
-                                        amount: edit.amount,
+                                        amount: edit.amount
                                     }))
                                     dispatch(editFavRequest(favorite.id))
                                 } else {
@@ -135,7 +135,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                     <Input
                         value={favorite?.isEditing ? edit.request : info}
                         disabled={favorite?.isEditing ? false : true}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(editFavRequest(e.target.value))}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(editFavRequestTitle(e.target.value))}
                         style={{ width: '100%', height: '100%', borderRadius: '0.5vh', border: '0.2vh solid #1717191A', fontSize: '1rem' }}
                     />
                 </Flex>
