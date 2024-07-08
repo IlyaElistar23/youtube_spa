@@ -8,6 +8,7 @@ import { setEditValues } from '../../redux/editFavoriteSlice/editFavoriteSlice'
 import { api_key } from '../../api_key'
 import { useNavigate } from 'react-router-dom'
 import { setAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
+import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 
 type FavItemPropsType = {
     favorite: FavoritesType,
@@ -44,6 +45,7 @@ const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData }) => {
                             onClick={() => {
                                 getData(favorite.request, api_key, favorite.selectOrder, favorite.requestAmount)
                                 dispatch(setAmountValue(favorite.requestAmount))
+                                dispatch(addRequest(favorite.request))
                                 navigate('/search')
                             }}
                             icon={<SearchOutlined />}></Button>
@@ -52,6 +54,7 @@ const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData }) => {
                             dispatch(setEditValues({
                                 title: favorite.title,
                                 order: favorite.selectOrder,
+                                request: favorite.request,
                                 amount: favorite.requestAmount
                             }))
                             dispatch(setIsOpen(true))
