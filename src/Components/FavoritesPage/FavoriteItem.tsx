@@ -1,21 +1,26 @@
 import { Button, Typography, List, Flex, ConfigProvider } from 'antd'
 import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
-import { SavedType } from './FavoritesPage'
+import { FC } from 'react'
 import { FavoritesType, editFavRequest, deleteFavRequest } from '../../redux/favoritesSlice/favoritesSlice'
 import { useAppDispatch } from '../../redux/hooks/hooks'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import { setEditValues } from '../../redux/editFavoriteSlice/editFavoriteSlice'
+import { api_key } from '../../api_key'
+import { useNavigate } from 'react-router-dom'
+import { setAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
 
-type Props = {
+type FavItemPropsType = {
     favorite: FavoritesType,
+    getData: (text: string, api_key: string, order: string, amount: number) => void
 }
 
-const FavoriteItem = ({ favorite }: Props): JSX.Element => {
+const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData }) => {
 
     const { Text } = Typography
     const { Item } = List
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     return (
         <Item style={{ width: '72vw' }}>
@@ -35,7 +40,13 @@ const FavoriteItem = ({ favorite }: Props): JSX.Element => {
                             }
                         }}
                     >
-                        <Button icon={<SearchOutlined />}></Button>  {/* при нажатии на кнопку будет устанавливать соответствующий order и amount для избранного */}
+                        <Button
+                            onClick={() => {
+                                getData(favorite.request, api_key, favorite.selectOrder, favorite.requestAmount)
+                                dispatch(setAmountValue(favorite.requestAmount))
+                                navigate('/search')
+                            }}
+                            icon={<SearchOutlined />}></Button>
                         <Button onClick={() => {
                             dispatch(editFavRequest(favorite.id))
                             dispatch(setEditValues({

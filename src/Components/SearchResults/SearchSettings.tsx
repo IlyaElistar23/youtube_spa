@@ -6,12 +6,13 @@ import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { api_key } from '../../api_key'
 import { resetData } from '../../redux/dataSlice/dataSlice'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
+import { resetAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
 
-type SearchSettingsType = {
+type SearchSettingsPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void
 }
 
-const SearchSettings: FC<SearchSettingsType> = ({ getData }) => {
+const SearchSettings: FC<SearchSettingsPropsType> = ({ getData }) => {
 
     const { Text } = Typography
 
@@ -50,6 +51,9 @@ const SearchSettings: FC<SearchSettingsType> = ({ getData }) => {
                                 icon={<HeartOutlined />}
                                 onClick={() => {
                                     dispatch(setIsOpen(true))
+                                    if (amount !== 12) {
+                                        dispatch(resetAmountValue())
+                                    }
                                 }}
                             ></Button>
                         </ConfigProvider>
