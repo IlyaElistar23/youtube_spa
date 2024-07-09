@@ -2,7 +2,7 @@ import { Typography, Button, Flex, ConfigProvider, List, Layout } from 'antd'
 import FavoriteItem from './FavoriteItem'
 import CustomHeader from '../CustomHeader'
 import { useAppSelector } from '../../redux/hooks/hooks'
-import { useEffect, FC } from 'react'
+import { useEffect, FC, useState } from 'react'
 import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 
 export type SavedType = {
@@ -16,6 +16,7 @@ type FavPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void
 }
 
+
 const FavoritePage: FC<FavPropsType> = ({ getData }) => {
 
     const { Text } = Typography
@@ -23,7 +24,7 @@ const FavoritePage: FC<FavPropsType> = ({ getData }) => {
     const favorites = useAppSelector(state => state.favorites)
 
     useEffect(() => {
-        localStorage.setItem('favorites', JSON.stringify(favorites))
+        localStorage.setItem(`favorites`, JSON.stringify(favorites))
     }, [favorites])
 
     return (
@@ -46,10 +47,10 @@ const FavoritePage: FC<FavPropsType> = ({ getData }) => {
                                 favorite.isEditing ?
                                     <>
                                         <AddFavoriteForm favorite={favorite} />
-                                        <FavoriteItem favorite={favorite} getData={getData} />
+                                        <FavoriteItem key={favorite.id} favorite={favorite} getData={getData} />
                                     </>
                                     :
-                                    <FavoriteItem favorite={favorite} getData={getData} />
+                                    <FavoriteItem key={favorite.id} favorite={favorite} getData={getData} />
                             ))
                         }
                     </List>

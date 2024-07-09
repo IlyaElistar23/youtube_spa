@@ -1,6 +1,7 @@
 import LoginPage from './Components/LoginPage/LoginPage';
 import SearchPage from './Components/HomePage/SearchPage';
 import FavoritePage from './Components/FavoritesPage/FavoritesPage';
+import RegisterPage from './Components/RegisterPage/RegisterPage';
 
 import { Routes, Route } from 'react-router-dom'
 import { useAppDispatch } from './redux/hooks/hooks';
@@ -28,8 +29,9 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<LoginPage />} />
-      <Route path='/search' element={<SearchPage getData={getData}/>} />
-      <Route path='/favorites' element={<FavoritePage getData={getData}/>} />
+      <Route path='/register' element={<RegisterPage />} />
+      <Route path='/search' element={<SearchPage getData={getData} />} />
+      <Route path='/favorites' element={<FavoritePage getData={getData} />} />
     </Routes>
   );
 }
