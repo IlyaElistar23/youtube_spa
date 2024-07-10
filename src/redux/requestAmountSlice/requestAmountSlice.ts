@@ -15,8 +15,8 @@ const requestAmountSlice = createSlice({
         setAmountValue: (state, action: PayloadAction<number>) => {
             state.amount = action.payload
         },
-        resetAmountValue: (state) => {
-            state.amount = initialState.amount
+        resetAmountValue: (state, action: PayloadAction<number>) => {
+            state.amount = action.payload
         }
     }
 })

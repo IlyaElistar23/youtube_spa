@@ -32,6 +32,9 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                 <Input
                     value={info}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addRequest(e.target.value))}
+                    onPressEnter={() => {
+                        getData(info, api_key, order, amount)
+                    }}
                     placeholder='Что хотите посмотреть?'
                     suffix={
                         <ConfigProvider
@@ -49,7 +52,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                                 onClick={() => {
                                     dispatch(setIsOpen(true))
                                     if (amount !== 12) {
-                                        dispatch(resetAmountValue())
+                                        dispatch(resetAmountValue(12))
                                     }
                                 }}
                             >

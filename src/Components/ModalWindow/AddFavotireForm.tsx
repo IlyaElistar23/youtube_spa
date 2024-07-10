@@ -64,7 +64,6 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                             onClick={() => {
                                 dispatch(addFavTitle(''))
                                 dispatch(setAmountValue(12))
-                                dispatch(addRequest(''))
                                 dispatch(setSelectValue('relevance'))
                                 dispatch(setIsOpen(false))
                             }}

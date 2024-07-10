@@ -76,46 +76,46 @@ const LoginPage = (): JSX.Element => {
             }}>
                 <Flex vertical justify='center' align='center'>
                     <Image src='../sibdev-logo.png' />
-                    <Text style={{ marginTop: '5vh', fontSize: '1.1rem', fontWeight: 'bold' }}>Вход</Text>
+                    <Text style={{ marginTop: '5vh', fontSize: '1.1rem', fontWeight: 'bold' }}>Login</Text>
                 </Flex>
                 <Flex vertical style={{ marginTop: '4%', width: '22vw' }}>
-                    <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>Логин</Text>
+                    <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>E-mail</Text>
                     <Controller
                         name='email'
                         control={control}
                         rules={{
-                            required: 'Поле обязательно для заполнения!',
+                            required: 'This field is required!',
                             pattern: {
                                 value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-                                message: 'Некорректный формат E-mail'
+                                message: 'Incorrect E-mail!'
                             }
                         }}
                         render={({ field }) => (
                             <Input style={{
                                 height: '4vh',
                                 fontSize: '1.1rem'
-                            }} {...field} placeholder='Введите email'/>
+                            }} {...field} placeholder='Enter your email'/>
                         )}
                     />
                     <Text>{errors.email?.message}</Text>
                 </Flex>
                 <Flex vertical style={{ marginTop: '4%', width: '22vw' }}>
-                    <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>Пароль</Text>
+                    <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>Password</Text>
                     <Controller
                         name='password'
                         control={control}
                         rules={{
-                            required: 'Поле обязательно для заполнения',
+                            required: 'This field is required!',
                             pattern: {
                                 value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/,
-                                message: 'Пароль должен быть длиной не менее 8 символов, из которых 1 заглавная буква, 1 прописная, 1 число и 1 символ'
+                                message: 'Password must be at least 8 symbol length, includes 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol!'
                             }
                         }}
                         render={({ field }) => (
                             <Password style={{
                                 height: '4vh',
                                 fontSize: '1.1rem'
-                            }} {...field} placeholder='Введите пароль'/>
+                            }} {...field} placeholder='Enter your password'/>
                         )}
                     />
                     <Text>{errors.password?.message}</Text>
@@ -141,7 +141,7 @@ const LoginPage = (): JSX.Element => {
                                 height: '4vh',
                                 width: '8vw',
                                 fontSize: '1.1rem'
-                            }}>Войти</Button>
+                            }}>Log In</Button>
                     </ConfigProvider>
                 </Flex>
             </Flex>

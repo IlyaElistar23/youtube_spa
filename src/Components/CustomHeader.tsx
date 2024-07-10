@@ -4,8 +4,15 @@ import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/hooks'
 import { resetData } from '../redux/dataSlice/dataSlice'
 import { resetRequest } from '../redux/searchInfoSlice/searchInfoSlice'
+import { resetAmountValue } from '../redux/requestAmountSlice/requestAmountSlice'
+import { StatusType } from '../App'
+import { FC, memo } from 'react'
 
-const CustomHeader = (): JSX.Element => {
+type HeaderPropsType = {
+    setStatus: (status: StatusType) => void
+}
+
+const CustomHeader: FC<HeaderPropsType> = memo(({ setStatus }) => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
@@ -14,6 +21,10 @@ const CustomHeader = (): JSX.Element => {
 
     const logout = () => {
         localStorage.removeItem('token')
+        dispatch(resetData())
+        dispatch(resetRequest())
+        dispatch(resetAmountValue(12))
+        setStatus('home')
         navigate('/')
     }
 
@@ -37,14 +48,16 @@ const CustomHeader = (): JSX.Element => {
                         onClick={() => {
                             data.length !== 0 && dispatch(resetData())
                             info.length !== 0 && dispatch(resetRequest())
+                            dispatch(resetAmountValue(12))
+                            setStatus('home')
                         }}
-                    >Поиск</NavLink>
-                    <NavLink to='/favorites' style={{ height: '7vh', width: '7vw', borderColor: 'white', fontSize: '100%', textAlign: 'center' }}>Избранное</NavLink>
+                    >Search</NavLink>
+                    <NavLink to='/favorites' style={{ height: '7vh', width: '7vw', borderColor: 'white', fontSize: '100%', textAlign: 'center' }}>Favorites</NavLink>
                 </Flex>
             </Flex>
-            <NavLink to='/' style={{ height: '7vh', width: '7vw', borderColor: 'white', fontSize: '1rem', padding: '0 5vw', textAlign: 'center' }} onClick={() => logout()}>Выйти</NavLink>
+            <NavLink to='/' style={{ height: '7vh', width: '7vw', borderColor: 'white', fontSize: '1rem', padding: '0 5vw', textAlign: 'center' }} onClick={() => logout()}>Log Out</NavLink>
         </Flex>
     )
-}
+})
 
 export default CustomHeader

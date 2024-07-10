@@ -11,7 +11,7 @@ export type FavoritesType = {
     isInProgress: boolean
 }
 
-const initialState: FavoritesType[] = JSON.parse(localStorage.getItem('favorites') as string) || []
+const initialState: FavoritesType[] = JSON.parse(localStorage.getItem(`favorites`) as string) || []
 
 const favoritesSlice = createSlice({
     name: 'favorites',

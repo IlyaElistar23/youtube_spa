@@ -1,5 +1,5 @@
 import { Flex, Button, ConfigProvider } from 'antd'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { BarsOutlined, AppstoreOutlined } from '@ant-design/icons'
 import { ViewType } from './SearchResult'
 
@@ -7,7 +7,7 @@ type ViewSettingsProps = {
     setViewType: (type: ViewType) => void
 }
 
-const ViewSettings: FC<ViewSettingsProps> = ({ setViewType }) => {
+const ViewSettings: FC<ViewSettingsProps> = memo(({ setViewType }) => {
     return (
         <Flex>
             <ConfigProvider
@@ -27,6 +27,6 @@ const ViewSettings: FC<ViewSettingsProps> = ({ setViewType }) => {
             </ConfigProvider>
         </Flex>
     )
-}
+})
 
 export default ViewSettings
