@@ -50,7 +50,7 @@ const RegisterPage = () => {
             const response = await axios.post('https://todo-redev.herokuapp.com/api/users/register', data)
             navigate('/')
             reset()
-            console.log(data)
+            console.log(response.data)
         } catch (error: any) {
             console.log(error)
         }

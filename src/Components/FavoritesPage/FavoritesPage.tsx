@@ -1,9 +1,10 @@
-import { Typography, Button, Flex, ConfigProvider, List, Layout } from 'antd'
+import { Typography, Flex, List, Layout } from 'antd'
 import FavoriteItem from './FavoriteItem'
 import CustomHeader from '../CustomHeader'
 import { useAppSelector } from '../../redux/hooks/hooks'
-import { useEffect, FC, useState } from 'react'
+import { useEffect, FC } from 'react'
 import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
+import { StatusType } from '../../App'
 
 export type SavedType = {
     request: string,
@@ -13,11 +14,12 @@ export type SavedType = {
 }
 
 type FavPropsType = {
-    getData: (text: string, api_key: string, order: string, amount: number) => void
+    getData: (text: string, api_key: string, order: string, amount: number) => void,
+    setStatus: (status: StatusType) => void
 }
 
 
-const FavoritePage: FC<FavPropsType> = ({ getData }) => {
+const FavoritePage: FC<FavPropsType> = ({ getData, setStatus }) => {
 
     const { Text } = Typography
     const { Header, Content } = Layout
@@ -36,7 +38,7 @@ const FavoritePage: FC<FavPropsType> = ({ getData }) => {
                     height: '8vh',
                     width: '100vw',
                 }}>
-                <CustomHeader />
+                <CustomHeader setStatus={setStatus} />
             </Header>
             <Content style={{ backgroundColor: '#FAFAFA', minHeight: '92vh' }}>
                 <Flex vertical align='flex-start' justify='center' style={{ paddingLeft: '14vw', paddingTop: '9vh' }}>

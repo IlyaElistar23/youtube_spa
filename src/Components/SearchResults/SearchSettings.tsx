@@ -1,6 +1,6 @@
 import { Flex, Input, Typography, Button, ConfigProvider } from 'antd'
 import { HeartOutlined } from '@ant-design/icons'
-import { FC, ChangeEvent } from 'react'
+import { FC, ChangeEvent, memo } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { api_key } from '../../api_key'
@@ -12,7 +12,7 @@ type SearchSettingsPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void
 }
 
-const SearchSettings: FC<SearchSettingsPropsType> = ({ getData }) => {
+const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData }) => {
 
     const { Text } = Typography
 
@@ -35,6 +35,10 @@ const SearchSettings: FC<SearchSettingsPropsType> = ({ getData }) => {
                 <Input
                     value={info}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addRequest(e.target.value))}
+                    onPressEnter={() => {
+                        dispatch(resetData())
+                        getData(info, api_key, order, amount)
+                    }}
                     placeholder='Что хотите посмотреть?'
                     suffix={
                         <ConfigProvider
@@ -52,7 +56,7 @@ const SearchSettings: FC<SearchSettingsPropsType> = ({ getData }) => {
                                 onClick={() => {
                                     dispatch(setIsOpen(true))
                                     if (amount !== 12) {
-                                        dispatch(resetAmountValue())
+                                        dispatch(resetAmountValue(12))
                                     }
                                 }}
                             ></Button>
@@ -94,6 +98,6 @@ const SearchSettings: FC<SearchSettingsPropsType> = ({ getData }) => {
             </Flex>
         </Flex>
     )
-}
+})
 
 export default SearchSettings
