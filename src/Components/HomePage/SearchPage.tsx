@@ -4,10 +4,11 @@ import { FC, lazy, Suspense } from 'react'
 import CustomHeader from '../CustomHeader'
 import BaseSearch from './BaseSearch'
 import { StatusType } from '../../App'
+import checkAuth from '../HOC/checkAuth'
 
-type PropsType = {
+export type PropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void,
-    status: StatusType,
+    status?: StatusType,
     setStatus: (status: StatusType) => void
 }
 
@@ -49,4 +50,4 @@ const SearchPage: FC<PropsType> = ({ getData, status, setStatus }) => {
     )
 }
 
-export default SearchPage
+export default checkAuth(SearchPage)
