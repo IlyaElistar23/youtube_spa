@@ -4,7 +4,9 @@ import CustomHeader from '../CustomHeader'
 import { useAppSelector } from '../../redux/hooks/hooks'
 import { useEffect, FC } from 'react'
 import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
-import { StatusType } from '../../App'
+// import { StatusType } from '../../App'
+import checkAuth from '../HOC/checkAuth'
+import { PropsType } from '../HomePage/SearchPage'
 
 export type SavedType = {
     request: string,
@@ -13,13 +15,13 @@ export type SavedType = {
     maxAmount: number
 }
 
-type FavPropsType = {
-    getData: (text: string, api_key: string, order: string, amount: number) => void,
-    setStatus: (status: StatusType) => void
-}
+// type FavPropsType = {
+//     getData: (text: string, api_key: string, order: string, amount: number) => void,
+//     setStatus: (status: StatusType) => void
+// }
 
 
-const FavoritePage: FC<FavPropsType> = ({ getData, setStatus }) => {
+const FavoritePage: FC<PropsType> = ({ getData, setStatus }) => {
 
     const { Text } = Typography
     const { Header, Content } = Layout
@@ -62,4 +64,4 @@ const FavoritePage: FC<FavPropsType> = ({ getData, setStatus }) => {
     )
 }
 
-export default FavoritePage
+export default checkAuth(FavoritePage)
