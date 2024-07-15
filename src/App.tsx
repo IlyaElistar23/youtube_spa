@@ -4,9 +4,11 @@ import LoginPage from './Components/LoginPage/LoginPage';
 // import RegisterPage from './Components/RegisterPage/RegisterPage';
 
 import { useAppDispatch } from './redux/hooks/hooks';
+import { AppContext } from './context/context';
+import { darkTheme, lightTheme } from './context/appContext';
 
 import { Routes, Route } from 'react-router-dom'
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense, useState, useEffect } from 'react'
 import { Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import axios from 'axios';
@@ -21,9 +23,16 @@ const FavoritePage = lazy(() => import('./Components/FavoritesPage/FavoritesPage
 
 export type StatusType = 'home' | 'loading'
 
+export type ThemeType = 'light' | 'dark' | string
+
 function App() {
 
   const [status, setStatus] = useState<StatusType>('home')
+  const [theme, setTheme] = useState<ThemeType>(localStorage.getItem('theme') || 'light')
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme)
+  }, [theme])
 
   const changeStatus = (status: StatusType) => setStatus(status)
 
@@ -47,31 +56,33 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route path='/' element={<LoginPage />} />
-      <Route path='/register' element={
-        <Suspense fallback={
-          <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} fullscreen spinning />
-        }>
-          <RegisterPage />
-        </Suspense>
-      } />
-      <Route path='/search' element={
-        <Suspense
-          fallback={
+    <AppContext.Provider value={theme === 'light' ? lightTheme : darkTheme}>
+      <Routes>
+        <Route path='/' element={<LoginPage />} />
+        <Route path='/register' element={
+          <Suspense fallback={
             <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} fullscreen spinning />
           }>
-          <SearchPage getData={getData} status={status} setStatus={setStatus} />
-        </Suspense>
-      } />
-      <Route path='/favorites' element={
-        <Suspense fallback={
-          <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} fullscreen spinning />
-        }>
-          <FavoritePage getData={getData} setStatus={setStatus} />
-        </Suspense>
-      } />
-    </Routes>
+            <RegisterPage />
+          </Suspense>
+        } />
+        <Route path='/search' element={
+          <Suspense
+            fallback={
+              <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} fullscreen spinning />
+            }>
+            <SearchPage getData={getData} status={status} setStatus={setStatus} themeType={theme} setTheme={setTheme} />
+          </Suspense>
+        } />
+        <Route path='/favorites' element={
+          <Suspense fallback={
+            <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} fullscreen spinning />
+          }>
+            <FavoritePage getData={getData} setStatus={setStatus} themeType={theme} setTheme={setTheme} />
+          </Suspense>
+        } />
+      </Routes>
+    </AppContext.Provider>
   );
 }
 

@@ -8,7 +8,7 @@ export type FavoritesType = {
     requestAmount: number,
     selectOrder: string,
     isEditing: boolean,
-    isInProgress: boolean
+    // isInProgress: boolean
 }
 
 const initialState: FavoritesType[] = JSON.parse(localStorage.getItem(`favorites`) as string) || []
@@ -30,12 +30,12 @@ const favoritesSlice = createSlice({
             const index = state.findIndex(favorite => favorite.id === action.payload)
             index !== -1 && state.splice(index, 1)
         },
-        performFavRequest: (state, action: PayloadAction<string>) => {
-            const findFav = state.find(favorite => favorite.id = action.payload)
-            if (findFav) {
-                findFav.isInProgress = !findFav.isInProgress
-            }
-        },
+        // performFavRequest: (state, action: PayloadAction<string>) => {
+        //     const findFav = state.find(favorite => favorite.id = action.payload)
+        //     if (findFav) {
+        //         findFav.isInProgress = !findFav.isInProgress
+        //     }
+        // },
         saveFavRequest: (state, action: PayloadAction<EditFavType>) => {
             const findFav = state.find(favorite => favorite.id === action.payload.id)
             if (findFav) {

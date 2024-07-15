@@ -2,11 +2,12 @@ import { Typography, Flex, List, Layout } from 'antd'
 import FavoriteItem from './FavoriteItem'
 import CustomHeader from '../CustomHeader'
 import { useAppSelector } from '../../redux/hooks/hooks'
-import { useEffect, FC } from 'react'
+import { useEffect, FC, useContext } from 'react'
 import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 // import { StatusType } from '../../App'
 import checkAuth from '../HOC/checkAuth'
 import { PropsType } from '../HomePage/SearchPage'
+import { AppContext } from '../../context/context'
 
 export type SavedType = {
     request: string,
@@ -15,17 +16,12 @@ export type SavedType = {
     maxAmount: number
 }
 
-// type FavPropsType = {
-//     getData: (text: string, api_key: string, order: string, amount: number) => void,
-//     setStatus: (status: StatusType) => void
-// }
-
-
-const FavoritePage: FC<PropsType> = ({ getData, setStatus }) => {
+const FavoritePage: FC<PropsType> = ({ getData, setStatus, themeType, setTheme }) => {
 
     const { Text } = Typography
     const { Header, Content } = Layout
     const favorites = useAppSelector(state => state.favorites)
+    const theme = useContext(AppContext)
 
     useEffect(() => {
         localStorage.setItem(`favorites`, JSON.stringify(favorites))
@@ -35,16 +31,16 @@ const FavoritePage: FC<PropsType> = ({ getData, setStatus }) => {
         <>
             <Header
                 style={{
-                    backgroundColor: 'white',
+                    backgroundColor: theme.headerColor,
                     padding: 0,
                     height: '8vh',
                     width: '100vw',
                 }}>
-                <CustomHeader setStatus={setStatus} />
+                <CustomHeader setStatus={setStatus} themeType={themeType} setTheme={setTheme}/>
             </Header>
-            <Content style={{ backgroundColor: '#FAFAFA', minHeight: '92vh' }}>
+            <Content style={{ backgroundColor: theme.bgColor, minHeight: '92vh' }}>
                 <Flex vertical align='flex-start' justify='center' style={{ paddingLeft: '14vw', paddingTop: '9vh' }}>
-                    <Text style={{ fontSize: '2rem' }}>Избранное</Text>
+                    <Text style={{ fontSize: '2rem', color: theme.textColor }}>Избранное</Text>
                     <List style={{ marginTop: '4vh' }}>
                         {
                             favorites.map(favorite => (

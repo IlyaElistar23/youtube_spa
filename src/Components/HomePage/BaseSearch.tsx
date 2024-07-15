@@ -1,12 +1,13 @@
 import { Flex, Typography, Input, Button, ConfigProvider } from 'antd'
 import { HeartOutlined } from '@ant-design/icons'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
-import { FC, ChangeEvent } from 'react'
+import { FC, ChangeEvent, useContext } from 'react'
 import { api_key } from '../../api_key'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 import { resetAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
+import { AppContext } from '../../context/context'
 
 type BaseSearchPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void
@@ -20,61 +21,78 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
     const amount = useAppSelector(state => state.requestAmount.amount)
     const dispatch = useAppDispatch()
 
+    const theme = useContext(AppContext)
+
     return (
         <Flex vertical style={{ padding: '13vh 0 0 0' }}>
             <Text style={{
                 fontSize: '2rem',
-                marginLeft: '43vw'
+                marginLeft: '43vw',
+                color: theme.textColor
             }}>Поиск видео</Text>
             <Flex align='center' justify='center' style={{
                 marginTop: '5vh'
             }}>
-                <Input
-                    value={info}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addRequest(e.target.value))}
-                    onPressEnter={() => {
-                        getData(info, api_key, order, amount)
+                <ConfigProvider
+                    theme={{
+                        token: {
+                            colorTextPlaceholder: theme.placeholderColor,
+                            colorBorder: theme.defaultBorderColor
+                        }
                     }}
-                    placeholder='Что хотите посмотреть?'
-                    suffix={
-                        <ConfigProvider
-                            theme={{
-                                components: {
-                                    Button: {
-                                        defaultBorderColor: 'white',
-                                        defaultHoverBorderColor: 'white'
-                                    }
-                                }
-                            }}
-                        >
-                            <Button
-                                icon={<HeartOutlined />}
-                                onClick={() => {
-                                    dispatch(setIsOpen(true))
-                                    if (amount !== 12) {
-                                        dispatch(resetAmountValue(12))
+                >
+                    <Input
+                        value={info}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addRequest(e.target.value))}
+                        onPressEnter={() => {
+                            getData(info, api_key, order, amount)
+                        }}
+                        placeholder='Что хотите посмотреть?'
+                        suffix={
+                            <ConfigProvider
+                                theme={{
+                                    components: {
+                                        Button: {
+                                            defaultBorderColor: theme.headerColor,
+                                            defaultHoverBorderColor: theme.headerColor,
+                                            defaultBg: theme.headerColor,
+                                            defaultHoverBg: theme.headerColor,
+                                            defaultColor: theme.subTitleColor
+                                        }
                                     }
                                 }}
                             >
-                            </Button>
-                        </ConfigProvider>
-                    }
-                    style={{
-                        width: '48vw',
-                        height: '5vh',
-                        fontSize: '1.1rem',
-                        color: '#272727',
-                        borderRadius: '5px 0 0 5px'
-                    }} />
+                                <Button
+                                    icon={<HeartOutlined />}
+                                    onClick={() => {
+                                        dispatch(setIsOpen(true))
+                                        if (amount !== 12) {
+                                            dispatch(resetAmountValue(12))
+                                        }
+                                    }}
+                                >
+                                </Button>
+                            </ConfigProvider>
+                        }
+                        style={{
+                            width: '48vw',
+                            height: '5vh',
+                            fontSize: '1.1rem',
+                            color: theme.textColor,
+                            backgroundColor: theme.headerColor,
+                            borderRadius: '5px 0 0 5px'
+                        }} />
+                </ConfigProvider>
                 <ConfigProvider
                     theme={{
                         components: {
                             Button: {
-                                defaultColor: 'white',
-                                defaultBg: '#35A2EC',
-                                defaultBorderColor: '#35A2EC',
-                                defaultHoverBorderColor: '#35A2EC',
-                                defaultHoverColor: '#35A2EC'
+                                defaultColor: theme.searchButtonDefaultTextColor,
+                                defaultBg: theme.searchButtonDefaultBgColor,
+                                defaultBorderColor: theme.searchButtonDefaultBorderColor,
+                                defaultHoverBorderColor: theme.searchButtonActiveBorderColor,
+                                defaultHoverColor: theme.searchButtonActiveTextColor,
+                                defaultHoverBg: theme.searchButtonActiveBgColor
                             }
                         }
                     }}

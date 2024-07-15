@@ -1,7 +1,9 @@
 import { Image, Typography, Input, Button, Flex, ConfigProvider } from 'antd'
 import axios from 'axios'
 import { useForm, Controller } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { AppContext } from '../../context/context'
 
 type AuthData = {
     email: string,
@@ -11,6 +13,7 @@ type AuthData = {
 const LoginPage = (): JSX.Element => {
 
     const navigate = useNavigate()
+    const theme = useContext(AppContext)
 
     const { Text } = Typography
     const { Password } = Input
@@ -36,6 +39,7 @@ const LoginPage = (): JSX.Element => {
             if ('data' in response && 'token' in response.data) {
                 localStorage.setItem('token', response.data.token)
                 navigate('/search')
+                reset()
             } else {
                 navigate('/')
             }
@@ -48,7 +52,6 @@ const LoginPage = (): JSX.Element => {
     const onLogin = (data: AuthData): any => {
         try {
             fetchAuth(data)
-            reset()
         } catch (error: any) {
             console.log(error);
         }
@@ -57,26 +60,26 @@ const LoginPage = (): JSX.Element => {
     return (
         <form
             style={{
-                backgroundColor: '#FAFAFA',
+                backgroundColor: theme.bgColor,
                 height: '60vh',
                 width: '100vw',
                 paddingTop: '20vh',
                 paddingBottom: '20vh'
             }}>
             <Flex vertical justify='center' align='center' style={{
-                backgroundColor: 'white',
+                backgroundColor: theme.headerColor,
                 borderStyle: 'solid',
                 borderWidth: '1px',
                 borderRadius: '10px',
                 borderColor: '#cacaca',
                 height: '45vh',
                 width: '35vw',
-                margin: '0 33vw',
+                margin: '0 32.5vw',
                 padding: '10vh 0'
             }}>
                 <Flex vertical justify='center' align='center'>
                     <Image src='../sibdev-logo.png' />
-                    <Text style={{ marginTop: '5vh', fontSize: '1.1rem', fontWeight: 'bold' }}>Login</Text>
+                    <Text style={{ marginTop: '5vh', fontSize: '1.1rem', fontWeight: 'bold', color: theme.textColor }}>Login</Text>
                 </Flex>
                 <Flex vertical style={{ marginTop: '4%', width: '22vw' }}>
                     <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>E-mail</Text>
@@ -93,8 +96,10 @@ const LoginPage = (): JSX.Element => {
                         render={({ field }) => (
                             <Input style={{
                                 height: '4vh',
-                                fontSize: '1.1rem'
-                            }} {...field} placeholder='Enter your email'/>
+                                fontSize: '1.1rem',
+                                backgroundColor: theme.headerColor,
+                                color: theme.textColor
+                            }} {...field} placeholder='Enter your email' />
                         )}
                     />
                     <Text>{errors.email?.message}</Text>
@@ -114,8 +119,10 @@ const LoginPage = (): JSX.Element => {
                         render={({ field }) => (
                             <Password style={{
                                 height: '4vh',
-                                fontSize: '1.1rem'
-                            }} {...field} placeholder='Enter your password'/>
+                                fontSize: '1.1rem',
+                                backgroundColor: theme.headerColor,
+                                color: theme.textColor
+                            }} {...field} placeholder='Enter your password' />
                         )}
                     />
                     <Text>{errors.password?.message}</Text>
@@ -144,6 +151,10 @@ const LoginPage = (): JSX.Element => {
                             }}>Log In</Button>
                     </ConfigProvider>
                 </Flex>
+            </Flex>
+            <Flex vertical align='center' justify='center' style={{ marginTop: '7vh' }}>
+                <Text style={{ fontSize: '1.1rem', fontWeight: 'bold', color: theme.textColor }}>Don't has an account?</Text>
+                <Link to='/register' style={{ fontSize: '1.1rem', fontWeight: 'bold', textDecoration: 'underline', color: '#35A2EC' }}>Sign Up</Link>
             </Flex>
         </form>
     )
