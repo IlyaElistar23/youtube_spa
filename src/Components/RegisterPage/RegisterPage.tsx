@@ -3,8 +3,9 @@ import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { Input, Button, Radio, Flex, Typography, Form, Image, ConfigProvider } from 'antd'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
-import { useContext, useState } from 'react'
+import { useContext, useState, FC } from 'react'
 import { AppContext } from '../../context/context'
+import { RegisterPageText } from '../../context/context'
 
 enum Gender {
     female = 'female',
@@ -19,7 +20,11 @@ type RegData = {
     age: number
 }
 
-const RegisterPage = () => {
+type RegisterPropsType = {
+    language: RegisterPageText
+}
+
+const RegisterPage: FC<RegisterPropsType> = ({ language }) => {
 
     const [passwordVisible, setPasswordVisible] = useState(false)
     const navigate = useNavigate()
@@ -92,16 +97,16 @@ const RegisterPage = () => {
                 }}>
                 <Flex vertical justify='center' align='center'>
                     <Image src='../sibdev-logo.png' />
-                    <Text style={{ marginTop: '5vh', fontSize: '1.1rem', fontWeight: 'bold', color: theme.textColor }}>Register</Text>
+                    <Text style={{ marginTop: '5vh', fontSize: '1.1rem', fontWeight: 'bold', color: theme.textColor }}>{language.headTitle}</Text>
                     <Flex vertical style={{ marginTop: '3vh', width: '22vw' }}>
-                        <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>
-                            Username:
+                        <Text style={{ fontSize: '0.9rem', color: theme.subTitleColor }}>
+                            {language.usernameTitle}
                         </Text>
                         <Controller
                             name='username'
                             control={control}
                             rules={{
-                                required: 'This field is required!',
+                                required: language.errorEmpty,
                             }}
                             render={({ field }) => (
                                 <Input
@@ -111,31 +116,31 @@ const RegisterPage = () => {
                                         backgroundColor: theme.headerColor,
                                         color: theme.textColor
                                     }}
-                                    placeholder='Enter your username'
+                                    placeholder={language.usernamePlaceholder}
                                     {...field}
                                 />
                             )}
                         />
                         <Text
                             style={{
-                                fontSize: '0.9rem', color: '#35A2EC'
+                                fontSize: '0.9rem', color: theme.errorsColor, paddingTop: '0.5vh'
                             }}
                         >
                             {errors.username?.message}
                         </Text>
                     </Flex>
                     <Flex vertical style={{ marginTop: '3vh', width: '22vw' }}>
-                        <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>
-                            E-mail:
+                        <Text style={{ fontSize: '0.9rem', color: theme.subTitleColor }}>
+                            {language.mailTitle}
                         </Text>
                         <Controller
                             name='email'
                             control={control}
                             rules={{
-                                required: 'This field is required!',
+                                required: language.errorEmpty,
                                 pattern: {
                                     value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-                                    message: 'Incorrect E-mail'
+                                    message: language.mailErrorIncorrect || ''
                                 }
                             }}
                             render={({ field }) => (
@@ -146,31 +151,31 @@ const RegisterPage = () => {
                                         backgroundColor: theme.headerColor,
                                         color: theme.textColor
                                     }}
-                                    placeholder='Enter your email'
+                                    placeholder={language.mailPlaceholder}
                                     {...field}
                                 />
                             )}
                         />
                         <Text
                             style={{
-                                fontSize: '0.9rem', color: '#35A2EC'
+                                fontSize: '0.9rem', color: theme.errorsColor, paddingTop: '0.5vh'
                             }}
                         >
                             {errors.email?.message}
                         </Text>
                     </Flex>
                     <Flex vertical style={{ marginTop: '2vh', width: '22vw' }}>
-                        <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>
+                        <Text style={{ fontSize: '0.9rem', color: theme.subTitleColor }}>
                             Password:
                         </Text>
                         <Controller
                             name='password'
                             control={control}
                             rules={{
-                                required: 'This field is required!',
+                                required: language.errorEmpty,
                                 pattern: {
                                     value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/,
-                                    message: 'Password must be at least 8 symbol length, includes 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol!'
+                                    message: language.passwordErrorIncorrect || ''
                                 }
                             }}
                             render={({ field }) => (
@@ -181,7 +186,7 @@ const RegisterPage = () => {
                                         backgroundColor: theme.headerColor,
                                         color: theme.textColor
                                     }}
-                                    placeholder='Enter your password'
+                                    placeholder={language.passwordPlaceholder}
                                     iconRender={(visible) => visible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
                                     visibilityToggle={{
                                         visible: passwordVisible,
@@ -193,7 +198,7 @@ const RegisterPage = () => {
                         />
                         <Text
                             style={{
-                                fontSize: '0.9rem', color: '#35A2EC'
+                                fontSize: '0.9rem', color: theme.errorsColor, paddingTop: '0.5vh'
                             }}
                         >
                             {errors.password?.message}
@@ -201,14 +206,14 @@ const RegisterPage = () => {
                     </Flex>
                     <Flex vertical>
                         <Flex justify='center' align='center' style={{ marginTop: '2vh', width: '30vw' }}>
-                            <Text style={{ fontSize: '0.9rem', color: '#1717194D', marginRight: '12vw' }}>
-                                Gender:
+                            <Text style={{ fontSize: '0.9rem', color: theme.subTitleColor, marginRight: '12vw' }}>
+                                {language.genderTitle}
                             </Text>
                             <Controller
                                 name='gender'
                                 control={control}
                                 rules={{
-                                    required: 'This field is required!'
+                                    required: language.errorEmpty
                                 }}
                                 render={({ field }) => (
                                     <ConfigProvider
@@ -226,8 +231,8 @@ const RegisterPage = () => {
                                             backgroundColor: theme.headerColor,
                                             color: theme.textColor
                                         }}>
-                                            <Radio.Button value='male'>Male</Radio.Button>
-                                            <Radio.Button value='female'>Female</Radio.Button>
+                                            <Radio.Button value='male'>{language.gender1}</Radio.Button>
+                                            <Radio.Button value='female'>{language.gender2}</Radio.Button>
                                         </Group>
                                     </ConfigProvider>
                                 )}
@@ -235,21 +240,21 @@ const RegisterPage = () => {
                         </Flex>
                         <Text
                             style={{
-                                fontSize: '0.9rem', color: '#35A2EC', marginLeft: '4vw'
+                                fontSize: '0.9rem', color: theme.errorsColor, marginLeft: '4vw', paddingTop: '0.5vh'
                             }}
                         >
                             {errors.gender?.message}
                         </Text>
                     </Flex>
                     <Flex vertical style={{ marginTop: '2vh', width: '22vw' }}>
-                        <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>
-                            Age:
+                        <Text style={{ fontSize: '0.9rem', color: theme.subTitleColor }}>
+                            {language.ageTitle}
                         </Text>
                         <Controller
                             name='age'
                             control={control}
                             rules={{
-                                required: 'This field is required!'
+                                required: language.errorEmpty
                             }}
                             render={({ field }) => (
                                 <Input
@@ -259,14 +264,14 @@ const RegisterPage = () => {
                                         backgroundColor: theme.headerColor,
                                         color: theme.textColor
                                     }}
-                                    placeholder='Enter your age'
+                                    placeholder={language.agePlaceholder}
                                     {...field}
                                 />
                             )}
                         />
                         <Text
                             style={{
-                                fontSize: '0.9rem', color: '#35A2EC'
+                                fontSize: '0.9rem', color: theme.errorsColor, paddingTop: '0.5vh'
                             }}
                         >
                             {errors.age?.message}
@@ -277,11 +282,12 @@ const RegisterPage = () => {
                             theme={{
                                 components: {
                                     Button: {
-                                        defaultColor: 'white',
-                                        defaultBg: '#35A2EC',
-                                        defaultBorderColor: 'white',
-                                        defaultHoverBorderColor: '#35A2EC',
-                                        defaultHoverColor: '#35A2EC'
+                                        defaultColor: theme.searchButtonDefaultTextColor,
+                                        defaultBg: theme.searchButtonDefaultBgColor,
+                                        defaultBorderColor: theme.searchButtonDefaultBorderColor,
+                                        defaultHoverBorderColor: theme.searchButtonActiveBorderColor,
+                                        defaultHoverColor: theme.searchButtonActiveTextColor,
+                                        defaultHoverBg: theme.searchButtonActiveBgColor
                                     }
                                 }
                             }}
@@ -289,18 +295,18 @@ const RegisterPage = () => {
                             <Button
                                 onClick={handleSubmit(onRegister)}
                                 style={{
-                                    marginTop: '6vh',
+                                    marginTop: '2vh',
                                     height: '4vh',
                                     width: '12vw',
                                     fontSize: '1.1rem'
-                                }}>Sign Up</Button>
+                                }}>{language.button}</Button>
                         </ConfigProvider>
                     </Flex>
                 </Flex>
             </Flex>
             <Flex align='center' justify='center' style={{ marginTop: '7vh' }} vertical>
-                <Text style={{ fontSize: '1.1rem', fontWeight: 'bold', color: theme.textColor }}>Already has an account?</Text>
-                <Link to='/' style={{ textDecoration: 'underline', color: '#35A2EC', fontSize: '1.1rem', fontWeight: 'bold' }}>Log In</Link>
+                <Text style={{ fontSize: '1.1rem', fontWeight: 'bold', color: theme.textColor }}>{language.footerText}</Text>
+                <Link to='/' style={{ textDecoration: 'underline', color: theme.headerButtonColor, fontSize: '1.1rem', fontWeight: 'bold' }}>{language.footerLink}</Link>
             </Flex>
         </Form>
     )

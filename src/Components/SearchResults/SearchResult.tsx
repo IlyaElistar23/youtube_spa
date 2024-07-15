@@ -4,7 +4,7 @@ import { useState, lazy, Suspense, FC, useContext } from 'react'
 import SearchInfo from './SearchInfo'
 import ViewSettings from './ViewSettings'
 import SearchSettings from './SearchSettings'
-import { AppContext } from '../../context/context'
+import { AppContext, ModalWindowText, SearchPageText } from '../../context/context'
 
 export type ViewType = 'list' | 'grid'
 
@@ -14,9 +14,11 @@ const AddFavoriteForm = lazy(() => import('../ModalWindow/AddFavotireForm'))
 
 type SearchResultsPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void,
+    searchPageLanguage: SearchPageText | undefined,
+    modalWindowLanguage: ModalWindowText
 }
 
-const SearchResult: FC<SearchResultsPropsType> = ({ getData }) => {
+const SearchResult: FC<SearchResultsPropsType> = ({ getData, searchPageLanguage, modalWindowLanguage }) => {
 
     const [viewType, setViewType] = useState<ViewType>('list')
     const theme = useContext(AppContext)
@@ -26,11 +28,11 @@ const SearchResult: FC<SearchResultsPropsType> = ({ getData }) => {
         <Content style={{
             paddingLeft: '14vw',
             backgroundColor: theme.bgColor,
-            width: '85vw',
+            width: '85vw'
         }}>
-            <SearchSettings getData={getData} />
+            <SearchSettings getData={getData} searchPageLanguage={searchPageLanguage}/>
             <Flex justify='space-between' align='center' style={{ width: '76vw', height: '3vh' }}>
-                <SearchInfo />
+                <SearchInfo videoInfo={searchPageLanguage?.videoInfo} countInfo={searchPageLanguage?.countInfo} countText={searchPageLanguage?.countText}/>
                 <ViewSettings setViewType={setViewType} />
             </Flex>
             {
@@ -50,7 +52,7 @@ const SearchResult: FC<SearchResultsPropsType> = ({ getData }) => {
             <Suspense fallback={
                 <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} spinning fullscreen />
             }>
-                <AddFavoriteForm />
+                <AddFavoriteForm modalWindowLanguage={modalWindowLanguage}/>
             </Suspense>
         </Content>
     )

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { setAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { AppContext } from '../../context/context'
+import { resetData } from '../../redux/dataSlice/dataSlice'
 
 type FavItemPropsType = {
     favorite: FavoritesType,
@@ -47,6 +48,7 @@ const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData }) => {
                     >
                         <Button
                             onClick={() => {
+                                dispatch(resetData())
                                 getData(favorite.request, api_key, favorite.selectOrder, favorite.requestAmount)
                                 dispatch(setAmountValue(favorite.requestAmount))
                                 dispatch(addRequest(favorite.request))

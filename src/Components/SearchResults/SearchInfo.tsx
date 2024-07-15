@@ -3,16 +3,22 @@ import { useAppSelector } from '../../redux/hooks/hooks'
 import { memo, FC, useContext } from 'react'
 import { AppContext } from '../../context/context'
 
-const SearchInfo: FC = memo(() => {
+type SearchInfoType = {
+    videoInfo: string | undefined,
+    countText: string | undefined,
+    countInfo: string | undefined
+}
+
+const SearchInfo: FC<SearchInfoType> = memo(({ videoInfo, countInfo, countText }) => {
     const { Text } = Typography
-    const amount = useAppSelector(state => state.requestAmount.amount)
     const info = useAppSelector(state => state.info.text)
     const theme = useContext(AppContext)
+    const data = useAppSelector(state => state.data)
 
     return (
         <Flex align='center' style={{ width: '100vw' }}>
-            <Text style={{ fontSize: '0.9rem', margin: '0 1vh 0 0', color: theme.textColor }}>Видео по запросу "{info}"</Text>
-            <Text style={{ fontSize: '0.9rem', color: theme.subTitleColor, marginLeft: '1vw' }}>Количество результатов запроса: {amount} видео</Text>
+            <Text style={{ fontSize: '0.9rem', margin: '0 1vh 0 0', color: theme.textColor }}>{videoInfo} "{info}"</Text>
+            <Text style={{ fontSize: '0.9rem', color: theme.subTitleColor, marginLeft: '1vw' }}>{countText}: {data.length} {countInfo}</Text>
         </Flex>
     )
 })

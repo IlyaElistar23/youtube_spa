@@ -16,7 +16,7 @@ export type SavedType = {
     maxAmount: number
 }
 
-const FavoritePage: FC<PropsType> = ({ getData, setStatus, themeType, setTheme }) => {
+const FavoritePage: FC<PropsType> = ({ getData, setStatus, themeType, setTheme, headerLanguage, setLanguage, language, favoritesPageLanguage, modalWindowLanguage }) => {
 
     const { Text } = Typography
     const { Header, Content } = Layout
@@ -36,17 +36,17 @@ const FavoritePage: FC<PropsType> = ({ getData, setStatus, themeType, setTheme }
                     height: '8vh',
                     width: '100vw',
                 }}>
-                <CustomHeader setStatus={setStatus} themeType={themeType} setTheme={setTheme}/>
+                <CustomHeader setStatus={setStatus} themeType={themeType} setTheme={setTheme} headerLanguage={headerLanguage} setLanguage={setLanguage} language={language}/>
             </Header>
             <Content style={{ backgroundColor: theme.bgColor, minHeight: '92vh' }}>
                 <Flex vertical align='flex-start' justify='center' style={{ paddingLeft: '14vw', paddingTop: '9vh' }}>
-                    <Text style={{ fontSize: '2rem', color: theme.textColor }}>Избранное</Text>
+                    <Text style={{ fontSize: '2rem', color: theme.textColor }}>{favoritesPageLanguage?.title}</Text>
                     <List style={{ marginTop: '4vh' }}>
                         {
                             favorites.map(favorite => (
                                 favorite.isEditing ?
                                     <>
-                                        <AddFavoriteForm favorite={favorite} />
+                                        <AddFavoriteForm favorite={favorite} modalWindowLanguage={modalWindowLanguage}/>
                                         <FavoriteItem key={favorite.id} favorite={favorite} getData={getData} />
                                     </>
                                     :

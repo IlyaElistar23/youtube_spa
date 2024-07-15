@@ -10,15 +10,18 @@ const SearchResultGrid = (): JSX.Element => {
     const { Item } = List
     const { Text } = Typography
     const data = useAppSelector(state => state.data)
+    const amount = useAppSelector(state => state.requestAmount.amount)
     const theme = useContext(AppContext)
+
+    const setColumnsCount = (amount: number) => amount < 4 ? amount : 4
 
     return (
         <Flex style={{ marginTop: '3vh', width: '76vw' }} >
-            <List grid={{ gutter: 10, column: 4 }} dataSource={data} renderItem={(item) => (
+            <List grid={{ gutter: 12, column: setColumnsCount(amount) }} dataSource={data} renderItem={(item) => (
                 <Item key={item.id}>
-                    <Flex vertical style={{ margin: '0 1vw' }}>
+                    <Flex vertical >
                         <Flex style={{ width: '17vw', height: '22vh', border: '1px solid #35A2EC' }} align='center' justify='center'>
-                            <Image src={item.snippet.thumbnails.high.url} height='100%' width='100%' />
+                            <Image src={item.snippet.thumbnails.high.url} height='22vh' width='22vw' />
                         </Flex>
                         <Text style={{ fontSize: '0.9rem', fontWeight: 'bold', marginTop: '1vh', minHeight: '5vh', color: theme.textColor }}>
                             {cutVideoTitle(item.snippet.title)}
