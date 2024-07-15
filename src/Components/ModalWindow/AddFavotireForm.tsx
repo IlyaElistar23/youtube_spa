@@ -31,6 +31,41 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
 
     const onChangeSelect = (value: string) => favorite?.isEditing ? dispatch(editFavOrder(value)) : dispatch(setSelectValue(value))
 
+    const onSave = () => {
+        if (favorite?.isEditing) {
+            dispatch(saveFavRequest({
+                id: favorite.id,
+                title: edit.title,
+                order: edit.order,
+                request: edit.request,
+                amount: edit.amount
+            }))
+            dispatch(editFavRequest(favorite.id))
+        } else {
+            dispatch(addFavRequest({
+                id: uuidv4(),
+                request: info,
+                title: title,
+                requestAmount: amount,
+                selectOrder: order,
+                isEditing: false,
+            }))
+        }
+        localStorage.setItem('favorites', JSON.stringify(favorites))
+        dispatch(addFavTitle(''))
+        dispatch(setAmountValue(12))
+        dispatch(addRequest(''))
+        dispatch(setSelectValue('relevance'))
+        dispatch(setIsOpen(false))
+    }
+
+    const onCancelSave = () => {
+        dispatch(addFavTitle(''))
+        dispatch(setAmountValue(12))
+        dispatch(setSelectValue('relevance'))
+        dispatch(setIsOpen(false))
+    }
+
     const { Text } = Typography
     return (
         <Modal
@@ -44,7 +79,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                 <Flex
                     align='center'
                     justify='center'
-                    style={{ margin: '4vh 0', }}
+                    style={{ padding: '4vh 0' }}
                 >
                     <ConfigProvider
                         theme={{
@@ -61,12 +96,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                     >
                         <Button
                             style={{ width: '11vw', height: '4vh', borderWidth: '0.1vh', fontSize: '1.1rem', margin: '1vh' }}
-                            onClick={() => {
-                                dispatch(addFavTitle(''))
-                                dispatch(setAmountValue(12))
-                                dispatch(setSelectValue('relevance'))
-                                dispatch(setIsOpen(false))
-                            }}
+                            onClick={() => onCancelSave()}
                         >Не сохранять</Button>
                     </ConfigProvider>
                     <ConfigProvider
@@ -82,34 +112,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                     >
                         <Button
                             style={{ width: '11vw', height: '4vh', borderWidth: '0.1vh', fontSize: '1.1rem' }}
-                            onClick={() => {
-                                if (favorite?.isEditing) {
-                                    dispatch(saveFavRequest({
-                                        id: favorite.id,
-                                        title: edit.title,
-                                        order: edit.order,
-                                        request: edit.request,
-                                        amount: edit.amount
-                                    }))
-                                    dispatch(editFavRequest(favorite.id))
-                                } else {
-                                    dispatch(addFavRequest({
-                                        id: uuidv4(),
-                                        request: info,
-                                        title: title,
-                                        requestAmount: amount,
-                                        selectOrder: order,
-                                        isEditing: false,
-                                        isInProgress: false
-                                    }))
-                                }
-                                localStorage.setItem('favorites', JSON.stringify(favorites))
-                                dispatch(addFavTitle(''))
-                                dispatch(setAmountValue(12))
-                                dispatch(addRequest(''))
-                                dispatch(setSelectValue('relevance'))
-                                dispatch(setIsOpen(false))
-                            }}
+                            onClick={() => onSave()}
                         >Сохранить</Button>
                     </ConfigProvider>
                 </Flex>
@@ -220,7 +223,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                                 max={50}
                                 value={favorite?.isEditing ? edit.amount : amount}
                                 onChange={onChangeAmount}
-                                style={{ width: '20%', height: '4vh', fontSize: '1rem' }}
+                                style={{ width: '5vw', height: '4vh', fontSize: '1rem' }}
                             />
                         </ConfigProvider>
                     </Flex>

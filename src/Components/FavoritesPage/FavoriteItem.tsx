@@ -1,6 +1,6 @@
 import { Button, Typography, List, Flex, ConfigProvider } from 'antd'
 import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { FavoritesType, editFavRequest, deleteFavRequest } from '../../redux/favoritesSlice/favoritesSlice'
 import { useAppDispatch } from '../../redux/hooks/hooks'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
@@ -9,6 +9,7 @@ import { api_key } from '../../api_key'
 import { useNavigate } from 'react-router-dom'
 import { setAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
+import { AppContext } from '../../context/context'
 
 type FavItemPropsType = {
     favorite: FavoritesType,
@@ -19,14 +20,15 @@ const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData }) => {
 
     const { Text } = Typography
     const { Item } = List
+    const theme = useContext(AppContext)
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     return (
         <Item style={{ width: '72vw' }}>
-            <Flex align='center' justify='space-between' style={{ backgroundColor: 'white', width: '72vw', height: '2vh', padding: '2vh 4vh' }}>
-                <Text style={{ fontSize: '1rem', fontWeight: 'bold' }}>
+            <Flex align='center' justify='space-between' style={{ backgroundColor: theme.headerColor, width: '72vw', height: '2vh', padding: '2vh 4vh' }}>
+                <Text style={{ fontSize: '1rem', fontWeight: 'bold', color: theme.textColor }}>
                     {favorite.title}
                 </Text>
                 <Flex>
@@ -34,9 +36,11 @@ const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData }) => {
                         theme={{
                             components: {
                                 Button: {
-                                    defaultBorderColor: 'white',
-                                    defaultHoverBorderColor: 'white',
-                                    defaultActiveBorderColor: 'white'
+                                    defaultBorderColor: theme.headerColor,
+                                    defaultHoverBorderColor: theme.headerColor,
+                                    defaultBg: theme.headerColor,
+                                    defaultHoverBg: theme.headerColor,
+                                    defaultColor: theme.subTitleColor
                                 }
                             }
                         }}
