@@ -7,13 +7,15 @@ import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 import { resetAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
-import { AppContext } from '../../context/context'
+import { AppContext, ModalWindowText, SearchPageText } from '../../context/context'
 
 type BaseSearchPropsType = {
-    getData: (text: string, api_key: string, order: string, amount: number) => void
+    getData: (text: string, api_key: string, order: string, amount: number) => void,
+    searchPageLanguage: SearchPageText | undefined,
+    modalWindowLanguage: ModalWindowText
 }
 
-const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
+const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, modalWindowLanguage }) => {
 
     const { Text } = Typography
     const info = useAppSelector(state => state.info.text)
@@ -29,7 +31,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                 fontSize: '2rem',
                 marginLeft: '43vw',
                 color: theme.textColor
-            }}>Поиск видео</Text>
+            }}>{searchPageLanguage?.title}</Text>
             <Flex align='center' justify='center' style={{
                 marginTop: '5vh'
             }}>
@@ -47,7 +49,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                         onPressEnter={() => {
                             getData(info, api_key, order, amount)
                         }}
-                        placeholder='Что хотите посмотреть?'
+                        placeholder={searchPageLanguage?.placeholder}
                         suffix={
                             <ConfigProvider
                                 theme={{
@@ -107,10 +109,10 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData }) => {
                         onClick={() => {
                             getData(info, api_key, order, amount)
                         }}
-                    >Найти</Button>
+                    >{searchPageLanguage?.button}</Button>
                 </ConfigProvider>
             </Flex>
-            <AddFavoriteForm />
+            <AddFavoriteForm modalWindowLanguage={modalWindowLanguage}/>
         </Flex>
     )
 }

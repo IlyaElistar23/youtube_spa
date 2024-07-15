@@ -6,17 +6,20 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks/hooks'
 import { resetData } from '../redux/dataSlice/dataSlice'
 import { resetRequest } from '../redux/searchInfoSlice/searchInfoSlice'
 import { resetAmountValue } from '../redux/requestAmountSlice/requestAmountSlice'
-import { StatusType, ThemeType } from '../App'
+import { LanguageType, StatusType, ThemeType } from '../App'
 import { FC, memo, useContext, useState } from 'react'
-import { AppContext } from '../context/context'
+import { AppContext, HeaderText } from '../context/context'
 
 type HeaderPropsType = {
     setStatus: (status: StatusType) => void,
     themeType: ThemeType,
-    setTheme: (theme: ThemeType) => void
+    setTheme: (theme: ThemeType) => void,
+    headerLanguage: HeaderText,
+    setLanguage: (language: LanguageType) => void,
+    language: LanguageType
 }
 
-const CustomHeader: FC<HeaderPropsType> = memo(({ setStatus, themeType, setTheme }) => {
+const CustomHeader: FC<HeaderPropsType> = memo(({ setStatus, themeType, setTheme, headerLanguage, setLanguage, language }) => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
@@ -42,7 +45,8 @@ const CustomHeader: FC<HeaderPropsType> = memo(({ setStatus, themeType, setTheme
         <Flex align='center' justify='space-between'
             style={{
                 backgroundColor: theme.headerColor,
-                width: '100vw'
+                width: '100vw',
+                overflow: 'auto'
             }}>
             <Flex align='center' justify='space-between' style={{ padding: '0 10vw', width: '20vw' }}>
                 <Image src='../sibdev-logo.png' height='7vh' width='7vh' />
@@ -64,8 +68,17 @@ const CustomHeader: FC<HeaderPropsType> = memo(({ setStatus, themeType, setTheme
                             dispatch(resetAmountValue(12))
                             setStatus('home')
                         }}
-                    >Search</NavLink>
-                    <NavLink to='/favorites' style={{ height: '7vh', width: '7vw', fontSize: '100%', textAlign: 'center', fontWeight: 'bold', color: theme.headerButtonColor }}>Favorites</NavLink>
+                    >{headerLanguage.search}</NavLink>
+                    <NavLink
+                        to='/favorites'
+                        style={{
+                            height: '7vh',
+                            width: '7vw',
+                            fontSize: '1rem',
+                            textAlign: 'center',
+                            fontWeight: 'bold',
+                            color: theme.headerButtonColor
+                        }}>{headerLanguage.favorites}</NavLink>
                 </Flex>
             </Flex>
             <FloatButton.Group
@@ -74,10 +87,28 @@ const CustomHeader: FC<HeaderPropsType> = memo(({ setStatus, themeType, setTheme
                 onClick={() => onFloatChange(!open)}
                 trigger='hover'
             >
-                <FloatButton icon={themeType === 'light' ? <SunOutlined /> : <MoonOutlined />} onClick={() => setTheme(themeType === 'light' ? 'dark' : 'light')} />
-                <FloatButton icon={<TranslationOutlined />} />
+                <FloatButton
+                    icon={themeType === 'light' ? <SunOutlined /> : <MoonOutlined />}
+                    onClick={() => setTheme(themeType === 'light' ? 'dark' : 'light')}
+                    tooltip={<Flex>{headerLanguage.themeTooltipText}</Flex>} />
+                <FloatButton
+                    icon={<TranslationOutlined />}
+                    onClick={() => setLanguage(language === 'eng' ? 'rus' : 'eng')}
+                    tooltip={<Flex>{headerLanguage.langTooltipText}</Flex>} />
             </FloatButton.Group>
-            <NavLink to='/' style={{ height: '7vh', width: '7vw', fontSize: '1rem', padding: '0 5vw', textAlign: 'center', fontWeight: 'bold', color: theme.headerButtonColor }} onClick={() => logout()}>Log Out</NavLink>
+            <FloatButton.BackTop />
+            <NavLink
+                to='/'
+                style={{
+                    height: '7vh',
+                    width: '7vw',
+                    fontSize: '1rem',
+                    padding: '0 5vw',
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    color: theme.headerButtonColor
+                }}
+                onClick={() => logout()}>{headerLanguage.logout}</NavLink>
         </Flex>
     )
 })

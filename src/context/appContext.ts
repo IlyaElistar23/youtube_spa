@@ -37,13 +37,16 @@ export const engLanguage: LanguageContextType = {
     header: {
         search: 'Search',
         favorites: 'Favorites',
-        logout: 'Log Out'
+        logout: 'Log Out',
+        langTooltipText: 'Switch language',
+        themeTooltipText: 'Switch theme'
     },
     search: {
         title: 'Search Videos',
         placeholder: 'What do you want to see?',
         button: 'Search',
         videoInfo: 'Videos on request: ',
+        countText: 'Search results',
         countInfo: 'videos'
     },
     favotires: {
@@ -57,7 +60,8 @@ export const engLanguage: LanguageContextType = {
         sortParametrs: ['Create date', 'Rating', 'Relevance', 'Video title', 'Video count on channel', 'View count'],
         amountTitle: 'Maximum amount of requests',
         button1: "Don't save",
-        button2: 'Save request'
+        button2: 'Save request',
+        namePlaceholder: 'Add name of request'
     }
 }
 
@@ -98,13 +102,16 @@ export const ruLanguage: LanguageContextType = {
     header: {
         search: 'Поиск',
         favorites: 'Избранное',
-        logout: 'Выйти'
+        logout: 'Выйти',
+        langTooltipText: 'Переключить язык',
+        themeTooltipText: 'Изменить тему'
     },
     search: {
         title: 'Поиск видео',
         placeholder: 'Что хотите посмотреть?',
         button: 'Поиск',
         videoInfo: 'Видео по запросу: ',
+        countText: 'Количество результатов запроса',
         countInfo: 'видео'
     },
     favotires: {
@@ -118,7 +125,8 @@ export const ruLanguage: LanguageContextType = {
         sortParametrs: ['По дате создания', 'По рейтингу', 'По релевантности', 'По названию', 'По количеству заруженных видео на канале', 'По количеству просмотров'],
         amountTitle: 'Максимальное количество',
         button1: "Не сохранять",
-        button2: 'Сохранить'
+        button2: 'Сохранить',
+        namePlaceholder: 'Укажите название'
     }
 }
 
@@ -130,6 +138,7 @@ export const lightTheme: ThemeContextType = {
     defaultBorderColor: '#d9d9d9',
     subTitleColor: '#1717194D',
     headerButtonColor: '#35A2EC',
+    errorsColor: '#7a2020',
     searchButtonDefaultTextColor: '#FAFAFA',
     searchButtonDefaultBorderColor: '#35A2EC',
     searchButtonDefaultBgColor: '#35A2EC',
@@ -147,6 +156,7 @@ export const darkTheme: ThemeContextType = {
     defaultBorderColor: '#353535',
     subTitleColor: '#bbbbbb',
     headerButtonColor: '#4bb7ff',
+    errorsColor: '#d84b4b',
     searchButtonDefaultTextColor: '#35A2EC',
     searchButtonDefaultBorderColor: '#FAFAFA',
     searchButtonDefaultBgColor: '#FAFAFA',

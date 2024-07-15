@@ -7,13 +7,14 @@ import { api_key } from '../../api_key'
 import { resetData } from '../../redux/dataSlice/dataSlice'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import { resetAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
-import { AppContext } from '../../context/context'
+import { AppContext, SearchPageText } from '../../context/context'
 
 type SearchSettingsPropsType = {
-    getData: (text: string, api_key: string, order: string, amount: number) => void
+    getData: (text: string, api_key: string, order: string, amount: number) => void,
+    searchPageLanguage: SearchPageText | undefined
 }
 
-const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData }) => {
+const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData, searchPageLanguage }) => {
 
     const { Text } = Typography
 
@@ -32,7 +33,7 @@ const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData }) => {
                 fontSize: '1.5rem',
                 textAlign: 'left',
                 color: theme.textColor
-            }}>Поиск видео</Text>
+            }}>{searchPageLanguage?.title}</Text>
             <Flex style={{
                 paddingTop: '2vh'
             }}>
@@ -48,10 +49,11 @@ const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData }) => {
                         value={info}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addRequest(e.target.value))}
                         onPressEnter={() => {
+                            dispatch(resetAmountValue(12))
                             dispatch(resetData())
                             getData(info, api_key, order, amount)
                         }}
-                        placeholder='Что хотите посмотреть?'
+                        placeholder={searchPageLanguage?.placeholder}
                         suffix={
                             <ConfigProvider
                                 theme={{
@@ -108,10 +110,11 @@ const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData }) => {
                             fontSize: '1.2rem'
                         }}
                         onClick={() => {
+                            dispatch(resetAmountValue(12))
                             dispatch(resetData())
                             getData(info, api_key, order, amount)
                         }}
-                    >Найти</Button>
+                    >{searchPageLanguage?.button}</Button>
                 </ConfigProvider>
             </Flex>
         </Flex>

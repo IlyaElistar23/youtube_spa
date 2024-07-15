@@ -1,7 +1,4 @@
 import LoginPage from './Components/LoginPage/LoginPage';
-// import SearchPage from './Components/HomePage/SearchPage';
-// import FavoritePage from './Components/FavoritesPage/FavoritesPage';
-// import RegisterPage from './Components/RegisterPage/RegisterPage';
 
 import { useAppDispatch } from './redux/hooks/hooks';
 import { AppContext } from './context/context';
@@ -14,7 +11,8 @@ import { LoadingOutlined } from '@ant-design/icons'
 import axios from 'axios';
 
 import { setData, DataItemType } from './redux/dataSlice/dataSlice';
-import { setAmountValue } from './redux/requestAmountSlice/requestAmountSlice';
+
+import { engLanguage, ruLanguage } from './context/appContext'
 
 
 const SearchPage = lazy(() => import('./Components/HomePage/SearchPage'))
@@ -22,17 +20,22 @@ const RegisterPage = lazy(() => import('./Components/RegisterPage/RegisterPage')
 const FavoritePage = lazy(() => import('./Components/FavoritesPage/FavoritesPage'))
 
 export type StatusType = 'home' | 'loading'
-
 export type ThemeType = 'light' | 'dark' | string
+export type LanguageType = 'eng' | 'rus' | string
 
 function App() {
 
   const [status, setStatus] = useState<StatusType>('home')
   const [theme, setTheme] = useState<ThemeType>(localStorage.getItem('theme') || 'light')
+  const [language, setLanguage] = useState<LanguageType>('eng')
 
   useEffect(() => {
     localStorage.setItem('theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    localStorage.setItem('language', language)
+  }, [language])
 
   const changeStatus = (status: StatusType) => setStatus(status)
 
@@ -44,8 +47,7 @@ function App() {
       const ids = responseSnippet.data.items.map((item: DataItemType) => item.id.videoId)
       const responseStat = await axios.get(`https://www.googleapis.com/youtube/v3/videos?key=${api_key}&part=snippet,statistics&id=${ids.join(',')}`)
       dispatch(setData(responseStat.data.items))
-      dispatch(setAmountValue(responseStat.data.items.length))
-      console.log(responseStat.data.items);
+      console.log(responseStat.data.items)
     } catch (error: any) {
       console.log(error);
     }
@@ -58,12 +60,12 @@ function App() {
   return (
     <AppContext.Provider value={theme === 'light' ? lightTheme : darkTheme}>
       <Routes>
-        <Route path='/' element={<LoginPage />} />
+        <Route path='/' element={<LoginPage language={language === 'eng' ? engLanguage.login : ruLanguage.login} />} />
         <Route path='/register' element={
           <Suspense fallback={
             <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} fullscreen spinning />
           }>
-            <RegisterPage />
+            <RegisterPage language={language === 'eng' ? engLanguage.register : ruLanguage.register} />
           </Suspense>
         } />
         <Route path='/search' element={
@@ -71,14 +73,35 @@ function App() {
             fallback={
               <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} fullscreen spinning />
             }>
-            <SearchPage getData={getData} status={status} setStatus={setStatus} themeType={theme} setTheme={setTheme} />
+            <SearchPage
+              getData={getData}
+              status={status}
+              setStatus={setStatus}
+              themeType={theme}
+              setTheme={setTheme}
+              language={language}
+              setLanguage={setLanguage}
+              headerLanguage={language === 'eng' ? engLanguage.header : ruLanguage.header}
+              searchPageLanguage={language === 'eng' ? engLanguage.search : ruLanguage.search}
+              modalWindowLanguage={language === 'eng' ? engLanguage.modal : ruLanguage.modal}
+            />
           </Suspense>
         } />
         <Route path='/favorites' element={
           <Suspense fallback={
             <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} fullscreen spinning />
           }>
-            <FavoritePage getData={getData} setStatus={setStatus} themeType={theme} setTheme={setTheme} />
+            <FavoritePage
+              getData={getData}
+              setStatus={setStatus}
+              themeType={theme}
+              setTheme={setTheme}
+              language={language}
+              setLanguage={setLanguage}
+              headerLanguage={language === 'eng' ? engLanguage.header : ruLanguage.header}
+              favoritesPageLanguage={language === 'eng' ? engLanguage.favotires : ruLanguage.favotires}
+              modalWindowLanguage={language === 'eng' ? engLanguage.modal : ruLanguage.modal}
+            />
           </Suspense>
         } />
       </Routes>

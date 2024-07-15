@@ -2,15 +2,20 @@ import { Image, Typography, Input, Button, Flex, ConfigProvider } from 'antd'
 import axios from 'axios'
 import { useForm, Controller } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext, FC } from 'react'
 import { AppContext } from '../../context/context'
+import { LoginPageText } from '../../context/context'
 
 type AuthData = {
     email: string,
     password: string
 }
 
-const LoginPage = (): JSX.Element => {
+type LoginPropsType = {
+    language: LoginPageText
+}
+
+const LoginPage: FC<LoginPropsType> = ({ language }) => {
 
     const navigate = useNavigate()
     const theme = useContext(AppContext)
@@ -79,64 +84,97 @@ const LoginPage = (): JSX.Element => {
             }}>
                 <Flex vertical justify='center' align='center'>
                     <Image src='../sibdev-logo.png' />
-                    <Text style={{ marginTop: '5vh', fontSize: '1.1rem', fontWeight: 'bold', color: theme.textColor }}>Login</Text>
+                    <Text style={{ marginTop: '5vh', fontSize: '1.1rem', fontWeight: 'bold', color: theme.textColor }}>{language.headTitle}</Text>
                 </Flex>
                 <Flex vertical style={{ marginTop: '4%', width: '22vw' }}>
-                    <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>E-mail</Text>
+                    <Text style={{ fontSize: '0.9rem', color: theme.subTitleColor }}>{language.mailTitle}</Text>
                     <Controller
                         name='email'
                         control={control}
                         rules={{
-                            required: 'This field is required!',
+                            required: language.errorEmpty,
                             pattern: {
                                 value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-                                message: 'Incorrect E-mail!'
+                                message: language.mailErrorIncorrect || ''
                             }
                         }}
                         render={({ field }) => (
-                            <Input style={{
-                                height: '4vh',
-                                fontSize: '1.1rem',
-                                backgroundColor: theme.headerColor,
-                                color: theme.textColor
-                            }} {...field} placeholder='Enter your email' />
+                            <ConfigProvider
+                                theme={{
+                                    components: {
+                                        Input: {
+                                            colorTextPlaceholder: theme.subTitleColor
+                                        }
+                                    }
+                                }}
+                            >
+                                <Input style={{
+                                    height: '4vh',
+                                    fontSize: '1.1rem',
+                                    backgroundColor: theme.headerColor,
+                                    color: theme.textColor
+                                }} {...field} placeholder={language.mailPlaceholder} />
+                            </ConfigProvider>
                         )}
                     />
-                    <Text>{errors.email?.message}</Text>
+                    <Text style={{
+                        fontSize: '1rem',
+                        paddingTop: '0.5vh',
+                        color: theme.errorsColor
+                    }}>{errors.email?.message}</Text>
                 </Flex>
                 <Flex vertical style={{ marginTop: '4%', width: '22vw' }}>
-                    <Text style={{ fontSize: '0.9rem', color: '#1717194D' }}>Password</Text>
+                    <Text style={{ fontSize: '0.9rem', color: theme.subTitleColor }}>{language.passwordTitle}</Text>
                     <Controller
                         name='password'
                         control={control}
                         rules={{
-                            required: 'This field is required!',
+                            required: language.errorEmpty,
                             pattern: {
                                 value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/,
-                                message: 'Password must be at least 8 symbol length, includes 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol!'
+                                message: language.passwordErrorIncorrect || ''
                             }
                         }}
                         render={({ field }) => (
-                            <Password style={{
-                                height: '4vh',
-                                fontSize: '1.1rem',
-                                backgroundColor: theme.headerColor,
-                                color: theme.textColor
-                            }} {...field} placeholder='Enter your password' />
+                            <ConfigProvider
+                                theme={{
+                                    components: {
+                                        Input: {
+                                            colorTextPlaceholder: theme.subTitleColor
+                                        }
+                                    },
+                                    token: {
+                                        colorIcon: theme.subTitleColor,
+                                        colorIconHover: theme.bgColor
+                                    }
+                                }}
+                            >
+                                <Password style={{
+                                    height: '4vh',
+                                    fontSize: '1.1rem',
+                                    backgroundColor: theme.headerColor,
+                                    color: theme.textColor
+                                }} {...field} placeholder={language.passwordPlaceholder} />
+                            </ConfigProvider>
                         )}
                     />
-                    <Text>{errors.password?.message}</Text>
+                    <Text style={{
+                        fontSize: '1rem',
+                        paddingTop: '0.5vh',
+                        color: theme.errorsColor
+                    }}>{errors.password?.message}</Text>
                 </Flex>
                 <Flex>
                     <ConfigProvider
                         theme={{
                             components: {
                                 Button: {
-                                    defaultColor: 'white',
-                                    defaultBg: '#35A2EC',
-                                    defaultBorderColor: 'white',
-                                    defaultHoverBorderColor: '#35A2EC',
-                                    defaultHoverColor: '#35A2EC'
+                                    defaultColor: theme.searchButtonDefaultTextColor,
+                                    defaultBg: theme.searchButtonDefaultBgColor,
+                                    defaultBorderColor: theme.searchButtonDefaultBorderColor,
+                                    defaultHoverBorderColor: theme.searchButtonActiveBorderColor,
+                                    defaultHoverColor: theme.searchButtonActiveTextColor,
+                                    defaultHoverBg: theme.searchButtonActiveBgColor
                                 }
                             }
                         }}
@@ -148,13 +186,13 @@ const LoginPage = (): JSX.Element => {
                                 height: '4vh',
                                 width: '8vw',
                                 fontSize: '1.1rem'
-                            }}>Log In</Button>
+                            }}>{language.button}</Button>
                     </ConfigProvider>
                 </Flex>
             </Flex>
             <Flex vertical align='center' justify='center' style={{ marginTop: '7vh' }}>
-                <Text style={{ fontSize: '1.1rem', fontWeight: 'bold', color: theme.textColor }}>Don't has an account?</Text>
-                <Link to='/register' style={{ fontSize: '1.1rem', fontWeight: 'bold', textDecoration: 'underline', color: '#35A2EC' }}>Sign Up</Link>
+                <Text style={{ fontSize: '1.1rem', fontWeight: 'bold', color: theme.textColor }}>{language.footerText}</Text>
+                <Link to='/register' style={{ fontSize: '1.1rem', fontWeight: 'bold', textDecoration: 'underline', color: '#35A2EC' }}>{language.footerLink}</Link>
             </Flex>
         </form>
     )

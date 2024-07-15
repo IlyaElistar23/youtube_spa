@@ -9,12 +9,14 @@ import { setAmountValue } from '../../redux/requestAmountSlice/requestAmountSlic
 import { setSelectValue } from '../../redux/selectValueSlice/selectValueSlice'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { editFavAmount, editFavOrder, editFavTitle, editFavRequestTitle } from '../../redux/editFavoriteSlice/editFavoriteSlice'
+import { ModalWindowText } from '../../context/context'
 
 type FormPropsType = {
     favorite?: FavoritesType,
+    modalWindowLanguage: ModalWindowText
 }
 
-const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
+const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage }) => {
 
     const { v4: uuidv4 } = require('uuid')
 
@@ -97,7 +99,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                         <Button
                             style={{ width: '11vw', height: '4vh', borderWidth: '0.1vh', fontSize: '1.1rem', margin: '1vh' }}
                             onClick={() => onCancelSave()}
-                        >Не сохранять</Button>
+                        >{modalWindowLanguage.button1}</Button>
                     </ConfigProvider>
                     <ConfigProvider
                         theme={{
@@ -113,7 +115,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                         <Button
                             style={{ width: '11vw', height: '4vh', borderWidth: '0.1vh', fontSize: '1.1rem' }}
                             onClick={() => onSave()}
-                        >Сохранить</Button>
+                        >{modalWindowLanguage.button2}</Button>
                     </ConfigProvider>
                 </Flex>
             ]}
@@ -126,13 +128,13 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                 <Text
                     style={{ textAlign: 'center', marginTop: '5vh', fontSize: '1.5rem', fontWeight: 'bold' }}
                 >
-                    Сохранить запрос
+                    {modalWindowLanguage.headTitle}
                 </Text>
                 <Flex vertical>
                     <Text
                         style={{ fontSize: '1rem', marginTop: '4vh' }}
                     >
-                        Запрос
+                        {modalWindowLanguage.requestTitle}
                     </Text>
                     <Input
                         value={favorite?.isEditing ? edit.request : info}
@@ -145,12 +147,12 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                     <Text
                         style={{ fontSize: '1rem', marginTop: '2vh' }}
                     >
-                        Название
+                        {modalWindowLanguage.nameTitle}
                     </Text>
                     <Input
                         value={favorite?.isEditing ? edit.title : title}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => favorite?.isEditing ? dispatch(editFavTitle(e.target.value)) : dispatch(addFavTitle(e.target.value))}
-                        placeholder='Укажите название'
+                        placeholder={modalWindowLanguage.namePlaceholder}
                         style={{ width: '100%', height: '100%', borderRadius: '0.5vh', border: '0.2vh solid #1717191A', fontSize: '1rem' }}
                     />
                 </Flex>
@@ -158,7 +160,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                     <Text
                         style={{ fontSize: '1rem', marginTop: '2vh' }}
                     >
-                        Сортировать
+                        {modalWindowLanguage.sortTitle}
                     </Text>
                     <Select
                         placeholder='Без сортировки'
@@ -168,28 +170,28 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                         options={[
                             {
                                 value: 'date',
-                                label: 'По дате создания'
+                                label: modalWindowLanguage.sortParametrs[0]
                             },
                             {
                                 value: 'rating',
-                                label: 'По рейтингу'
+                                label: modalWindowLanguage.sortParametrs[1]
                             },
                             {
                                 value: 'relevance',
-                                label: 'По релевантности'
+                                label: modalWindowLanguage.sortParametrs[2]
                             },
                             {
                                 value: 'title',
-                                label: 'По названию'
+                                label: modalWindowLanguage.sortParametrs[3]
 
                             },
                             {
                                 value: 'videoCount',
-                                label: 'По количеству загруженных видео на канале'
+                                label: modalWindowLanguage.sortParametrs[4]
                             },
                             {
                                 value: 'viewCount',
-                                label: 'По количеству просмотров'
+                                label: modalWindowLanguage.sortParametrs[5]
                             }
                         ]}
                     />
@@ -198,7 +200,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite }) => {
                     <Text
                         style={{ fontSize: '1.1rem', marginTop: '2vh' }}
                     >
-                        Максимальное количество
+                        {modalWindowLanguage.amountTitle}
                     </Text>
                     <Flex align='center' justify='center'>
                         <Slider
