@@ -1,5 +1,28 @@
 import { createContext } from 'react'
 
+export type PopConfirmType = {
+    title: string,
+    description: string,
+    okText: string,
+    cancelText: string
+}
+
+export type LoginMessageType = {
+    loginContent: string,
+    loginSuccess: string,
+}
+
+export type RegisterMessageType = {
+    registerContent: string,
+    registerSuccess: string
+}
+
+export type FavoriteItemMessageType = {
+    popconfirm: PopConfirmType,
+    cancelMessage: string,
+    confirmMessage: string
+}
+
 export type LoginPageText = {
     headTitle: string,
     mailTitle: string,
@@ -11,7 +34,8 @@ export type LoginPageText = {
     passwordPlaceholder: string,
     button: string,
     footerText: string,
-    footerLink: string
+    footerLink: string,
+    message: LoginMessageType,
 }
 
 export type RegisterPageText = {
@@ -32,7 +56,8 @@ export type RegisterPageText = {
     agePlaceholder: string,
     button: string,
     footerText: string,
-    footerLink: string
+    footerLink: string,
+    message: RegisterMessageType
 }
 
 export type HeaderText = {
@@ -50,12 +75,14 @@ export type SearchPageText = {
     videoInfo: string,
     countText: string,
     countInfo: string,
+    message: string
 }
 
 export type FavoritesPageText = {
     title: string,
     emptyButton: string,
-    emptyDescription: string
+    emptyDescription: string,
+    favoriteItem: FavoriteItemMessageType
 }
 
 export type SortParametrs = string[]
@@ -69,8 +96,12 @@ export type ModalWindowText = {
     amountTitle: string,
     button1: string,
     button2: string,
-    namePlaceholder: string
+    namePlaceholder: string,
+    addMessage: string,
+    editMessage: string,
+    cancelMessage: string
 }
+
 
 export type ThemeContextType = {
     textColor?: string,
@@ -95,7 +126,7 @@ export type LanguageContextType = {
     header: HeaderText,
     search: SearchPageText,
     favotires: FavoritesPageText
-    modal: ModalWindowText
+    modal: ModalWindowText,
 }
 
 const context: ThemeContextType = {}
