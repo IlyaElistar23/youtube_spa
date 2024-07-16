@@ -6,7 +6,7 @@ import { darkTheme, lightTheme } from './context/appContext';
 
 import { Routes, Route } from 'react-router-dom'
 import { lazy, Suspense, useState, useEffect } from 'react'
-import { Spin } from 'antd'
+import { Spin, message } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import axios from 'axios';
 
@@ -29,6 +29,8 @@ function App() {
   const [theme, setTheme] = useState<ThemeType>(localStorage.getItem('theme') || 'light')
   const [language, setLanguage] = useState<LanguageType>('eng')
 
+  const [messageApi, contextHolder] = message.useMessage()
+
   useEffect(() => {
     localStorage.setItem('theme', theme)
   }, [theme])
@@ -38,6 +40,14 @@ function App() {
   }, [language])
 
   const changeStatus = (status: StatusType) => setStatus(status)
+
+  const onMessage = (content: string) => {
+    messageApi.open({
+      type: 'success',
+      content,
+    })
+  }
+
 
   const dispatch = useAppDispatch()
   const fetchGetSnippet = async (text: string, api_key: string, order: string, amount: number) => {
@@ -60,12 +70,24 @@ function App() {
   return (
     <AppContext.Provider value={theme === 'light' ? lightTheme : darkTheme}>
       <Routes>
-        <Route path='/' element={<LoginPage language={language === 'eng' ? engLanguage.login : ruLanguage.login} />} />
+        <Route path='/' element={
+          <LoginPage
+            language={language === 'eng' ? engLanguage.login : ruLanguage.login}
+            messageApi={messageApi}
+            contextHolder={contextHolder}
+            message={message}
+          />
+        } />
         <Route path='/register' element={
           <Suspense fallback={
             <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} fullscreen spinning />
           }>
-            <RegisterPage language={language === 'eng' ? engLanguage.register : ruLanguage.register} />
+            <RegisterPage
+              language={language === 'eng' ? engLanguage.register : ruLanguage.register}
+              messageApi={messageApi}
+              contextHolder={contextHolder}
+              message={message}
+            />
           </Suspense>
         } />
         <Route path='/search' element={
@@ -84,6 +106,8 @@ function App() {
               headerLanguage={language === 'eng' ? engLanguage.header : ruLanguage.header}
               searchPageLanguage={language === 'eng' ? engLanguage.search : ruLanguage.search}
               modalWindowLanguage={language === 'eng' ? engLanguage.modal : ruLanguage.modal}
+              contextHolder={contextHolder}
+              onMessage={onMessage}
             />
           </Suspense>
         } />
@@ -101,6 +125,8 @@ function App() {
               headerLanguage={language === 'eng' ? engLanguage.header : ruLanguage.header}
               favoritesPageLanguage={language === 'eng' ? engLanguage.favotires : ruLanguage.favotires}
               modalWindowLanguage={language === 'eng' ? engLanguage.modal : ruLanguage.modal}
+              contextHolder={contextHolder}
+              onMessage={onMessage}
             />
           </Suspense>
         } />

@@ -1,8 +1,7 @@
-import { Image, Typography, List, Flex, Button, ConfigProvider } from 'antd'
-import { BarsOutlined, AppstoreOutlined } from '@ant-design/icons'
-import { NavLink } from 'react-router-dom'
+import { List, Flex } from 'antd'
 import ListItem from './ListItem'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
+import { useAppSelector } from '../../redux/hooks/hooks'
+
 
 const SearchResultList = (): JSX.Element => {
 

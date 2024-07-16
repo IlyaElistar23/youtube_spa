@@ -1,8 +1,12 @@
 import { Flex, Button, ConfigProvider } from 'antd'
-import { FC, memo, useContext } from 'react'
 import { BarsOutlined, AppstoreOutlined } from '@ant-design/icons'
+
+import { FC, memo, useContext } from 'react'
+
 import { ViewType } from './SearchResult'
+
 import { AppContext } from '../../context/context'
+
 
 type ViewSettingsProps = {
     setViewType: (type: ViewType) => void

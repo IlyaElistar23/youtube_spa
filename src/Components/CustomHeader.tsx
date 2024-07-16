@@ -1,14 +1,18 @@
 import { Image, Flex, FloatButton } from 'antd'
 import { PlusCircleOutlined, MoonOutlined, SunOutlined, TranslationOutlined } from '@ant-design/icons'
+
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../redux/hooks/hooks'
+import { FC, memo, useContext, useState } from 'react'
+
 import { resetData } from '../redux/dataSlice/dataSlice'
 import { resetRequest } from '../redux/searchInfoSlice/searchInfoSlice'
 import { resetAmountValue } from '../redux/requestAmountSlice/requestAmountSlice'
+
 import { LanguageType, StatusType, ThemeType } from '../App'
-import { FC, memo, useContext, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../redux/hooks/hooks'
 import { AppContext, HeaderText } from '../context/context'
+
 
 type HeaderPropsType = {
     setStatus: (status: StatusType) => void,

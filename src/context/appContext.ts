@@ -50,7 +50,9 @@ export const engLanguage: LanguageContextType = {
         countInfo: 'videos'
     },
     favotires: {
-        title: 'Favorites'
+        title: 'Favorites',
+        emptyButton: 'Create now',
+        emptyDescription: 'No data'
     },
     modal: {
         headTitle: 'Save request',
@@ -115,7 +117,9 @@ export const ruLanguage: LanguageContextType = {
         countInfo: 'видео'
     },
     favotires: {
-        title: 'Избранное'
+        title: 'Избранное',
+        emptyButton: 'Добавить',
+        emptyDescription: 'Нет данных'
     },
     modal: {
         headTitle: 'Сохранить запрос',

@@ -1,21 +1,27 @@
 import { Flex, Typography, Input, Button, ConfigProvider } from 'antd'
 import { HeartOutlined } from '@ant-design/icons'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
 import { FC, ChangeEvent, useContext } from 'react'
+
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
 import { api_key } from '../../api_key'
+import { AppContext, ModalWindowText, SearchPageText } from '../../context/context'
+
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
-import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 import { resetAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
-import { AppContext, ModalWindowText, SearchPageText } from '../../context/context'
+
+import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
+
 
 type BaseSearchPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void,
     searchPageLanguage: SearchPageText | undefined,
-    modalWindowLanguage: ModalWindowText
+    modalWindowLanguage: ModalWindowText,
+    requestInput: any,
+    onMessage: any
 }
 
-const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, modalWindowLanguage }) => {
+const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, modalWindowLanguage, requestInput, onMessage }) => {
 
     const { Text } = Typography
     const info = useAppSelector(state => state.info.text)
@@ -45,6 +51,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, moda
                 >
                     <Input
                         value={info}
+                        ref={requestInput}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addRequest(e.target.value))}
                         onPressEnter={() => {
                             getData(info, api_key, order, amount)
@@ -112,7 +119,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, moda
                     >{searchPageLanguage?.button}</Button>
                 </ConfigProvider>
             </Flex>
-            <AddFavoriteForm modalWindowLanguage={modalWindowLanguage}/>
+            <AddFavoriteForm modalWindowLanguage={modalWindowLanguage} onMessage={onMessage} />
         </Flex>
     )
 }

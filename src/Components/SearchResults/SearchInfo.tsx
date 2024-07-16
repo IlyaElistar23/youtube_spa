@@ -1,7 +1,9 @@
 import { Flex, Typography } from 'antd'
-import { useAppSelector } from '../../redux/hooks/hooks'
 import { memo, FC, useContext } from 'react'
+
+import { useAppSelector } from '../../redux/hooks/hooks'
 import { AppContext } from '../../context/context'
+
 
 type SearchInfoType = {
     videoInfo: string | undefined,
