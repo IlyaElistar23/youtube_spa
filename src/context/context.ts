@@ -54,6 +54,8 @@ export type SearchPageText = {
 
 export type FavoritesPageText = {
     title: string,
+    emptyButton: string,
+    emptyDescription: string
 }
 
 export type SortParametrs = string[]

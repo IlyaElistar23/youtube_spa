@@ -1,13 +1,17 @@
 import { Flex, Input, Typography, Button, ConfigProvider } from 'antd'
 import { HeartOutlined } from '@ant-design/icons'
+
 import { FC, ChangeEvent, memo, useContext } from 'react'
+
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
-import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { api_key } from '../../api_key'
+import { AppContext, SearchPageText } from '../../context/context'
+
+import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { resetData } from '../../redux/dataSlice/dataSlice'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import { resetAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
-import { AppContext, SearchPageText } from '../../context/context'
+
 
 type SearchSettingsPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void,

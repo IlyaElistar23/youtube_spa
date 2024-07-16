@@ -1,7 +1,10 @@
 import { Modal, Typography, Input, Button, Slider, Flex, ConfigProvider, InputNumber, Select } from 'antd'
 import type { InputNumberProps } from 'antd'
 import { ChangeEvent, FC } from 'react'
+
 import { useAppSelector, useAppDispatch } from '../../redux/hooks/hooks'
+import { ModalWindowText } from '../../context/context'
+
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import { addFavTitle } from '../../redux/favoriteTitleSlice/favoriteTitleSlice'
 import { addFavRequest, editFavRequest, FavoritesType, saveFavRequest } from '../../redux/favoritesSlice/favoritesSlice'
@@ -9,14 +12,15 @@ import { setAmountValue } from '../../redux/requestAmountSlice/requestAmountSlic
 import { setSelectValue } from '../../redux/selectValueSlice/selectValueSlice'
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { editFavAmount, editFavOrder, editFavTitle, editFavRequestTitle } from '../../redux/editFavoriteSlice/editFavoriteSlice'
-import { ModalWindowText } from '../../context/context'
+
 
 type FormPropsType = {
     favorite?: FavoritesType,
-    modalWindowLanguage: ModalWindowText
+    modalWindowLanguage: ModalWindowText,
+    onMessage: any
 }
 
-const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage }) => {
+const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onMessage }) => {
 
     const { v4: uuidv4 } = require('uuid')
 
@@ -43,6 +47,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage }) =
                 amount: edit.amount
             }))
             dispatch(editFavRequest(favorite.id))
+            onMessage(`${favorite.title} изменен`)
         } else {
             dispatch(addFavRequest({
                 id: uuidv4(),
@@ -52,6 +57,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage }) =
                 selectOrder: order,
                 isEditing: false,
             }))
+            onMessage(`${favorite?.title} добавлен`)
         }
         localStorage.setItem('favorites', JSON.stringify(favorites))
         dispatch(addFavTitle(''))

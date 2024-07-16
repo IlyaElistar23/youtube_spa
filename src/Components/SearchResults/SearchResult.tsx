@@ -1,10 +1,14 @@
 import { Flex, Layout, Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
+
 import { useState, lazy, Suspense, FC, useContext } from 'react'
+
 import SearchInfo from './SearchInfo'
 import ViewSettings from './ViewSettings'
 import SearchSettings from './SearchSettings'
+
 import { AppContext, ModalWindowText, SearchPageText } from '../../context/context'
+
 
 export type ViewType = 'list' | 'grid'
 
@@ -15,10 +19,11 @@ const AddFavoriteForm = lazy(() => import('../ModalWindow/AddFavotireForm'))
 type SearchResultsPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void,
     searchPageLanguage: SearchPageText | undefined,
-    modalWindowLanguage: ModalWindowText
+    modalWindowLanguage: ModalWindowText,
+    onMessage: any
 }
 
-const SearchResult: FC<SearchResultsPropsType> = ({ getData, searchPageLanguage, modalWindowLanguage }) => {
+const SearchResult: FC<SearchResultsPropsType> = ({ getData, searchPageLanguage, modalWindowLanguage, onMessage }) => {
 
     const [viewType, setViewType] = useState<ViewType>('list')
     const theme = useContext(AppContext)
@@ -52,7 +57,7 @@ const SearchResult: FC<SearchResultsPropsType> = ({ getData, searchPageLanguage,
             <Suspense fallback={
                 <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} spinning fullscreen />
             }>
-                <AddFavoriteForm modalWindowLanguage={modalWindowLanguage}/>
+                <AddFavoriteForm modalWindowLanguage={modalWindowLanguage} onMessage={onMessage}/>
             </Suspense>
         </Content>
     )

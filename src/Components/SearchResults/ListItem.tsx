@@ -1,9 +1,13 @@
 import { List, Typography, Image, Flex } from 'antd'
 import { FC, useContext } from 'react'
+
 import { DataStatItemType } from '../../redux/dataSlice/dataSlice'
+
 import { viewCount } from './functions/viewCount'
 import { cutVideoTitle } from './functions/cutVideoTitle'
+
 import { AppContext } from '../../context/context'
+
 
 type ListProps = {
     item: DataStatItemType

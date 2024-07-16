@@ -1,9 +1,12 @@
 import { Flex, List, Image, Typography } from 'antd'
+import { useContext } from 'react'
+
 import { useAppSelector } from '../../redux/hooks/hooks'
+import { AppContext } from '../../context/context'
+
 import { viewCount } from './functions/viewCount'
 import { cutVideoTitle } from './functions/cutVideoTitle'
-import { useContext } from 'react'
-import { AppContext } from '../../context/context'
+
 
 const SearchResultGrid = (): JSX.Element => {
 
