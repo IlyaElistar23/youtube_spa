@@ -62,10 +62,10 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
         messageApi
             .open({
                 type: 'Loading',
-                content: 'Подождите...',
+                content: language.message.registerContent,
                 duration: 2.5,
             })
-            .then(() => message.success('Вы успешно зарегистрировались', 2.5))
+            .then(() => message.success(language.message.registerSuccess, 2.5))
     }
 
     const fetchReg = async (data: RegData): Promise<any> => {
@@ -153,10 +153,12 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
                             />
                             <Text
                                 style={{
-                                    fontSize: '0.9rem', color: theme.errorsColor, paddingTop: '0.5vh'
+                                    fontSize: '0.9rem',
+                                    color: errors.username?.message ? theme.errorsColor : theme.headerColor,
+                                    paddingTop: '0.5vh'
                                 }}
                             >
-                                {errors.username?.message}
+                                {errors.username?.message || 'Success'}
                             </Text>
                         </Flex>
                         <Flex vertical style={{ marginTop: '1vh', width: '22vw' }}>
@@ -198,10 +200,12 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
                             />
                             <Text
                                 style={{
-                                    fontSize: '0.9rem', color: theme.errorsColor, paddingTop: '0.5vh'
+                                    fontSize: '0.9rem', 
+                                    color: errors.email?.message ? theme.errorsColor : theme.headerColor, 
+                                    paddingTop: '0.5vh'
                                 }}
                             >
-                                {errors.email?.message}
+                                {errors.email?.message || 'Success'}
                             </Text>
                         </Flex>
                         <Flex vertical style={{ marginTop: '1vh', width: '22vw' }}>
@@ -252,10 +256,12 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
                             />
                             <Text
                                 style={{
-                                    fontSize: '0.9rem', color: theme.errorsColor, paddingTop: '0.5vh'
+                                    fontSize: '0.9rem', 
+                                    color: errors.password?.message ? theme.errorsColor : theme.headerColor, 
+                                    paddingTop: '0.5vh'
                                 }}
                             >
-                                {errors.password?.message}
+                                {errors.password?.message || 'Success'}
                             </Text>
                         </Flex>
                         <Flex vertical>
@@ -305,10 +311,13 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
                             </Flex>
                             <Text
                                 style={{
-                                    fontSize: '0.9rem', color: theme.errorsColor, marginLeft: '4vw', paddingTop: '0.5vh'
+                                    fontSize: '0.9rem', 
+                                    color: errors.gender?.message ? theme.errorsColor : theme.headerColor, 
+                                    marginLeft: '4vw', 
+                                    paddingTop: '0.5vh'
                                 }}
                             >
-                                {errors.gender?.message}
+                                {errors.gender?.message || 'Success'}
                             </Text>
                         </Flex>
                         <Flex vertical style={{ marginTop: '1vh', width: '22vw' }}>
@@ -346,10 +355,12 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
                             />
                             <Text
                                 style={{
-                                    fontSize: '0.9rem', color: theme.errorsColor, paddingTop: '0.5vh'
+                                    fontSize: '0.9rem', 
+                                    color: errors.age?.message ? theme.errorsColor : theme.headerColor, 
+                                    paddingTop: '0.5vh'
                                 }}
                             >
-                                {errors.age?.message}
+                                {errors.age?.message || 'Success'}
                             </Text>
                         </Flex>
                         <Flex>

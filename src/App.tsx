@@ -13,6 +13,7 @@ import axios from 'axios';
 import { setData, DataItemType } from './redux/dataSlice/dataSlice';
 
 import { engLanguage, ruLanguage } from './context/appContext'
+import { NoticeType } from 'antd/es/message/interface';
 
 
 const SearchPage = lazy(() => import('./Components/HomePage/SearchPage'))
@@ -41,9 +42,9 @@ function App() {
 
   const changeStatus = (status: StatusType) => setStatus(status)
 
-  const onMessage = (content: string) => {
+  const onMessage = (content: string, type: NoticeType) => {
     messageApi.open({
-      type: 'success',
+      type,
       content,
     })
   }

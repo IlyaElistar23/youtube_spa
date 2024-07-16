@@ -74,7 +74,12 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, moda
                                 <Button
                                     icon={<HeartOutlined />}
                                     onClick={() => {
-                                        dispatch(setIsOpen(true))
+                                        if (info.length === 0) {
+                                            onMessage(searchPageLanguage?.message, 'error')
+                                            requestInput.current?.focus()
+                                        } else {
+                                            dispatch(setIsOpen(true))
+                                        }
                                         if (amount !== 12) {
                                             dispatch(resetAmountValue(12))
                                         }
@@ -114,7 +119,12 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, moda
                             fontSize: '1.2rem'
                         }}
                         onClick={() => {
-                            getData(info, api_key, order, amount)
+                            if (info.length === 0) {
+                                onMessage(searchPageLanguage?.message, 'error')
+                                requestInput.current?.focus()
+                            } else {
+                                getData(info, api_key, order, amount)
+                            }
                         }}
                     >{searchPageLanguage?.button}</Button>
                 </ConfigProvider>

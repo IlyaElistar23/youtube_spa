@@ -65,10 +65,10 @@ const FavoritePage: FC<PropsType> = ({
                                 favorite.isEditing ?
                                     <>
                                         <AddFavoriteForm favorite={favorite} modalWindowLanguage={modalWindowLanguage} onMessage={onMessage} />
-                                        <FavoriteItem key={favorite.id} favorite={favorite} getData={getData} onMessage={onMessage} />
+                                        <FavoriteItem key={favorite.id} favorite={favorite} getData={getData} onMessage={onMessage} itemLanguage={favoritesPageLanguage?.favoriteItem} />
                                     </>
                                     :
-                                    <FavoriteItem key={favorite.id} favorite={favorite} getData={getData} onMessage={onMessage} />
+                                    <FavoriteItem key={favorite.id} favorite={favorite} getData={getData} onMessage={onMessage} itemLanguage={favoritesPageLanguage?.favoriteItem} />
                             )) :
                                 <Flex align='center' justify='center' style={{ width: '75vw' }}>
                                     <Empty

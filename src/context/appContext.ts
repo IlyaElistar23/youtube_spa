@@ -12,7 +12,11 @@ export const engLanguage: LanguageContextType = {
         passwordPlaceholder: 'Enter your password',
         button: 'Log In',
         footerText: "Don't has an account?",
-        footerLink: 'Sign Up'
+        footerLink: 'Sign Up',
+        message: {
+            loginContent: 'Loading...',
+            loginSuccess: 'Successful login!',
+        }
     },
     register: {
         headTitle: 'Register',
@@ -32,7 +36,11 @@ export const engLanguage: LanguageContextType = {
         agePlaceholder: 'Enter your age',
         button: 'Sign Up',
         footerText: 'Already has an account?',
-        footerLink: 'Log In'
+        footerLink: 'Log In',
+        message: {
+            registerContent: 'Loading...',
+            registerSuccess: 'Successful registration!'
+        }
     },
     header: {
         search: 'Search',
@@ -47,12 +55,23 @@ export const engLanguage: LanguageContextType = {
         button: 'Search',
         videoInfo: 'Videos on request: ',
         countText: 'Search results',
-        countInfo: 'videos'
+        countInfo: 'videos',
+        message: 'Add request in input!'
     },
     favotires: {
         title: 'Favorites',
         emptyButton: 'Create now',
-        emptyDescription: 'No data'
+        emptyDescription: 'No data',
+        favoriteItem: {
+            popconfirm: {
+                title: 'Deleting',
+                description: 'Are you sure about deleting this favorite request?',
+                okText: 'Yes',
+                cancelText: 'No'
+            },
+            cancelMessage: 'Deleting has canceled',
+            confirmMessage: 'has deleted'
+        }
     },
     modal: {
         headTitle: 'Save request',
@@ -63,8 +82,13 @@ export const engLanguage: LanguageContextType = {
         amountTitle: 'Maximum amount of requests',
         button1: "Don't save",
         button2: 'Save request',
-        namePlaceholder: 'Add name of request'
-    }
+        namePlaceholder: 'Add name of request',
+        addMessage: 'has added',
+        editMessage: 'has changed',
+        cancelMessage: 'Cancel editing'
+    },
+
+
 }
 
 export const ruLanguage: LanguageContextType = {
@@ -79,7 +103,11 @@ export const ruLanguage: LanguageContextType = {
         passwordPlaceholder: 'Введите ваш пароль',
         button: 'Войти',
         footerText: "Нет аккаунта?",
-        footerLink: 'Зарегистрироваться'
+        footerLink: 'Зарегистрироваться',
+        message: {
+            loginContent: 'Подождите...',
+            loginSuccess: 'Вы успешно вошли!',
+        }
     },
     register: {
         headTitle: 'Регистрация',
@@ -99,7 +127,11 @@ export const ruLanguage: LanguageContextType = {
         agePlaceholder: 'Введите ваш возраст',
         button: 'Зарегистрироваться',
         footerText: 'Уже есть аккаунт?',
-        footerLink: 'Войти'
+        footerLink: 'Войти',
+        message: {
+            registerContent: 'Подождите...',
+            registerSuccess: 'Вы успешно зарегистрировались!'
+        }
     },
     header: {
         search: 'Поиск',
@@ -114,12 +146,23 @@ export const ruLanguage: LanguageContextType = {
         button: 'Поиск',
         videoInfo: 'Видео по запросу: ',
         countText: 'Количество результатов запроса',
-        countInfo: 'видео'
+        countInfo: 'видео',
+        message: 'Введите запрос в поле ввода!'
     },
     favotires: {
         title: 'Избранное',
         emptyButton: 'Добавить',
-        emptyDescription: 'Нет данных'
+        emptyDescription: 'Нет данных',
+        favoriteItem: {
+            popconfirm: {
+                title: 'Удаление',
+                description: 'Вы уверены, что хотите удалить данный избранный запрос?',
+                okText: 'Да',
+                cancelText: 'Нет'
+            },
+            cancelMessage: 'Удаление отменено',
+            confirmMessage: 'удален'
+        }
     },
     modal: {
         headTitle: 'Сохранить запрос',
@@ -130,8 +173,12 @@ export const ruLanguage: LanguageContextType = {
         amountTitle: 'Максимальное количество',
         button1: "Не сохранять",
         button2: 'Сохранить',
-        namePlaceholder: 'Укажите название'
-    }
+        namePlaceholder: 'Укажите название',
+        addMessage: 'добавлен',
+        editMessage: 'изменен',
+        cancelMessage: 'Изменение отменено'
+    },
+
 }
 
 export const lightTheme: ThemeContextType = {
@@ -149,7 +196,6 @@ export const lightTheme: ThemeContextType = {
     searchButtonActiveTextColor: '#35A2EC',
     searchButtonActiveBorderColor: '#35A2EC',
     searchButtonActiveBgColor: '#FAFAFA'
-
 }
 
 export const darkTheme: ThemeContextType = {

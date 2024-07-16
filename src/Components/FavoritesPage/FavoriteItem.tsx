@@ -1,4 +1,4 @@
-import { Button, Typography, List, Flex, ConfigProvider } from 'antd'
+import { Button, Typography, List, Flex, ConfigProvider, Popconfirm } from 'antd'
 import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
 
 import { FC, useContext } from 'react'
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../../redux/hooks/hooks'
 import { api_key } from '../../api_key'
 import { AppContext } from '../../context/context'
+import { FavoriteItemMessageType } from '../../context/context'
 
 import { FavoritesType, editFavRequest, deleteFavRequest } from '../../redux/favoritesSlice/favoritesSlice'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
@@ -19,10 +20,11 @@ import { resetData } from '../../redux/dataSlice/dataSlice'
 type FavItemPropsType = {
     favorite: FavoritesType,
     getData: (text: string, api_key: string, order: string, amount: number) => void,
-    onMessage: any
+    onMessage: any,
+    itemLanguage: FavoriteItemMessageType | undefined
 }
 
-const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData, onMessage }) => {
+const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData, onMessage, itemLanguage }) => {
 
     const { Text } = Typography
     const { Item } = List
@@ -48,7 +50,7 @@ const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData, onMessage }) =>
                                         defaultHoverBorderColor: theme.headerColor,
                                         defaultBg: theme.headerColor,
                                         defaultHoverBg: theme.headerColor,
-                                        defaultColor: theme.subTitleColor
+                                        defaultColor: theme.textColor
                                     }
                                 }
                             }}
@@ -72,11 +74,25 @@ const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData, onMessage }) =>
                                 }))
                                 dispatch(setIsOpen(true))
                             }} icon={<EditOutlined />} />
-                            <Button onClick={() => {
-                                dispatch(deleteFavRequest(favorite.id))
-                                onMessage(`${favorite.title} удален`)
-                            }}
-                                icon={<DeleteOutlined />} />
+                            <Popconfirm
+                                title={itemLanguage?.popconfirm.title}
+                                description={itemLanguage?.popconfirm.description}
+                                okText={itemLanguage?.popconfirm.okText}
+                                cancelText={itemLanguage?.popconfirm.cancelText}
+                                onCancel={() => {
+                                    onMessage(itemLanguage?.cancelMessage, 'error')
+                                }}
+                                onConfirm={() => {
+                                    dispatch(deleteFavRequest(favorite.id))
+                                    onMessage(`${favorite.title} ${itemLanguage?.confirmMessage}`, 'success')
+                                }}
+                                style={{
+                                    backgroundColor: theme.bgColor,
+                                    color: theme.textColor
+                                }}
+                            >
+                                <Button icon={<DeleteOutlined />} />
+                            </Popconfirm>
                         </ConfigProvider>
                     </Flex>
                 </Flex>

@@ -47,10 +47,10 @@ const LoginPage: FC<LoginPropsType> = ({ language, messageApi, contextHolder, me
         messageApi
             .open({
                 type: 'loading',
-                content: 'Подождите...',
+                content: language.message.loginContent,
                 duration: 2.5,
             })
-            .then(() => message.success('Вы успешно вошли', 2.5))
+            .then(() => message.success(language.message.loginSuccess, 2.5))
     }
 
     const fetchAuth = async (data: AuthData): Promise<any> => {
@@ -140,8 +140,8 @@ const LoginPage: FC<LoginPropsType> = ({ language, messageApi, contextHolder, me
                         <Text style={{
                             fontSize: '1rem',
                             paddingTop: '0.5vh',
-                            color: theme.errorsColor
-                        }}>{errors.email?.message}</Text>
+                            color: errors.email?.message ? theme.errorsColor : theme.headerColor
+                        }}>{errors.email?.message || 'Success'}</Text>
                     </Flex>
                     <Flex vertical style={{ marginTop: '4%', width: '22vw' }}>
                         <Text style={{ fontSize: '0.9rem', color: theme.subTitleColor }}>{language.passwordTitle}</Text>
@@ -181,8 +181,8 @@ const LoginPage: FC<LoginPropsType> = ({ language, messageApi, contextHolder, me
                         <Text style={{
                             fontSize: '1rem',
                             paddingTop: '0.5vh',
-                            color: theme.errorsColor
-                        }}>{errors.password?.message}</Text>
+                            color: errors.password?.message ? theme.errorsColor : theme.headerColor
+                        }}>{errors.password?.message || 'Success'}</Text>
                     </Flex>
                     <Flex>
                         <ConfigProvider
@@ -202,7 +202,7 @@ const LoginPage: FC<LoginPropsType> = ({ language, messageApi, contextHolder, me
                             <Button
                                 onClick={handleSubmit(onLogin)}
                                 style={{
-                                    marginTop: '6vh',
+                                    marginTop: '4vh',
                                     height: '4vh',
                                     width: '8vw',
                                     fontSize: '1.1rem'

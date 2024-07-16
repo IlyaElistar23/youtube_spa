@@ -20,44 +20,70 @@ type SearchResultsPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void,
     searchPageLanguage: SearchPageText | undefined,
     modalWindowLanguage: ModalWindowText,
-    onMessage: any
+    onMessage: any,
+    requestInput: any
 }
 
-const SearchResult: FC<SearchResultsPropsType> = ({ getData, searchPageLanguage, modalWindowLanguage, onMessage }) => {
+const SearchResult: FC<SearchResultsPropsType> = ({ getData, searchPageLanguage, modalWindowLanguage, onMessage, requestInput }) => {
 
     const [viewType, setViewType] = useState<ViewType>('list')
     const theme = useContext(AppContext)
 
     const { Content } = Layout
     return (
-        <Content style={{
-            paddingLeft: '14vw',
-            backgroundColor: theme.bgColor,
-            width: '85vw'
-        }}>
-            <SearchSettings getData={getData} searchPageLanguage={searchPageLanguage}/>
+        <Content
+            style={{
+                paddingLeft: '14vw',
+                backgroundColor: theme.bgColor,
+                width: '85vw'
+            }}>
+            <SearchSettings
+                getData={getData}
+                searchPageLanguage={searchPageLanguage}
+                requestInput={requestInput}
+                onMessage={onMessage}
+            />
             <Flex justify='space-between' align='center' style={{ width: '76vw', height: '3vh' }}>
-                <SearchInfo videoInfo={searchPageLanguage?.videoInfo} countInfo={searchPageLanguage?.countInfo} countText={searchPageLanguage?.countText}/>
+                <SearchInfo
+                    videoInfo={searchPageLanguage?.videoInfo}
+                    countInfo={searchPageLanguage?.countInfo}
+                    countText={searchPageLanguage?.countText}
+                />
                 <ViewSettings setViewType={setViewType} />
             </Flex>
             {
                 viewType === 'list' ?
                     <Suspense fallback={
-                        <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} spinning fullscreen />
+                        <Spin
+                            indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />}
+                            spinning
+                            fullscreen
+                        />
                     }>
                         <SearchResultList />
                     </Suspense>
                     :
                     <Suspense fallback={
-                        <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} spinning fullscreen />
+                        <Spin
+                            indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />}
+                            spinning
+                            fullscreen
+                        />
                     }>
                         <SearchResultGrid />
                     </Suspense>
             }
             <Suspense fallback={
-                <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} spinning fullscreen />
+                <Spin
+                    indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />}
+                    spinning
+                    fullscreen
+                />
             }>
-                <AddFavoriteForm modalWindowLanguage={modalWindowLanguage} onMessage={onMessage}/>
+                <AddFavoriteForm
+                    modalWindowLanguage={modalWindowLanguage}
+                    onMessage={onMessage}
+                />
             </Suspense>
         </Content>
     )

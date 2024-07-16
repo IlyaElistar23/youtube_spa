@@ -92,7 +92,7 @@ const CustomHeader: FC<HeaderPropsType> = memo(({ setStatus, themeType, setTheme
                 trigger='hover'
             >
                 <FloatButton
-                    icon={themeType === 'light' ? <SunOutlined /> : <MoonOutlined />}
+                    icon={themeType === 'light' ? <MoonOutlined/> : <SunOutlined />}
                     onClick={() => setTheme(themeType === 'light' ? 'dark' : 'light')}
                     tooltip={<Flex>{headerLanguage.themeTooltipText}</Flex>} />
                 <FloatButton

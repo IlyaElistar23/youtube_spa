@@ -59,7 +59,14 @@ const SearchPage: FC<PropsType> = ({
                 width: '100vw',
                 overflow: 'auto'
             }}>
-                <CustomHeader setStatus={setStatus} themeType={themeType} setTheme={setTheme} headerLanguage={headerLanguage} setLanguage={setLanguage} language={language} />
+                <CustomHeader
+                    setStatus={setStatus}
+                    themeType={themeType}
+                    setTheme={setTheme}
+                    headerLanguage={headerLanguage}
+                    setLanguage={setLanguage}
+                    language={language}
+                />
             </Header>
             <Content
                 style={{
@@ -75,10 +82,22 @@ const SearchPage: FC<PropsType> = ({
                             fallback={
                                 <Spin indicator={<LoadingOutlined spin style={{ fontSize: '96px' }} />} fullscreen spinning />
                             }>
-                            <SearchResult getData={getData} searchPageLanguage={searchPageLanguage} modalWindowLanguage={modalWindowLanguage} onMessage={onMessage}/>
+                            <SearchResult
+                                getData={getData}
+                                searchPageLanguage={searchPageLanguage}
+                                modalWindowLanguage={modalWindowLanguage}
+                                onMessage={onMessage}
+                                requestInput={requestInput}
+                            />
                         </Suspense>
                         :
-                        <BaseSearch getData={getData} searchPageLanguage={searchPageLanguage} modalWindowLanguage={modalWindowLanguage} requestInput={requestInput} onMessage={onMessage}/>
+                        <BaseSearch
+                            getData={getData}
+                            searchPageLanguage={searchPageLanguage}
+                            modalWindowLanguage={modalWindowLanguage}
+                            requestInput={requestInput}
+                            onMessage={onMessage}
+                        />
                 }
             </Content>
         </>

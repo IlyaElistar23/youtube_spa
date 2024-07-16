@@ -15,10 +15,12 @@ import { resetAmountValue } from '../../redux/requestAmountSlice/requestAmountSl
 
 type SearchSettingsPropsType = {
     getData: (text: string, api_key: string, order: string, amount: number) => void,
-    searchPageLanguage: SearchPageText | undefined
+    searchPageLanguage: SearchPageText | undefined,
+    requestInput: any,
+    onMessage: any
 }
 
-const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData, searchPageLanguage }) => {
+const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData, searchPageLanguage, requestInput, onMessage }) => {
 
     const { Text } = Typography
 
@@ -75,7 +77,12 @@ const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData, searchPageL
                                 <Button
                                     icon={<HeartOutlined />}
                                     onClick={() => {
-                                        dispatch(setIsOpen(true))
+                                        if (info.length === 0) {
+                                            onMessage(searchPageLanguage?.message, 'error')
+                                            requestInput.current?.focus()
+                                        } else {
+                                            dispatch(setIsOpen(true))
+                                        }
                                         if (amount !== 12) {
                                             dispatch(resetAmountValue(12))
                                         }
@@ -114,9 +121,13 @@ const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData, searchPageL
                             fontSize: '1.2rem'
                         }}
                         onClick={() => {
-                            dispatch(resetAmountValue(12))
-                            dispatch(resetData())
-                            getData(info, api_key, order, amount)
+                            if (info.length === 0) {
+                                onMessage(searchPageLanguage?.message, 'error')
+                            } else {
+                                dispatch(resetAmountValue(12))
+                                dispatch(resetData())
+                                getData(info, api_key, order, amount)
+                            }
                         }}
                     >{searchPageLanguage?.button}</Button>
                 </ConfigProvider>

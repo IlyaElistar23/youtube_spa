@@ -33,7 +33,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
     const edit = useAppSelector(state => state.edit)
     const dispatch = useAppDispatch()
 
-    const onChangeAmount: InputNumberProps['onChange'] = (newValue) => favorite?.isEditing ? dispatch(editFavAmount(newValue as number)) : dispatch(setAmountValue(newValue as number))
+    const onChangeAmount: InputNumberProps['onChange'] = (value) => favorite?.isEditing ? dispatch(editFavAmount(value as number)) : dispatch(setAmountValue(value as number))
 
     const onChangeSelect = (value: string) => favorite?.isEditing ? dispatch(editFavOrder(value)) : dispatch(setSelectValue(value))
 
@@ -47,7 +47,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
                 amount: edit.amount
             }))
             dispatch(editFavRequest(favorite.id))
-            onMessage(`${favorite.title} изменен`)
+            onMessage(`${favorite.title} ${modalWindowLanguage.editMessage}`, 'success')
         } else {
             dispatch(addFavRequest({
                 id: uuidv4(),
@@ -57,7 +57,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
                 selectOrder: order,
                 isEditing: false,
             }))
-            onMessage(`${favorite?.title} добавлен`)
+            onMessage(`${title} ${modalWindowLanguage.addMessage}`, 'success')
         }
         localStorage.setItem('favorites', JSON.stringify(favorites))
         dispatch(addFavTitle(''))
@@ -68,6 +68,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
     }
 
     const onCancelSave = () => {
+        onMessage(`${modalWindowLanguage.cancelMessage}`, 'error')
         dispatch(addFavTitle(''))
         dispatch(setAmountValue(12))
         dispatch(setSelectValue('relevance'))
@@ -169,7 +170,6 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
                         {modalWindowLanguage.sortTitle}
                     </Text>
                     <Select
-                        placeholder='Без сортировки'
                         style={{ width: '100%', height: '100%', borderRadius: '0.5vh', border: '0.2vh solid #1717191A', fontSize: '1.1rem' }}
                         onChange={onChangeSelect}
                         value={favorite?.isEditing ? edit.order : order}
