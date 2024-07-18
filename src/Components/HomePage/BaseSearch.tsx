@@ -54,7 +54,12 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, moda
                         ref={requestInput}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addRequest(e.target.value))}
                         onPressEnter={() => {
-                            getData(info, api_key, order, amount)
+                            if (info.length === 0 || info.trim().length === 0) {
+                                onMessage(searchPageLanguage?.message, 'error')
+                                requestInput.current?.focus()
+                            } else {
+                                getData(info, api_key, order, amount)
+                            }
                         }}
                         placeholder={searchPageLanguage?.placeholder}
                         suffix={

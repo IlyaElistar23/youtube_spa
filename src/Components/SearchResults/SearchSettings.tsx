@@ -55,9 +55,13 @@ const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData, searchPageL
                         value={info}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addRequest(e.target.value))}
                         onPressEnter={() => {
-                            dispatch(resetAmountValue(12))
-                            dispatch(resetData())
-                            getData(info, api_key, order, amount)
+                            if (info.length === 0 || info.trim().length === 0) {
+                                onMessage(searchPageLanguage?.message, 'error')
+                            } else {
+                                dispatch(resetAmountValue(12))
+                                dispatch(resetData())
+                                getData(info, api_key, order, amount)
+                            }
                         }}
                         placeholder={searchPageLanguage?.placeholder}
                         suffix={
