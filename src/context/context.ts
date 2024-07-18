@@ -99,7 +99,8 @@ export type ModalWindowText = {
     namePlaceholder: string,
     addMessage: string,
     editMessage: string,
-    cancelMessage: string
+    cancelMessage: string,
+    emptyField: string
 }
 
 

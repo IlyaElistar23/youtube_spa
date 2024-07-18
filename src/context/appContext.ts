@@ -85,7 +85,8 @@ export const engLanguage: LanguageContextType = {
         namePlaceholder: 'Add name of request',
         addMessage: 'has added',
         editMessage: 'has changed',
-        cancelMessage: 'Cancel editing'
+        cancelMessage: 'Cancel editing',
+        emptyField: "Check the Name or Request inputs, it must be not empty"
     },
 
 
@@ -176,7 +177,8 @@ export const ruLanguage: LanguageContextType = {
         namePlaceholder: 'Укажите название',
         addMessage: 'добавлен',
         editMessage: 'изменен',
-        cancelMessage: 'Изменение отменено'
+        cancelMessage: 'Изменение отменено',
+        emptyField: 'Проверьте поля Название и запрос, они не должны быть пустыми'
     },
 
 }

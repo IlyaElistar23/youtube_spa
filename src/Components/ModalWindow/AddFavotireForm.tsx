@@ -33,8 +33,10 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
     const edit = useAppSelector(state => state.edit)
     const dispatch = useAppDispatch()
 
-    const onChangeAmount: InputNumberProps['onChange'] = (value) => favorite?.isEditing ? dispatch(editFavAmount(value as number)) : dispatch(setAmountValue(value as number))
+    const emptyEditField = (editTitle: string, editRequest: string) => editTitle.trim().length === 0 || editRequest.trim().length === 0 ? true : false
+    const emptyField = (title: string) => title.trim().length === 0 ? true : false
 
+    const onChangeAmount: InputNumberProps['onChange'] = (value) => favorite?.isEditing ? dispatch(editFavAmount(value as number)) : dispatch(setAmountValue(value as number))
     const onChangeSelect = (value: string) => favorite?.isEditing ? dispatch(editFavOrder(value)) : dispatch(setSelectValue(value))
 
     const onSave = () => {
@@ -121,7 +123,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
                     >
                         <Button
                             style={{ width: '11vw', height: '4vh', borderWidth: '0.1vh', fontSize: '1.1rem' }}
-                            onClick={() => onSave()}
+                            onClick={() => !emptyEditField(edit.title, edit.request) || !emptyField(title) ? onSave() : onMessage(`${modalWindowLanguage.emptyField}`, 'error')}
                         >{modalWindowLanguage.button2}</Button>
                     </ConfigProvider>
                 </Flex>
