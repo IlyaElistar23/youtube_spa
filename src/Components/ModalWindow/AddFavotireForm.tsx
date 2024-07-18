@@ -41,32 +41,46 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
 
     const onSave = () => {
         if (favorite?.isEditing) {
-            dispatch(saveFavRequest({
-                id: favorite.id,
-                title: edit.title,
-                order: edit.order,
-                request: edit.request,
-                amount: edit.amount
-            }))
-            dispatch(editFavRequest(favorite.id))
-            onMessage(`${favorite.title} ${modalWindowLanguage.editMessage}`, 'success')
+            if (!emptyEditField(edit.title, edit.request)) {
+                dispatch(saveFavRequest({
+                    id: favorite.id,
+                    title: edit.title,
+                    order: edit.order,
+                    request: edit.request,
+                    amount: edit.amount
+                }))
+                dispatch(editFavRequest(favorite.id))
+                onMessage(`${favorite.title} ${modalWindowLanguage.editMessage}`, 'success')
+                localStorage.setItem('favorites', JSON.stringify(favorites))
+                dispatch(addFavTitle(''))
+                dispatch(setAmountValue(12))
+                dispatch(addRequest(''))
+                dispatch(setSelectValue('relevance'))
+                dispatch(setIsOpen(false))
+            } else {
+                onMessage(`${modalWindowLanguage.emptyField}`, 'error')
+            }
         } else {
-            dispatch(addFavRequest({
-                id: uuidv4(),
-                request: info,
-                title: title,
-                requestAmount: amount,
-                selectOrder: order,
-                isEditing: false,
-            }))
-            onMessage(`${title} ${modalWindowLanguage.addMessage}`, 'success')
+            if (!emptyField(title)) {
+                dispatch(addFavRequest({
+                    id: uuidv4(),
+                    request: info,
+                    title: title,
+                    requestAmount: amount,
+                    selectOrder: order,
+                    isEditing: false,
+                }))
+                onMessage(`${title} ${modalWindowLanguage.addMessage}`, 'success')
+                localStorage.setItem('favorites', JSON.stringify(favorites))
+                dispatch(addFavTitle(''))
+                dispatch(setAmountValue(12))
+                dispatch(addRequest(''))
+                dispatch(setSelectValue('relevance'))
+                dispatch(setIsOpen(false))
+            } else {
+                onMessage(`${modalWindowLanguage.emptyField}`, 'error')
+            }
         }
-        localStorage.setItem('favorites', JSON.stringify(favorites))
-        dispatch(addFavTitle(''))
-        dispatch(setAmountValue(12))
-        dispatch(addRequest(''))
-        dispatch(setSelectValue('relevance'))
-        dispatch(setIsOpen(false))
     }
 
     const onCancelSave = () => {
@@ -123,7 +137,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
                     >
                         <Button
                             style={{ width: '11vw', height: '4vh', borderWidth: '0.1vh', fontSize: '1.1rem' }}
-                            onClick={() => !emptyEditField(edit.title, edit.request) || !emptyField(title) ? onSave() : onMessage(`${modalWindowLanguage.emptyField}`, 'error')}
+                            onClick={() => onSave()}
                         >{modalWindowLanguage.button2}</Button>
                     </ConfigProvider>
                 </Flex>
