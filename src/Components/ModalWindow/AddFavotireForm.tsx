@@ -33,38 +33,54 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
     const edit = useAppSelector(state => state.edit)
     const dispatch = useAppDispatch()
 
-    const onChangeAmount: InputNumberProps['onChange'] = (value) => favorite?.isEditing ? dispatch(editFavAmount(value as number)) : dispatch(setAmountValue(value as number))
+    const emptyEditField = (editTitle: string, editRequest: string) => editTitle.trim().length === 0 || editRequest.trim().length === 0 ? true : false
+    const emptyField = (title: string) => title.trim().length === 0 ? true : false
 
+    const onChangeAmount: InputNumberProps['onChange'] = (value) => favorite?.isEditing ? dispatch(editFavAmount(value as number)) : dispatch(setAmountValue(value as number))
     const onChangeSelect = (value: string) => favorite?.isEditing ? dispatch(editFavOrder(value)) : dispatch(setSelectValue(value))
 
     const onSave = () => {
         if (favorite?.isEditing) {
-            dispatch(saveFavRequest({
-                id: favorite.id,
-                title: edit.title,
-                order: edit.order,
-                request: edit.request,
-                amount: edit.amount
-            }))
-            dispatch(editFavRequest(favorite.id))
-            onMessage(`${favorite.title} ${modalWindowLanguage.editMessage}`, 'success')
+            if (!emptyEditField(edit.title, edit.request)) {
+                dispatch(saveFavRequest({
+                    id: favorite.id,
+                    title: edit.title,
+                    order: edit.order,
+                    request: edit.request,
+                    amount: edit.amount
+                }))
+                dispatch(editFavRequest(favorite.id))
+                onMessage(`${favorite.title} ${modalWindowLanguage.editMessage}`, 'success')
+                localStorage.setItem('favorites', JSON.stringify(favorites))
+                dispatch(addFavTitle(''))
+                dispatch(setAmountValue(12))
+                dispatch(addRequest(''))
+                dispatch(setSelectValue('relevance'))
+                dispatch(setIsOpen(false))
+            } else {
+                onMessage(`${modalWindowLanguage.emptyField}`, 'error')
+            }
         } else {
-            dispatch(addFavRequest({
-                id: uuidv4(),
-                request: info,
-                title: title,
-                requestAmount: amount,
-                selectOrder: order,
-                isEditing: false,
-            }))
-            onMessage(`${title} ${modalWindowLanguage.addMessage}`, 'success')
+            if (!emptyField(title)) {
+                dispatch(addFavRequest({
+                    id: uuidv4(),
+                    request: info,
+                    title: title,
+                    requestAmount: amount,
+                    selectOrder: order,
+                    isEditing: false,
+                }))
+                onMessage(`${title} ${modalWindowLanguage.addMessage}`, 'success')
+                localStorage.setItem('favorites', JSON.stringify(favorites))
+                dispatch(addFavTitle(''))
+                dispatch(setAmountValue(12))
+                dispatch(addRequest(''))
+                dispatch(setSelectValue('relevance'))
+                dispatch(setIsOpen(false))
+            } else {
+                onMessage(`${modalWindowLanguage.emptyField}`, 'error')
+            }
         }
-        localStorage.setItem('favorites', JSON.stringify(favorites))
-        dispatch(addFavTitle(''))
-        dispatch(setAmountValue(12))
-        dispatch(addRequest(''))
-        dispatch(setSelectValue('relevance'))
-        dispatch(setIsOpen(false))
     }
 
     const onCancelSave = () => {

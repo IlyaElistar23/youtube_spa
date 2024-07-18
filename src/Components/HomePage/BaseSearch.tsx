@@ -74,7 +74,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, moda
                                 <Button
                                     icon={<HeartOutlined />}
                                     onClick={() => {
-                                        if (info.length === 0) {
+                                        if (info.length === 0 || info.trim().length === 0) {
                                             onMessage(searchPageLanguage?.message, 'error')
                                             requestInput.current?.focus()
                                         } else {
@@ -119,7 +119,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, moda
                             fontSize: '1.2rem'
                         }}
                         onClick={() => {
-                            if (info.length === 0) {
+                            if (info.length === 0 || info.trim().length === 0) {
                                 onMessage(searchPageLanguage?.message, 'error')
                                 requestInput.current?.focus()
                             } else {
