@@ -17,7 +17,7 @@ const SearchResultGrid = lazy(() => import('./SearchResultGrid'))
 const AddFavoriteForm = lazy(() => import('../ModalWindow/AddFavotireForm'))
 
 type SearchResultsPropsType = {
-    getData: (text: string, api_key: string, order: string, amount: number) => void,
+    getData: (text: string, order: string, amount: number) => void,
     searchPageLanguage: SearchPageText | undefined,
     modalWindowLanguage: ModalWindowText,
     onMessage: any,

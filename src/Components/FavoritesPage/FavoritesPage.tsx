@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../redux/hooks/hooks'
 
 import FavoriteItem from './FavoriteItem'
-import CustomHeader from '../CustomHeader'
+import CustomHeader from '../CustomHeader/CustomHeader'
 import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 import checkAuth from '../HOC/checkAuth'
 

@@ -4,6 +4,7 @@ import { ChangeEvent, FC } from 'react'
 
 import { useAppSelector, useAppDispatch } from '../../redux/hooks/hooks'
 import { ModalWindowText } from '../../context/context'
+import { emptyField } from '../SearchResults/functions/emptyField'
 
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
 import { addFavTitle } from '../../redux/favoriteTitleSlice/favoriteTitleSlice'
@@ -34,7 +35,7 @@ const AddFavoriteForm: FC<FormPropsType> = ({ favorite, modalWindowLanguage, onM
     const dispatch = useAppDispatch()
 
     const emptyEditField = (editTitle: string, editRequest: string) => editTitle.trim().length === 0 || editRequest.trim().length === 0 ? true : false
-    const emptyField = (title: string) => title.trim().length === 0 ? true : false
+    // const emptyField = (title: string) => title.trim().length === 0 ? true : false
 
     const onChangeAmount: InputNumberProps['onChange'] = (value) => favorite?.isEditing ? dispatch(editFavAmount(value as number)) : dispatch(setAmountValue(value as number))
     const onChangeSelect = (value: string) => favorite?.isEditing ? dispatch(editFavOrder(value)) : dispatch(setSelectValue(value))

@@ -3,8 +3,8 @@ import { HeartOutlined } from '@ant-design/icons'
 import { FC, ChangeEvent, useContext } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
-import { api_key } from '../../api_key'
 import { AppContext, ModalWindowText, SearchPageText } from '../../context/context'
+import { emptyField } from '../SearchResults/functions/emptyField'
 
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { setIsOpen } from '../../redux/modalSlice/modalSlice'
@@ -14,7 +14,7 @@ import AddFavoriteForm from '../ModalWindow/AddFavotireForm'
 
 
 type BaseSearchPropsType = {
-    getData: (text: string, api_key: string, order: string, amount: number) => void,
+    getData: (text: string, order: string, amount: number) => void,
     searchPageLanguage: SearchPageText | undefined,
     modalWindowLanguage: ModalWindowText,
     requestInput: any,
@@ -54,11 +54,11 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, moda
                         ref={requestInput}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addRequest(e.target.value))}
                         onPressEnter={() => {
-                            if (info.length === 0 || info.trim().length === 0) {
+                            if (emptyField(info)) {
                                 onMessage(searchPageLanguage?.message, 'error')
                                 requestInput.current?.focus()
                             } else {
-                                getData(info, api_key, order, amount)
+                                getData(info, order, amount)
                             }
                         }}
                         placeholder={searchPageLanguage?.placeholder}
@@ -79,7 +79,7 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, moda
                                 <Button
                                     icon={<HeartOutlined />}
                                     onClick={() => {
-                                        if (info.length === 0 || info.trim().length === 0) {
+                                        if (emptyField(info)) {
                                             onMessage(searchPageLanguage?.message, 'error')
                                             requestInput.current?.focus()
                                         } else {
@@ -124,11 +124,11 @@ const BaseSearch: FC<BaseSearchPropsType> = ({ getData, searchPageLanguage, moda
                             fontSize: '1.2rem'
                         }}
                         onClick={() => {
-                            if (info.length === 0 || info.trim().length === 0) {
+                            if (emptyField(info)) {
                                 onMessage(searchPageLanguage?.message, 'error')
                                 requestInput.current?.focus()
                             } else {
-                                getData(info, api_key, order, amount)
+                                getData(info, order, amount)
                             }
                         }}
                     >{searchPageLanguage?.button}</Button>

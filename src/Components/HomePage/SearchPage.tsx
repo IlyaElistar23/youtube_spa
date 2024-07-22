@@ -1,7 +1,7 @@
 import { Layout, Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import { FC, lazy, Suspense, useContext, useRef, useEffect } from 'react'
-import CustomHeader from '../CustomHeader'
+import CustomHeader from '../CustomHeader/CustomHeader'
 import BaseSearch from './BaseSearch'
 import { LanguageType, StatusType, ThemeType } from '../../App'
 import checkAuth from '../HOC/checkAuth'
@@ -9,7 +9,7 @@ import { AppContext, HeaderText, SearchPageText, FavoritesPageText, ModalWindowT
 
 
 export type PropsType = {
-    getData: (text: string, api_key: string, order: string, amount: number) => void,
+    getData: (text: string, order: string, amount: number) => void,
     status?: StatusType,
     setStatus: (status: StatusType) => void,
     themeType: ThemeType,

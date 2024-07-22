@@ -68,15 +68,27 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
             .then(() => message.success(language.message.registerSuccess, 2.5))
     }
 
+    const onErrorRegister = () => {
+        messageApi
+            .open({
+                type: 'loading',
+                content: language.message.registerContent,
+                duration: 2.5
+            })
+            .then(() => message.error(language.message.registerError, 2.5))
+            .then(() => message.warning(language.message.registerHelp, 2.5))
+    }
+
     const fetchReg = async (data: RegData): Promise<any> => {
         try {
-            const response = await axios.post('https://todo-redev.herokuapp.com/api/users/register', data)
+            const response = await axios.post(`${process.env.REACT_APP_URL_REGISTER}`, data)
             await onRegisterMessage()
             navigate('/')
             reset()
             console.log(response.data)
         } catch (error: any) {
             console.log(error)
+            await onErrorRegister()
         }
     }
 
@@ -200,8 +212,8 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
                             />
                             <Text
                                 style={{
-                                    fontSize: '0.9rem', 
-                                    color: errors.email?.message ? theme.errorsColor : theme.headerColor, 
+                                    fontSize: '0.9rem',
+                                    color: errors.email?.message ? theme.errorsColor : theme.headerColor,
                                     paddingTop: '0.5vh'
                                 }}
                             >
@@ -256,8 +268,8 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
                             />
                             <Text
                                 style={{
-                                    fontSize: '0.9rem', 
-                                    color: errors.password?.message ? theme.errorsColor : theme.headerColor, 
+                                    fontSize: '0.9rem',
+                                    color: errors.password?.message ? theme.errorsColor : theme.headerColor,
                                     paddingTop: '0.5vh'
                                 }}
                             >
@@ -311,9 +323,9 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
                             </Flex>
                             <Text
                                 style={{
-                                    fontSize: '0.9rem', 
-                                    color: errors.gender?.message ? theme.errorsColor : theme.headerColor, 
-                                    marginLeft: '4vw', 
+                                    fontSize: '0.9rem',
+                                    color: errors.gender?.message ? theme.errorsColor : theme.headerColor,
+                                    marginLeft: '4vw',
                                     paddingTop: '0.5vh'
                                 }}
                             >
@@ -355,8 +367,8 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
                             />
                             <Text
                                 style={{
-                                    fontSize: '0.9rem', 
-                                    color: errors.age?.message ? theme.errorsColor : theme.headerColor, 
+                                    fontSize: '0.9rem',
+                                    color: errors.age?.message ? theme.errorsColor : theme.headerColor,
                                     paddingTop: '0.5vh'
                                 }}
                             >

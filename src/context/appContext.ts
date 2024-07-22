@@ -16,6 +16,7 @@ export const engLanguage: LanguageContextType = {
         message: {
             loginContent: 'Loading...',
             loginSuccess: 'Successful login!',
+            loginError: 'Please, check login or password'
         }
     },
     register: {
@@ -39,7 +40,9 @@ export const engLanguage: LanguageContextType = {
         footerLink: 'Log In',
         message: {
             registerContent: 'Loading...',
-            registerSuccess: 'Successful registration!'
+            registerSuccess: 'Successful registration!',
+            registerError: 'Please, check entering data in input fields',
+            registerHelp: 'Maybe, user with the same data already exists'
         }
     },
     header: {
@@ -108,6 +111,7 @@ export const ruLanguage: LanguageContextType = {
         message: {
             loginContent: 'Подождите...',
             loginSuccess: 'Вы успешно вошли!',
+            loginError: 'Проверьте введенный логин или пароль'
         }
     },
     register: {
@@ -131,7 +135,9 @@ export const ruLanguage: LanguageContextType = {
         footerLink: 'Войти',
         message: {
             registerContent: 'Подождите...',
-            registerSuccess: 'Вы успешно зарегистрировались!'
+            registerSuccess: 'Вы успешно зарегистрировались!',
+            registerError: 'Проверьте правильность введенных данных',
+            registerHelp: 'Возможно, пользователь c похожими данными уже существует'
         }
     },
     header: {

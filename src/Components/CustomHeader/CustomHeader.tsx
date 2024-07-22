@@ -5,13 +5,13 @@ import { NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { FC, memo, useContext, useState } from 'react'
 
-import { resetData } from '../redux/dataSlice/dataSlice'
-import { resetRequest } from '../redux/searchInfoSlice/searchInfoSlice'
-import { resetAmountValue } from '../redux/requestAmountSlice/requestAmountSlice'
+import { resetData } from '../../redux/dataSlice/dataSlice'
+import { resetRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
+import { resetAmountValue } from '../../redux/requestAmountSlice/requestAmountSlice'
 
-import { LanguageType, StatusType, ThemeType } from '../App'
-import { useAppDispatch, useAppSelector } from '../redux/hooks/hooks'
-import { AppContext, HeaderText } from '../context/context'
+import { LanguageType, StatusType, ThemeType } from '../../App'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
+import { AppContext, HeaderText } from '../../context/context'
 
 
 type HeaderPropsType = {
@@ -69,7 +69,7 @@ const CustomHeader: FC<HeaderPropsType> = memo(({ setStatus, themeType, setTheme
                         onClick={() => {
                             data.length !== 0 && dispatch(resetData())
                             info.length !== 0 && dispatch(resetRequest())
-                            dispatch(resetAmountValue(12))
+                            data.length !== 0 && dispatch(resetAmountValue(12))
                             setStatus('home')
                         }}
                     >{headerLanguage.search}</NavLink>

@@ -1,0 +1,1 @@
+export const emptyField = (title: string) => title.trim().length === 0 ? true : false
