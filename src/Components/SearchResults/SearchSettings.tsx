@@ -4,8 +4,8 @@ import { HeartOutlined } from '@ant-design/icons'
 import { FC, ChangeEvent, memo, useContext } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks'
-import { api_key } from '../../api_key'
 import { AppContext, SearchPageText } from '../../context/context'
+import { emptyField } from './functions/emptyField'
 
 import { addRequest } from '../../redux/searchInfoSlice/searchInfoSlice'
 import { resetData } from '../../redux/dataSlice/dataSlice'
@@ -14,7 +14,7 @@ import { resetAmountValue } from '../../redux/requestAmountSlice/requestAmountSl
 
 
 type SearchSettingsPropsType = {
-    getData: (text: string, api_key: string, order: string, amount: number) => void,
+    getData: (text: string, order: string, amount: number) => void,
     searchPageLanguage: SearchPageText | undefined,
     requestInput: any,
     onMessage: any
@@ -55,12 +55,12 @@ const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData, searchPageL
                         value={info}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => dispatch(addRequest(e.target.value))}
                         onPressEnter={() => {
-                            if (info.length === 0 || info.trim().length === 0) {
+                            if (emptyField(info)) {
                                 onMessage(searchPageLanguage?.message, 'error')
                             } else {
                                 dispatch(resetAmountValue(12))
                                 dispatch(resetData())
-                                getData(info, api_key, order, amount)
+                                getData(info, order, amount)
                             }
                         }}
                         placeholder={searchPageLanguage?.placeholder}
@@ -81,7 +81,7 @@ const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData, searchPageL
                                 <Button
                                     icon={<HeartOutlined />}
                                     onClick={() => {
-                                        if (info.length === 0 || info.trim().length === 0) {
+                                        if (emptyField(info)) {
                                             onMessage(searchPageLanguage?.message, 'error')
                                             requestInput.current?.focus()
                                         } else {
@@ -125,12 +125,12 @@ const SearchSettings: FC<SearchSettingsPropsType> = memo(({ getData, searchPageL
                             fontSize: '1.2rem'
                         }}
                         onClick={() => {
-                            if (info.length === 0 || info.trim().length === 0) {
+                            if (emptyField(info)) {
                                 onMessage(searchPageLanguage?.message, 'error')
                             } else {
                                 dispatch(resetAmountValue(12))
                                 dispatch(resetData())
-                                getData(info, api_key, order, amount)
+                                getData(info, order, amount)
                             }
                         }}
                     >{searchPageLanguage?.button}</Button>

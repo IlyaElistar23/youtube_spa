@@ -53,9 +53,19 @@ const LoginPage: FC<LoginPropsType> = ({ language, messageApi, contextHolder, me
             .then(() => message.success(language.message.loginSuccess, 2.5))
     }
 
+    const onErrorLogin = () => {
+        messageApi
+            .open({
+                type: 'loading',
+                content: language.message.loginContent,
+                duration: 2.5,
+            })
+            .then(() => message.error(language.message.loginError, 2.5))
+    }
+
     const fetchAuth = async (data: AuthData): Promise<any> => {
         try {
-            const response = await axios.post('https://todo-redev.herokuapp.com/api/auth/login', data)
+            const response = await axios.post(`${process.env.REACT_APP_URL_LOGIN}`, data)
             if ('data' in response && 'token' in response.data) {
                 localStorage.setItem('token', response.data.token)
                 await onLoginMessage()
@@ -63,11 +73,11 @@ const LoginPage: FC<LoginPropsType> = ({ language, messageApi, contextHolder, me
                 reset()
             } else {
                 navigate('/')
-                onLoginMessage()
             }
             console.log(response);
         } catch (error: any) {
             console.log(error);
+            await onErrorLogin()
         }
     }
 
@@ -76,7 +86,7 @@ const LoginPage: FC<LoginPropsType> = ({ language, messageApi, contextHolder, me
             fetchAuth(data)
             onLoginMessage()
         } catch (error: any) {
-            console.log(error);
+            console.log(error)
         }
     }
 

@@ -5,7 +5,6 @@ import { FC, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch } from '../../redux/hooks/hooks'
-import { api_key } from '../../api_key'
 import { AppContext } from '../../context/context'
 import { FavoriteItemMessageType } from '../../context/context'
 
@@ -19,7 +18,7 @@ import { resetData } from '../../redux/dataSlice/dataSlice'
 
 type FavItemPropsType = {
     favorite: FavoritesType,
-    getData: (text: string, api_key: string, order: string, amount: number) => void,
+    getData: (text: string, order: string, amount: number) => void,
     onMessage: any,
     itemLanguage: FavoriteItemMessageType | undefined
 }
@@ -58,7 +57,7 @@ const FavoriteItem: FC<FavItemPropsType> = ({ favorite, getData, onMessage, item
                             <Button
                                 onClick={() => {
                                     dispatch(resetData())
-                                    getData(favorite.request, api_key, favorite.selectOrder, favorite.requestAmount)
+                                    getData(favorite.request, favorite.selectOrder, favorite.requestAmount)
                                     dispatch(setAmountValue(favorite.requestAmount))
                                     dispatch(addRequest(favorite.request))
                                     navigate('/search')

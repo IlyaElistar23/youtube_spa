@@ -51,12 +51,12 @@ function App() {
 
 
   const dispatch = useAppDispatch()
-  const fetchGetSnippet = async (text: string, api_key: string, order: string, amount: number) => {
+  const fetchGetSnippet = async (text: string, order: string, amount: number) => {
     try {
       changeStatus('loading')
-      const responseSnippet = await axios.get(`https://www.googleapis.com/youtube/v3/search?key=${api_key}&part=snippet&q=${text}&order=${order}&maxResults=${amount}`)
+      const responseSnippet = await axios.get(`${process.env.REACT_APP_URL_SEARCH}/search?key=${process.env.REACT_APP_API_KEY}&part=snippet&q=${text}&order=${order}&maxResults=${amount}`)
       const ids = responseSnippet.data.items.map((item: DataItemType) => item.id.videoId)
-      const responseStat = await axios.get(`https://www.googleapis.com/youtube/v3/videos?key=${api_key}&part=snippet,statistics&id=${ids.join(',')}`)
+      const responseStat = await axios.get(`${process.env.REACT_APP_URL_VIDEOS}/videos?key=${process.env.REACT_APP_API_KEY}&part=snippet,statistics&id=${ids.join(',')}`)
       dispatch(setData(responseStat.data.items))
       console.log(responseStat.data.items)
     } catch (error: any) {
@@ -64,8 +64,8 @@ function App() {
     }
   }
 
-  const getData = (text: string, api_key: string, order: string, amount: number) => {
-    fetchGetSnippet(text, api_key, order, amount)
+  const getData = (text: string, order: string, amount: number) => {
+    fetchGetSnippet(text, order, amount)
   }
 
   return (

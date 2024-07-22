@@ -10,11 +10,14 @@ export type PopConfirmType = {
 export type LoginMessageType = {
     loginContent: string,
     loginSuccess: string,
+    loginError: string
 }
 
 export type RegisterMessageType = {
     registerContent: string,
-    registerSuccess: string
+    registerSuccess: string,
+    registerError: string,
+    registerHelp: string
 }
 
 export type FavoriteItemMessageType = {
