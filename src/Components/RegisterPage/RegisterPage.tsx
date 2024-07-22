@@ -81,7 +81,7 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
 
     const fetchReg = async (data: RegData): Promise<any> => {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_URL_REGISTER}`, data)
+            const response = await axios.post(`${process.env.REACT_APP_URL_REGISTER}/api/users/register`, data)
             await onRegisterMessage()
             navigate('/')
             reset()
