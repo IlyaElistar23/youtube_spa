@@ -65,7 +65,7 @@ const LoginPage: FC<LoginPropsType> = ({ language, messageApi, contextHolder, me
 
     const fetchAuth = async (data: AuthData): Promise<any> => {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_URL_LOGIN}/api/auth/login`, data)
+            const response = await axios.post(`${process.env.REACT_APP_URL_LOGIN}`, data)
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token)
                 await onLoginMessage()
