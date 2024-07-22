@@ -68,7 +68,6 @@ const LoginPage: FC<LoginPropsType> = ({ language, messageApi, contextHolder, me
             const response = await axios.post(`${process.env.REACT_APP_URL_LOGIN}`, data)
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token)
-                await onLoginMessage()
                 navigate('/search')
                 reset()
             } else {
@@ -77,7 +76,7 @@ const LoginPage: FC<LoginPropsType> = ({ language, messageApi, contextHolder, me
             console.log(response);
         } catch (error: any) {
             console.log(error);
-            await onErrorLogin()
+            onErrorLogin()
         }
     }
 

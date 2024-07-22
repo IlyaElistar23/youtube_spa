@@ -76,19 +76,19 @@ const RegisterPage: FC<RegisterPropsType> = ({ language, messageApi, contextHold
                 duration: 2.5
             })
             .then(() => message.error(language.message.registerError, 2.5))
-            .then(() => message.warning(language.message.registerHelp, 2.5))
+            .then(() => message.info(language.message.registerHelp, 2.5))
     }
 
     const fetchReg = async (data: RegData): Promise<any> => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_URL_REGISTER}`, data)
-            await onRegisterMessage()
+            onRegisterMessage()
             navigate('/')
             reset()
             console.log(response.data)
         } catch (error: any) {
             console.log(error)
-            await onErrorRegister()
+            onErrorRegister()
         }
     }
 
